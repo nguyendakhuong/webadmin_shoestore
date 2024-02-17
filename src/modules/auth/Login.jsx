@@ -6,7 +6,9 @@ import UserContext from '../../context/use.context'
 import { ParseValid } from '../../lib/validate/ParseValid'
 import { Validate } from '../../lib/validate/Validate'
 import ButtonWed from '../components/button/Button-admin'
-
+import { KEY_CONTEXT_USER } from '../../context/use.reducer'
+import ToastApp from '../../lib/notification/Toast'
+// require('dotenv').config();
 
 const Login = () => {
     const navigate = useNavigate()
@@ -14,14 +16,15 @@ const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [isButtonDisabled, setIsButtonDisabled] = useState(true)
+    const apiUrl = process.env.API_URL
+    console.log("apiUrl 1", apiUrl)
     const [listError, setListError] = useState({
         email: '',
         password: '',
     })
-
-    useEffect(() => {
-        if (!userCtx.isLoading && userCtx.token) navigate('/home')
-    }, [userCtx])
+    // useEffect(() => {
+    //     if (!userCtx.isLoading && userCtx.token) navigate('/home')
+    // }, [userCtx])
     const [formValue, setFormValue] = useState({
         email: null,
         password: null,
@@ -29,9 +32,9 @@ const Login = () => {
 
     const handlerOnChangeInput = e => {
         const { name, value } = e.target
+
         if (name === 'email') setEmail(value)
         if (name === 'password') setPassword(value)
-
         const inputValue = value.trim()
         const valid = e.target.getAttribute('validate')
         const validObject = ParseValid(valid)
@@ -46,13 +49,46 @@ const Login = () => {
             setIsButtonDisabled(false)
         }
     }
-    const handleOnClick = async e => {
-        e.preventDefault()
+
+    const handleOnClick = () => {
+        console.log("apiUrl 2", apiUrl)
+        try {
+            fetch(`http://localhost:3001/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            }).then(res => {
+                console.log(res)
+                if (res.status === 200) {
+                    ToastApp.success('Thành công')
+                    return res.json()
+                } else {
+                    ToastApp.error('Lỗi: ' + res.message)
+
+                }
+            }).then(data => {
+                dispatch({
+                    type: KEY_CONTEXT_USER.SET_TOKEN,
+                    payload: data.data.token
+                })
+                dispatch({
+                    type: KEY_CONTEXT_USER.SET_ROLE,
+                    payload: data.data.role
+                })
+            }).catch(e => {
+                console.log("Lỗi đăng nhập: ", e)
+            })
+        } catch (e) {
+            ToastApp.error(e.message)
+        }
 
     }
 
     return (
         <div className={styles.login}>
+
             <div className={styles.login_content}>
 
                 <h2>Đăng nhập</h2>
