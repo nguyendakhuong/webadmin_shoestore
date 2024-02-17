@@ -1,0 +1,39 @@
+.InputAdmin {
+  &-label {
+    font-size: 1.3rem;
+    color: #888888;
+    span {
+      color: red;
+    }
+  }
+  &-input {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0px 10px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    height: 4rem;
+    margin: 10px 0 3px 0;
+    &__inputText {
+      outline: none;
+      border: none;
+      width: 100%;
+    }
+    &__icon {
+      color: #888888;
+      margin-left: 10px;
+      i {
+        font-size: 2rem;
+        font-weight: 400;
+      }
+    }
+  }
+  &-errorText {
+    margin-left: 10px;
+    color: red;
+  }
+}
+.isFocused {
+  border: 1px solid black;
+}
