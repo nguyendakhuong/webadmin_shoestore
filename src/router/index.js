@@ -5,30 +5,32 @@ import ErrorPage from '../lib/errorpage/ErrorPage'
 import User from '../modules/user/User'
 import Product from '../modules/product/Product'
 
-const AppRoute = () => {
+const AppRoute = (isAuth, role) => {
   const route = [
     {
-      path: '/',
+      path: '/login',
       element: <Login />,
     },
-    // {
-    //   path: '/admin',
-    //   element: <LayoutWeb />,
-    //   children: [
-    //     {
-    //       index: true,
-    //       element: <User />,
-    //     },
-    //     {
-    //       path: '/product',
-    //       element: <Product />,
-    //     },
-    //   ],
-    // },
-    {
-      path: '*',
-      element: <ErrorPage />,
-    },
+    isAuth && role === 'admin'
+      ? {
+          path: '/admin',
+          element: <LayoutWeb />,
+          children: [
+            { index: true, element: <User /> },
+            {
+              path: 'users',
+              element: <User />,
+            },
+            {
+              path: 'products',
+              element: <Product />,
+            },
+          ],
+        }
+      : {
+          path: '*',
+          element: <ErrorPage />,
+        },
   ]
   return createBrowserRouter(route)
 }
