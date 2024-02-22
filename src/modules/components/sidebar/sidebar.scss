@@ -1,7 +1,7 @@
 .sidebar {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: stretch;
+  justify-content: flex-start;
   flex-direction: column;
   color: #4e4d4f;
   background-color: #fff;
@@ -9,13 +9,17 @@
   border-right: 1px solid #e5e7eb;
 
   &__menu {
-    @include flex(stretch, flex-start);
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-start;
     flex-direction: column;
     flex-grow: 1;
     padding-top: 10px;
 
     &__item {
-      @include flex(center, flex-start);
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
       position: relative;
       margin-bottom: 2rem;
       padding-left: 5%;
@@ -48,7 +52,9 @@
         width: var(--size);
         height: var(--size);
         margin-right: 2rem;
-        @include flex(center, center);
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         i {
           font-size: 1.9rem;
@@ -62,12 +68,3 @@
     }
   }
 }
-
-// @media (max-width: 1000px) {
-//   .sidebar {
-//     width: 100%;
-//   }
-//   .sidebar__menu__item__txt {
-//     display: none;
-//   }
-// }

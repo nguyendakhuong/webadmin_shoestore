@@ -3,6 +3,7 @@ import './sidebar.scss'
 import { useContext, useEffect, useState } from 'react'
 import UserContext from '../../../context/use.context'
 import { KEY_CONTEXT_USER } from '../../../context/use.reducer'
+import APP_LOCAL from '../../../lib/localStorage'
 
 
 function Sidebar({ sidebarNav }) {
@@ -47,7 +48,8 @@ function Sidebar({ sidebarNav }) {
                                 type: KEY_CONTEXT_USER.SET_TOKEN,
                                 payload: '',
                             })
-                            navigate('/home')
+                            APP_LOCAL.setTokenStorage('TOKEN')
+                            navigate('/login')
                         }}
                         className="sidebar__menu__item__txt">
                         Đăng xuất
