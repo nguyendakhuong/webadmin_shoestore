@@ -1,0 +1,108 @@
+.header-table-container {
+    overflow-x: auto;
+    padding: 20px;
+    /* Thêm padding cho khoảng cách xung quanh bảng */
+}
+
+.header-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    /* Thêm viền cho bảng */
+}
+
+.header-table th {
+    position: relative;
+    /* Đặt vị trí tương đối để chứa đường vạch */
+    background-color: #f2f2f2;
+    font-weight: bold;
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+    border-radius: 8px 8px 0 0;
+    /* Bo góc trên */
+}
+
+.purple-line {
+    position: absolute;
+    /* Đặt vị trí tuyệt đối để chính xác vị trí */
+    width: 100%;
+    height: 3px;
+    /* Độ dày của đường vạch */
+    background-color: #8624db;
+    /* Màu tím */
+    top: 0;
+    /* Đặt vị trí đầu của đường vạch */
+    left: 0;
+    /* Đặt vị trí bắt đầu từ phía trái */
+}
+
+.product-table-container {
+    overflow-x: auto;
+    padding: 20px;
+    /* Thêm padding cho khoảng cách xung quanh bảng */
+}
+
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    /* Thêm viền cho bảng */
+    border-radius: 0 0 80px 8px;
+    /* Bo góc dưới */
+}
+
+.product-table th,
+.product-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.product-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.product-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.product-table tbody tr:hover {
+    background-color: #ddd;
+}
+
+.product-table tbody td img {
+    max-width: 100px;
+    height: auto;
+}
+
+.button-container {
+    display: flex;
+    width: 200px;
+    height: 30px;
+    justify-content: flex-start;
+    /* Đẩy nút về phía bên trái */
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    /* Thêm khoảng cách với bảng sản phẩm */
+}
+
+
+.product-button {
+    border-radius: 5px;
+    background-color: #e898f8;
+    width: 200px;
+    height: 30px;
+    margin-left: 15px;
+    color: #ffffff;
+    border: none;
+    transition: background-color 0.3s;
+
+}
+
+.product-button:hover {
+    background-color: #774682;
+
+}

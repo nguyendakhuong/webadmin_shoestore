@@ -1,0 +1,76 @@
+.header {
+    background-color: #6d6d6d;
+    /* Màu nền header */
+    color: #fff;
+    /* Màu chữ */
+    padding: 1rem;
+    /* Khoảng cách padding */
+    display: flex;
+    justify-content: space-between;
+    /* Căn chỉnh các phần tử sang hai bên */
+    align-items: center;
+    /* Căn chỉnh các phần tử theo chiều dọc */
+}
+
+.logo img {
+    width: 100px;
+    /* Độ rộng hình ảnh logo */
+    height: auto;
+    /* Độ cao tự động điều chỉnh theo tỉ lệ */
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.search-box {
+    margin-right: 20px;
+    /* Khoảng cách giữa ô tìm kiếm và icon */
+}
+
+.search-box input[type="text"] {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.search-box button {
+    padding: 0.5rem 1rem;
+    background-color: #fff;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.icon-container {
+    display: flex;
+}
+
+.icon {
+    padding: 0.5rem;
+    background-color: #ffffff;
+    color: #343131;
+    border-radius: 50%;
+    margin-right: 10px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Thêm hiệu ứng đổ bóng */
+}
+
+.mail-icon i,
+.notification-icon i {
+    font-size: 1.2rem;
+    color: #fff;
+    /* Thay đổi màu icon thành trắng */
+}
+
+.mail-icon-img,
+.notification-icon-img {
+    width: 20px;
+    /* Đặt kích thước ảnh là 20px */
+    height: auto;
+    /* Tự động điều chỉnh chiều cao */
+}

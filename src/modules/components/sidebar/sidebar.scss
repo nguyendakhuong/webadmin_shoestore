@@ -4,67 +4,61 @@
   justify-content: flex-start;
   flex-direction: column;
   color: #4e4d4f;
-  background-color: #fff;
+  background-color: #f8f9fa;
   width: 18rem;
   border-right: 1px solid #e5e7eb;
+}
 
-  &__menu {
-    display: flex;
-    align-items: stretch;
-    justify-content: flex-start;
-    flex-direction: column;
-    flex-grow: 1;
-    padding-top: 10px;
+.sidebar__menu {
+  display: flex;
+  flex-direction: column;
+  padding-top: 1rem;
+}
 
-    &__item {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      position: relative;
-      margin-bottom: 2rem;
-      padding-left: 5%;
-      transition: color 0.3s ease-in-out;
+.sidebar__menu__item {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  transition: background-color 0.3s ease-in-out;
 
-      &:hover {
-        color: #8624db;
-        background-color: #ebebeb;
-      }
 
-      &.active {
-        font-weight: 700;
-        color: #8624db;
+  &:hover {
+    background-color: #ebebeb;
+  }
 
-        &::before {
-          content: '';
-          position: absolute;
-          height: 100%;
-          width: 5px;
-          top: 0;
-          left: 0;
-          background-color: #8624db;
-          border-top-right-radius: 20px;
-          border-bottom-right-radius: 20px;
-        }
-      }
+  &.active {
+    font-weight: 700;
+    color: #8624db;
 
-      &__icon {
-        --size: 40px;
-        width: var(--size);
-        height: var(--size);
-        margin-right: 2rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        i {
-          font-size: 1.9rem;
-        }
-      }
-
-      &__txt {
-        font-size: 16px;
-        font-weight: 500;
-      }
+    &::before {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 5px;
+      top: 0;
+      left: 0;
+      background-color: #d0bee0b8;
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
     }
   }
+}
+
+.sidebar__menu__item__icon {
+  width: 2rem;
+  height: 2rem;
+  margin-right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  i {
+    font-size: 1.5rem;
+
+  }
+}
+
+.sidebar__menu__item__txt {
+  font-size: 1rem;
+  font-weight: 500;
 }

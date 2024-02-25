@@ -2,8 +2,8 @@ const sidebarNav = [
   {
     link: '/admin',
     section: 'admin',
-    icon: <i className="bx bx-home-alt"></i>,
-    text: 'User',
+    icon: <image></image>,
+    text: 'Quản lí User',
   },
   // {
   //   link: '/admin/orders',
@@ -11,12 +11,27 @@ const sidebarNav = [
   //   icon: <i className="bx bx-receipt"></i>,
   //   text: 'Orders',
   // },
+
   {
-    link: '/admin/products',
-    section: 'products',
+    link: '/admin/product',
+    section: 'product',
     icon: <i className="bx bx-cube"></i>,
-    text: 'Products',
+    text: 'Quản lý sản phẩm ',
   },
+  {
+    link: '/admin/ordermanagement',
+    section: 'products_sale',
+    icon: <i className="bx bx-cube"></i>,
+    text: 'Quản lý đơn hàng',
+  },
+  {
+    link: '/admin/statistical',
+    section: 'products_sale',
+    icon: <i className="bx bx-cube"></i>,
+    text: 'Thống kê - Doanh thu',
+  },
+
+
 ]
 
 const CONFIG_ADMIN = {

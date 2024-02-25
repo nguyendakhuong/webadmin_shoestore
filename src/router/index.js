@@ -5,6 +5,7 @@ import ErrorPage from '../lib/errorpage/ErrorPage'
 import User from '../modules/user/User'
 import Product from '../modules/product/Product'
 
+
 const AppRoute = (isAuth, role) => {
   console.log('console.log is AppRoute isAuth', isAuth)
   console.log('console.log is AppRoute role', role)
@@ -16,24 +17,25 @@ const AppRoute = (isAuth, role) => {
 
     isAuth && (role === 'admin' || role === 'superAdmin')
       ? {
-          path: '/admin',
-          element: <LayoutWeb />,
-          children: [
-            { index: true, element: <User /> },
-            {
-              path: 'users',
-              element: <User />,
-            },
-            {
-              path: 'products',
-              element: <Product />,
-            },
-          ],
-        }
+        path: '/admin',
+        element: <LayoutWeb />,
+        children: [
+          { index: true, element: <User /> },
+          {
+            path: 'users',
+            element: <User />,
+          },
+          {
+            path: 'product',
+            element: <Product />,
+          },
+
+        ],
+      }
       : {
-          path: '*',
-          element: <ErrorPage />,
-        },
+        path: '*',
+        element: <ErrorPage />,
+      },
   ]
   return createBrowserRouter(route)
 }
