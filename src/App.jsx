@@ -9,7 +9,11 @@ import { KEY_CONTEXT_USER } from './context/use.reducer'
 
 function App() {
   const [{ role }, dispatch] = useContext(UserContext)
-  const [isAuth, setIsAuth] = useState(APP_LOCAL.getTokenStorage)
+  // const [isAuth, setIsAuth] = useState(APP_LOCAL.getTokenStorage)
+
+  const role1 = "admin"
+  const [isAuth, setIsAutha] = useState(true)
+
   useEffect(() => {
     const getUser = async () => {
       const token = APP_LOCAL.getTokenStorage();
@@ -31,7 +35,7 @@ function App() {
               type: KEY_CONTEXT_USER.SET_ROLE,
               payload: data.data.role
             })
-            setIsAuth(true)
+            // setIsAuth(true)
           }).catch(e => {
             console.log(e)
           })
@@ -44,7 +48,7 @@ function App() {
 
   return (
     <div>
-      <RouterProvider router={AppRoute(isAuth, role)} />
+      <RouterProvider router={AppRoute(isAuth, role1)} />
       <ToastContainer />
     </div>
   )
