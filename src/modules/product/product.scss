@@ -1,108 +1,229 @@
 .header-table-container {
-    overflow-x: auto;
-    padding: 20px;
-    /* Thêm padding cho khoảng cách xung quanh bảng */
+  overflow-x: auto;
+  padding: 20px;
+  /* Thêm padding cho khoảng cách xung quanh bảng */
 }
 
 .header-table {
-    width: 100%;
-    border-collapse: collapse;
-    border: 1px solid #ddd;
-    /* Thêm viền cho bảng */
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+  /* Thêm viền cho bảng */
 }
 
 .header-table th {
-    position: relative;
-    /* Đặt vị trí tương đối để chứa đường vạch */
-    background-color: #f2f2f2;
-    font-weight: bold;
-    padding: 8px;
-    border: 1px solid #ddd;
-    text-align: left;
-    border-radius: 8px 8px 0 0;
-    /* Bo góc trên */
+  position: relative;
+  /* Đặt vị trí tương đối để chứa đường vạch */
+  background-color: #f2f2f2;
+  font-weight: bold;
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: left;
+  border-radius: 8px 8px 0 0;
+  /* Bo góc trên */
 }
 
 .purple-line {
-    position: absolute;
-    /* Đặt vị trí tuyệt đối để chính xác vị trí */
-    width: 100%;
-    height: 3px;
-    /* Độ dày của đường vạch */
-    background-color: #8624db;
-    /* Màu tím */
-    top: 0;
-    /* Đặt vị trí đầu của đường vạch */
-    left: 0;
-    /* Đặt vị trí bắt đầu từ phía trái */
+  position: absolute;
+  /* Đặt vị trí tuyệt đối để chính xác vị trí */
+  width: 100%;
+  height: 3px;
+  /* Độ dày của đường vạch */
+  background-color: #8624db;
+  /* Màu tím */
+  top: 0;
+  /* Đặt vị trí đầu của đường vạch */
+  left: 0;
+  /* Đặt vị trí bắt đầu từ phía trái */
 }
 
 .product-table-container {
-    overflow-x: auto;
-    padding: 20px;
-    /* Thêm padding cho khoảng cách xung quanh bảng */
+  overflow-x: auto;
+  padding: 20px;
+  /* Thêm padding cho khoảng cách xung quanh bảng */
 }
 
 .product-table {
-    width: 100%;
-    border-collapse: collapse;
-    border: 1px solid #ddd;
-    /* Thêm viền cho bảng */
-    border-radius: 0 0 80px 8px;
-    /* Bo góc dưới */
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+  /* Thêm viền cho bảng */
+  border-radius: 0 0 80px 8px;
+  /* Bo góc dưới */
 }
 
 .product-table th,
 .product-table td {
-    padding: 8px;
-    border: 1px solid #ddd;
-    text-align: left;
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: left;
 }
 
 .product-table th {
-    background-color: #f2f2f2;
-    font-weight: bold;
+  background-color: #f2f2f2;
+  font-weight: bold;
 }
 
 .product-table tbody tr:nth-child(even) {
-    background-color: #f2f2f2;
+  background-color: #f2f2f2;
 }
 
 .product-table tbody tr:hover {
-    background-color: #ddd;
+  background-color: #ddd;
 }
 
 .product-table tbody td img {
-    max-width: 100px;
-    height: auto;
+  max-width: 100px;
+  height: auto;
 }
 
 .button-container {
-    display: flex;
-    width: 200px;
-    height: 30px;
-    justify-content: flex-start;
-    /* Đẩy nút về phía bên trái */
-    margin-top: 5px;
-    margin-left: 10px;
-    margin-bottom: 10px;
-    /* Thêm khoảng cách với bảng sản phẩm */
+  display: flex;
+  width: 200px;
+  height: 30px;
+  justify-content: flex-start;
+  /* Đẩy nút về phía bên trái */
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  /* Thêm khoảng cách với bảng sản phẩm */
 }
 
-
 .product-button {
-    border-radius: 5px;
-    background-color: #e898f8;
-    width: 200px;
-    height: 30px;
-    margin-left: 15px;
-    color: #ffffff;
-    border: none;
-    transition: background-color 0.3s;
-
+  border-radius: 5px;
+  background-color: #e898f8;
+  width: 200px;
+  height: 30px;
+  margin-left: 15px;
+  color: #ffffff;
+  border: none;
+  transition: background-color 0.3s;
 }
 
 .product-button:hover {
-    background-color: #774682;
+  background-color: #774682;
+}
 
+.headerCreateProduct {
+  display: flex;
+  align-items: center;
+}
+form {
+  padding: 10px 0;
+  height: 100%;
+  width: 100%;
+}
+.item-flex {
+  display: flex;
+}
+
+.item_name {
+  width: 60%;
+  margin-right: 10px;
+}
+.item_price {
+  width: 20%;
+  margin-right: 10px;
+}
+.item_amount {
+  width: 20%;
+  margin-right: 10px;
+}
+.item-category {
+  width: 70%;
+}
+.select {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  width: 30%;
+}
+select {
+  margin: 10px 0;
+  width: 100%;
+  height: 4rem;
+  border-radius: 10px;
+}
+label {
+  color: #888888;
+  font-size: 1.3rem;
+}
+.item {
+  width: 33.3%;
+  margin-right: 10px;
+}
+textarea {
+  min-width: 125rem;
+  min-height: 10rem;
+  max-width: 125rem;
+  max-height: 20rem;
+}
+.textarea {
+  border-radius: 10px;
+}
+h2 {
+  display: flex;
+  flex-direction: row;
+  text-align: start;
+}
+.file_card {
+  margin-top: 10px;
+  width: 20rem;
+  span {
+    color: red;
+  }
+  img {
+    object-fit: cover;
+  }
+}
+.file_inputs {
+  position: relative;
+  margin-bottom: 1.5em;
+
+  input {
+    position: relative;
+    text-align: right;
+    opacity: 0;
+    z-index: 2;
+    cursor: pointer;
+    height: 46px;
+    max-width: 20rem;
+  }
+
+  button {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    background-color: #c89595;
+    font-size: 1.4rem;
+    cursor: pointer;
+    border-radius: 10px;
+    border: none;
+  }
+
+  &:hover {
+    button {
+      background-color: #d5adad;
+    }
+  }
+}
+.remove {
+  height: 3rem;
+  line-height: 3rem;
+  text-align: center;
+  font-size: 1.6rem;
+  background-color: #f0e5e5;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+.remove:hover {
+  opacity: 0.7;
+  cursor: pointer;
 }
