@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import InputAdmin from '../components/input/Input-admin'
 import styles from './styles.module.scss'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import UserContext from '../../context/use.context'
 import { ParseValid } from '../../lib/validate/ParseValid'
 import { Validate } from '../../lib/validate/Validate'
@@ -12,7 +12,7 @@ import APP_LOCAL from '../../lib/localStorage'
 
 const Login = () => {
     const navigate = useNavigate()
-    const [userCtx, dispatch] = useContext(UserContext)
+    const [dispatch] = useContext(UserContext)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [isButtonDisabled, setIsButtonDisabled] = useState(true)
@@ -48,41 +48,39 @@ const Login = () => {
     }
 
     const handleOnClick = () => {
-        navigate('/admin')
-        // try {
-        //     fetch(`http://localhost:3001/login`, {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify({ email, password }),
-        //     }).then(res => {
-        //         console.log(res)
-        //         if (res.status === 200) {
-        //             ToastApp.success('Thành công')
-        //             navigate('/admin')
-        //             return res.json()
-        //         } else {
-        //             ToastApp.error('Lỗi: ' + res.message)
+        try {
+            fetch(`http://localhost:3001/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            }).then(res => {
+                console.log(res)
+                if (res.status === 200) {
+                    ToastApp.success('Thành công')
+                    navigate('/admin')
+                    return res.json()
+                } else {
+                    ToastApp.error('Lỗi: ' + res.message)
 
-        //         }
-        //     }).then(data => {
-        //         APP_LOCAL.setTokenStorage(data.data.token)
-        //         dispatch({
-        //             type: KEY_CONTEXT_USER.SET_TOKEN,
-        //             payload: data.data.token
-        //         })
-        //         dispatch({
-        //             type: KEY_CONTEXT_USER.SET_ROLE,
-        //             payload: data.data.role
-        //         })
-        //     }).catch(e => {
-        //         console.log("Lỗi đăng nhập: ", e)
-        //     })
-        // } catch (e) {
-        //     ToastApp.error(e.message)
-        // }
-
+                }
+            }).then(data => {
+                APP_LOCAL.setTokenStorage(data.data.token)
+                dispatch({
+                    type: KEY_CONTEXT_USER.SET_TOKEN,
+                    payload: data.data.token
+                })
+                dispatch({
+                    type: KEY_CONTEXT_USER.SET_ROLE,
+                    payload: data.data.role
+                })
+            }).catch(e => {
+                console.log("Lỗi đăng nhập: ", e)
+            })
+        } catch (e) {
+            ToastApp.error(e.message)
+        }
     }
 
     return (

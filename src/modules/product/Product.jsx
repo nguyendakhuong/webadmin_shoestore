@@ -1,27 +1,37 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import './product.scss';
 import editIcon from '../asset/image/edit.png'; // Import biểu tượng icon sửa
 import deleteIcon from '../asset/image/delete.png'; // Import biểu tượng icon xóa
 import InputAdmin from '../components/input/Input-admin';
 import ToastApp from '../../lib/notification/Toast';
+import { ParseValid } from '../../lib/validate/ParseValid';
+import { Validate } from '../../lib/validate/Validate';
+import APP_LOCAL from '../../lib/localStorage';
 
 const Product = () => {
     const [navigateCreate, setNavigateCreate] = useState(false);
-    const [imageFileMain, setImageFileMain] = useState(null);
+    const [imageProduct, setImageFileMain] = useState(null);
     const [isButtonDisabled, setIsButtonDisabled] = useState(true)
-    const ref = useRef()
-    console.log(imageFileMain)
+    const [category, setCategory] = useState('Giày');
+    const [listError, setListError] = useState({
+        name: 'Vui lòng nhập trường này!',
+        price: 'Vui lòng nhập trường này!',
+        quantity: 'Vui lòng nhập trường này!',
+        description: 'Vui lòng nhập trường này!',
+        introduce: 'Vui lòng nhập trường này!',
+        timeSaleStart: "",
+        timeSaleEnd: "",
+        priceSale: "",
+    })
     const [dataProduct, setDataProduct] = useState({
         name: '',
         price: '',
         quantity: '',
-        imageProduct: '',
         description: '',
         introduce: '',
         priceSale: '',
         timeSaleStart: '',
         timeSaleEnd: '',
-        category: '',
     })
 
 
@@ -63,14 +73,33 @@ const Product = () => {
         }
 
         const onChangeInput = e => {
+            const { name, value } = e.target
+            setDataProduct({ ...dataProduct, [name]: value })
+            const inputValue = value.trim()
+            const valid = e.target.getAttribute('validate')
+            const validObject = ParseValid(valid)
+            const error = Validate(
+                name,
+                inputValue,
+                validObject,
+                dataProduct.price,
+                dataProduct.priceSale,
+                dataProduct.timeSaleStart,
+                dataProduct.timeSaleEnd)
+            const newListError = { ...listError, [name]: error }
+            setListError(newListError)
+
+            if (
+                Object.values(newListError).some(i => i)) {
+                setIsButtonDisabled(true)
+            } else {
+                setIsButtonDisabled(false)
+            }
 
         }
-        const handleSubmit = async () => {
-            try {
-
-            } catch (e) {
-
-            }
+        const handleFruit = (e) => {
+            const selectedValue = e.target.value;
+            setCategory(selectedValue);
         }
         const handleFileChangeMain = e => {
             const file = e.target.files[0]
@@ -84,7 +113,52 @@ const Product = () => {
 
         }
         const fileRemoveMain = e => {
+            if (Object.values(listError).some(i => i)) {
+                setIsButtonDisabled(true)
+            } else {
+                setIsButtonDisabled(false)
+            }
             setImageFileMain(null)
+        }
+        const handleSubmit = async () => {
+            const token = APP_LOCAL.getTokenStorage()
+            try {
+                const formDataToSend = new FormData()
+
+                formDataToSend.append('name', dataProduct.name)
+                formDataToSend.append('price', +dataProduct.price)
+                formDataToSend.append('quantity', +dataProduct.quantity)
+                formDataToSend.append('imageProduct', imageProduct)
+                formDataToSend.append('description', dataProduct.description)
+                formDataToSend.append('introduce', dataProduct.introduce)
+                formDataToSend.append('priceSale', +dataProduct.priceSale)
+                formDataToSend.append('timeSaleStart', dataProduct.timeSaleStart)
+                formDataToSend.append('timeSaleEnd', dataProduct.timeSaleEnd)
+                formDataToSend.append('category', category)
+
+                fetch(`http://localhost:3001/api/product`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: formDataToSend
+                }).then(res => {
+                    console.log(res)
+                    if (res.status === 200) {
+                        ToastApp.success('Thành công')
+                        return res.json()
+                    } else {
+                        ToastApp.error('Lỗi: ' + res.message)
+                    }
+                }).then(data => {
+                    console.log(data)
+                }).catch(e => {
+                    console.log("Lỗi: ", e)
+                })
+            } catch (e) {
+                console.log(e)
+            }
         }
         return (
             <div className='product-container'>
@@ -107,32 +181,41 @@ const Product = () => {
                     <div className='item-flex'>
                         <div className='item_name'>
                             <InputAdmin
+                                name={'name'}
                                 required={true}
                                 label={'Tên sản phẩm'}
                                 placeholder={'Nhập tên ...'}
-                                validate={'required'}
+                                validate={'required||minLength:1||maxLength:20'}
                                 type={'text'}
                                 onChange={onChangeInput}
+                                errorText={listError.name}
+                                value={dataProduct.name}
                             />
                         </div>
                         <div className='item_price'>
                             <InputAdmin
+                                name={'price'}
                                 required={true}
                                 label={'Giá sản phẩm'}
                                 placeholder={'Nhập giá ...'}
-                                validate={'required'}
+                                validate={'required||checkNumber||checkNegative'}
                                 type={'number'}
                                 onChange={onChangeInput}
+                                errorText={listError.price}
+                                value={dataProduct.price}
                             />
                         </div>
                         <div className='item_amount'>
                             <InputAdmin
+                                name={'quantity'}
                                 required={true}
                                 label={'Số lượng sản phẩm'}
                                 placeholder={'Nhập số lượng ...'}
-                                validate={'required'}
+                                validate={'required||checkNumber||checkNegative'}
                                 type={'number'}
                                 onChange={onChangeInput}
+                                errorText={listError.quantity}
+                                value={dataProduct.quantity}
                             />
                         </div>
 
@@ -140,56 +223,76 @@ const Product = () => {
                     <div className='item-flex'>
                         <div className='item'>
                             <InputAdmin
+                                name={'priceSale'}
                                 label={'Giá giảm giá'}
                                 placeholder={'Nhập ...'}
                                 type={'number'}
+                                validate={'checkNumber||checkPrice||checkNegative'}
                                 onChange={onChangeInput}
+                                value={dataProduct.priceSale}
+                                errorText={listError.priceSale}
                             />
                         </div>
                         <div className='item'>
                             <InputAdmin
+                                name={"timeSaleStart"}
                                 label={'Thời gian bắt đầu'}
                                 type={'date'}
+                                validate={'checkDate'}
                                 onChange={onChangeInput}
+                                value={dataProduct.timeSaleStart}
+                                errorText={listError.timeSaleStart}
                             />
                         </div>
                         <div className='item'>
                             <InputAdmin
+                                name={"timeSaleEnd"}
                                 label={'Thời gian kết thúc'}
                                 type={'date'}
+                                validate={'checkTimeEnd||checkDate'}
                                 onChange={onChangeInput}
+                                value={dataProduct.timeSaleEnd}
+                                errorText={listError.timeSaleEnd}
                             />
                         </div>
                     </div>
                     <div className='item-flex'>
                         <div className='item-category'>
                             <InputAdmin
+                                name={'introduce'}
                                 required={true}
                                 label={'Giới thiệu sản phẩm'}
                                 placeholder={'Nhập ...'}
                                 validate={'required'}
                                 type={'text'}
                                 onChange={onChangeInput}
+                                errorText={listError.introduce}
+                                value={dataProduct.introduce}
                             />
                         </div>
                         <div className='select'>
                             <label>
                                 Category:
                             </label>
-                            <select name="selectedFruit">
+                            <select name="selectedFruit" value={category} onChange={handleFruit}>
                                 <option value="apple">Giày</option>
                                 <option value="banana">Dép</option>
                             </select>
                         </div>
                     </div>
                     <div className='textarea'>
-                        <textarea placeholder='Nhập ...' onChange={onChangeInput}>
+                        <textarea
+                            placeholder='Nhập ...'
+                            onChange={onChangeInput}
+                            name={'description'}
+                            value={dataProduct.description || ''}
+                            validate={'required'}>
                         </textarea>
-                        {/* <span className={styles.textarea_error}>{listError.mainUse}</span> */}
+                        <span className='textarea_error'>{listError.description}</span>
                     </div>
                     <div className='file_card'>
                         {
-                            imageFileMain ? <img src={imageFileMain} alt="Ảnh" /> : (
+                            imageProduct ? <img src={imageProduct} alt="Ảnh" /> : (
                                 <div className='file_inputs' onChange={handleFileChangeMain}>
                                     <input accept="image/png" type="file" />
                                     <button>Tải ảnh </button>
