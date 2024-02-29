@@ -47,16 +47,15 @@ const Login = () => {
         }
     }
 
-    const handleOnClick = () => {
+    const handleOnClick = async () => {
         try {
-            fetch(`http://localhost:3001/login`, {
+            await fetch(`http://localhost:3001/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ email, password }),
             }).then(res => {
-                console.log(res)
                 if (res.status === 200) {
                     ToastApp.success('Thành công')
                     navigate('/admin')
@@ -66,15 +65,20 @@ const Login = () => {
 
                 }
             }).then(data => {
-                APP_LOCAL.setTokenStorage(data.data.token)
-                dispatch({
-                    type: KEY_CONTEXT_USER.SET_TOKEN,
-                    payload: data.data.token
-                })
-                dispatch({
-                    type: KEY_CONTEXT_USER.SET_ROLE,
-                    payload: data.data.role
-                })
+                if (data.status === 200) {
+                    APP_LOCAL.setTokenStorage(data.data.token)
+                    dispatch({
+                        type: KEY_CONTEXT_USER.SET_TOKEN,
+                        payload: data.data.token
+                    })
+                    dispatch({
+                        type: KEY_CONTEXT_USER.SET_ROLE,
+                        payload: data.data.role
+                    })
+                    ToastApp.success(data.message)
+                } else {
+                    ToastApp.error("Lỗi: " + data.message)
+                }
             }).catch(e => {
                 console.log("Lỗi đăng nhập: ", e)
             })

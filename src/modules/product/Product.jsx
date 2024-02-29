@@ -66,7 +66,7 @@ const Product = () => {
     const handleCreate = () => {
         setNavigateCreate(true)
     }
-
+    console.log("imageProduct=>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", imageProduct)
     const createProduct = () => {
         const handleBackProduct = () => {
             setNavigateCreate(false)
@@ -103,14 +103,12 @@ const Product = () => {
         }
         const handleFileChangeMain = e => {
             const file = e.target.files[0]
+            setImageFileMain(file)
             const reader = new FileReader();
             reader.onload = function () {
                 const dataURL = reader.result;
-                setImageFileMain(dataURL)
             };
-
             reader.readAsDataURL(file);
-
         }
         const fileRemoveMain = e => {
             if (Object.values(listError).some(i => i)) {
@@ -128,18 +126,20 @@ const Product = () => {
                 formDataToSend.append('name', dataProduct.name)
                 formDataToSend.append('price', +dataProduct.price)
                 formDataToSend.append('quantity', +dataProduct.quantity)
-                formDataToSend.append('imageProduct', imageProduct)
+                formDataToSend.append('image', imageProduct)
                 formDataToSend.append('description', dataProduct.description)
                 formDataToSend.append('introduce', dataProduct.introduce)
                 formDataToSend.append('priceSale', +dataProduct.priceSale)
                 formDataToSend.append('timeSaleStart', dataProduct.timeSaleStart)
                 formDataToSend.append('timeSaleEnd', dataProduct.timeSaleEnd)
                 formDataToSend.append('category', category)
-
-                fetch(`http://localhost:3001/api/product`, {
+                for (let [key, value] of formDataToSend.entries()) {
+                    console.log(key, value);
+                }
+                await fetch(`http://localhost:3001/api/product`, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
+                        'Content-Type': 'multipart/form-data; boundary=something',
                         'Authorization': `Bearer ${token}`
                     },
                     body: formDataToSend

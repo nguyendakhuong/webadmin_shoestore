@@ -7,8 +7,6 @@ import Product from '../modules/product/Product'
 import Main from '../modules/Main'
 
 const AppRoute = (isAuth, role) => {
-  console.log('console.log is AppRoute isAuth', isAuth)
-  console.log('console.log is AppRoute role', role)
   const route = [
     {
       path: '/',
