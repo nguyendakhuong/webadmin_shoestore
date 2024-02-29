@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './product.scss';
 import editIcon from '../asset/image/edit.png'; // Import biểu tượng icon sửa
 import deleteIcon from '../asset/image/delete.png'; // Import biểu tượng icon xóa
@@ -33,7 +33,32 @@ const Product = () => {
         timeSaleStart: '',
         timeSaleEnd: '',
     })
-
+    const [data, setData] = useState(null)
+    console.log("data ===========================>", data)
+    useEffect(() => {
+        const getProduct = async () => {
+            const token = APP_LOCAL.getTokenStorage();
+            const requestOptions = {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            };
+            fetch(`http://localhost:3001/api/getProducts`, requestOptions)
+                .then(res => {
+                    if (res.status === 200) {
+                        return res.json()
+                    } else {
+                        ToastApp.error('Lỗi: ' + res.message)
+                    }
+                }).then(data => {
+                    setData(data.data)
+                    console.log(data)
+                }).catch(e => {
+                    console.log(e)
+                })
+        }
+        getProduct()
+    }, [])
 
     const discountedProducts = [
         {
@@ -374,15 +399,15 @@ const Product = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {discountedProducts.map(product => (
+                                {data.map(product => (
                                     <tr key={product.id}>
-                                        <td>{product.code}</td>
+                                        <td>{product.id}</td>
                                         <td>{product.name}</td>
                                         <td>{product.price}</td>
-                                        <td><img src={product.image} alt={product.name} /></td>
-                                        <td>{product.discount}%</td>
-                                        <td>{product.startDate}</td>
-                                        <td>{product.endDate}</td>
+                                        <td><img src={product.imageProduct} alt={product.name} /></td>
+                                        <td>{product.discount ? product.discount : "null"}</td>
+                                        <td>{product.startDate ? product.startDate : "null"}</td>
+                                        <td>{product.endDate ? product.endDate : "null"}</td>
                                         <td>{product.description}</td>
                                         <td>{product.quantity}</td>
                                         <td>{product.category}</td>
