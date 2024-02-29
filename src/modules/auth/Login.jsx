@@ -66,6 +66,7 @@ const Login = () => {
 
                 }
             }).then(data => {
+                console.log("data========================>", data)
                 APP_LOCAL.setTokenStorage(data.data.token)
                 dispatch({
                     type: KEY_CONTEXT_USER.SET_TOKEN,

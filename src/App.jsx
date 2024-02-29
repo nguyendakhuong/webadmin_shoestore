@@ -11,6 +11,7 @@ function App() {
   const [{ role }, dispatch] = useContext(UserContext)
   const [isAuth, setIsAuth] = useState(APP_LOCAL.getTokenStorage)
 
+  console.log("token storage =================>", APP_LOCAL.getTokenStorage())
   useEffect(() => {
     const getUser = async () => {
       const token = APP_LOCAL.getTokenStorage();
