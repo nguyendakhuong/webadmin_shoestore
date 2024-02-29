@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './product.scss';
 import editIcon from '../asset/image/edit.png'; // Import biểu tượng icon sửa
 import deleteIcon from '../asset/image/delete.png'; // Import biểu tượng icon xóa
@@ -33,36 +33,33 @@ const Product = () => {
         timeSaleStart: '',
         timeSaleEnd: '',
     })
-
-
-    const discountedProducts = [
-        {
-            id: 1,
-            code: 'SP001',
-            name: 'Sản phẩm giảm giá 1',
-            price: 100000,
-            image: 'image1.jpg',
-            discount: 20,
-            startDate: '2024-02-20',
-            endDate: '2024-02-28',
-            description: 'Mô tả sản phẩm giảm giá 1',
-            quantity: 10,
-            category: 'Category 1'
-        },
-        {
-            id: 2,
-            code: 'SP002',
-            name: 'Sản phẩm giảm giá 2',
-            price: 200000,
-            image: 'image2.jpg',
-            discount: 15,
-            startDate: '2024-02-25',
-            endDate: '2024-03-05',
-            description: 'Mô tả sản phẩm giảm giá 2',
-            quantity: 20,
-            category: 'Category 2'
+    const [data, setData] = useState(null)
+    console.log(data)
+    useEffect(() => {
+        const getProduct = async () => {
+            const token = APP_LOCAL.getTokenStorage();
+            const requestOptions = {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            };
+            fetch(`http://localhost:3001/api/getProducts`, requestOptions)
+                .then(res => {
+                    if (res.status === 200) {
+                        return res.json()
+                    } else {
+                        ToastApp.error('Lỗi: ' + res.message)
+                    }
+                }).then(data => {
+                    setData(data.data)
+                    console.log(data)
+                }).catch(e => {
+                    console.log(e)
+                })
         }
-    ];
+        getProduct()
+    }, [])
+
     const handleCreate = () => {
         setNavigateCreate(true)
     }
@@ -373,30 +370,35 @@ const Product = () => {
                                     <th>Hành động</th> { }
                                 </tr>
                             </thead>
-                            <tbody>
-                                {discountedProducts.map(product => (
-                                    <tr key={product.id}>
-                                        <td>{product.code}</td>
-                                        <td>{product.name}</td>
-                                        <td>{product.price}</td>
-                                        <td><img src={product.image} alt={product.name} /></td>
-                                        <td>{product.discount}%</td>
-                                        <td>{product.startDate}</td>
-                                        <td>{product.endDate}</td>
-                                        <td>{product.description}</td>
-                                        <td>{product.quantity}</td>
-                                        <td>{product.category}</td>
-                                        <td>
-                                            <button onClick={() => handleEdit(product.id)}>
-                                                <img src={editIcon} alt="Edit" style={{ width: '20px' }} /> {/* Sửa */}
-                                            </button>
-                                            <button onClick={() => handleDelete(product.id)}>
-                                                <img src={deleteIcon} alt="Delete" style={{ width: '20px' }} /> {/* Xóa */}
-                                            </button>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
+                            {
+                                data ? <tbody>
+                                    {data.map(product => (
+                                        <tr key={product.id}>
+                                            <td>{product.id}</td>
+                                            <td>{product.name}</td>
+                                            <td>{product.price}</td>
+                                            <td><img src={product.imageProduct} alt={product.name} /></td>
+                                            <td>{product.discount ? product.discount : "null"}</td>
+                                            <td>{product.startDate ? product.startDate : "null"}</td>
+                                            <td>{product.endDate ? product.endDate : "null"}</td>
+                                            <td>{product.description}</td>
+                                            <td>{product.quantity}</td>
+                                            <td>{product.category}</td>
+                                            <td>
+                                                <button onClick={() => handleEdit(product.id)}>
+                                                    <img src={editIcon} alt="Edit" style={{ width: '20px' }} /> {/* Sửa */}
+                                                </button>
+                                                <button onClick={() => handleDelete(product.id)}>
+                                                    <img src={deleteIcon} alt="Delete" style={{ width: '20px' }} /> {/* Xóa */}
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                                    : <div>
+                                        Chưa có dữ liệu
+                                    </div>
+                            }
                         </table>
                     </div>
                 </div>
