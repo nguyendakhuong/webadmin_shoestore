@@ -4,6 +4,11 @@ import LayoutWeb from '../modules/layout/LayoutWeb'
 import ErrorPage from '../lib/errorpage/ErrorPage'
 import User from '../modules/user/User'
 import Product from '../modules/product/Product'
+import Main from '../modules/Main'
+import Ordermanagement from '../modules/ordermanagement/ordermanagement'
+import Statistical from '../modules/statistical/Statistical'
+
+
 
 
 const AppRoute = (isAuth, role) => {
@@ -31,6 +36,17 @@ const AppRoute = (isAuth, role) => {
             path: 'product',
             element: <Product />,
           },
+          {
+            path: 'ordermanagement',
+            element: <Ordermanagement />
+
+          },
+          {
+            path: 'statistical',
+            element: <Statistical />,
+          },
+
+
 
         ],
       }
