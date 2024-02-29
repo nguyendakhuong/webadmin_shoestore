@@ -4,7 +4,7 @@ import LayoutWeb from '../modules/layout/LayoutWeb'
 import ErrorPage from '../lib/errorpage/ErrorPage'
 import User from '../modules/user/User'
 import Product from '../modules/product/Product'
-import Main from '../modules/Main'
+
 
 const AppRoute = (isAuth, role) => {
   const route = [
@@ -19,24 +19,25 @@ const AppRoute = (isAuth, role) => {
 
     isAuth && (role === 'admin' || role === 'superAdmin')
       ? {
-          path: '/admin',
-          element: <LayoutWeb />,
-          children: [
-            { index: true, element: <User /> },
-            {
-              path: 'users',
-              element: <User />,
-            },
-            {
-              path: 'product',
-              element: <Product />,
-            },
-          ],
-        }
+        path: '/admin',
+        element: <LayoutWeb />,
+        children: [
+          { index: true, element: <User /> },
+          {
+            path: 'users',
+            element: <User />,
+          },
+          {
+            path: 'product',
+            element: <Product />,
+          },
+
+        ],
+      }
       : {
-          path: '*',
-          element: <ErrorPage />,
-        },
+        path: '*',
+        element: <ErrorPage />,
+      },
   ]
   return createBrowserRouter(route)
 }

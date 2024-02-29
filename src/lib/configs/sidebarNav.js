@@ -20,13 +20,13 @@ const sidebarNav = [
   },
   {
     link: '/admin/ordermanagement',
-    section: 'products_sale',
+    section: 'ordermanagement',
     icon: <i className="bx bx-cube"></i>,
     text: 'Quản lý đơn hàng',
   },
   {
     link: '/admin/statistical',
-    section: 'products_sale',
+    section: 'statistical',
     icon: <i className="bx bx-cube"></i>,
     text: 'Thống kê - Doanh thu',
   },
