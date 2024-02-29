@@ -4,14 +4,16 @@ import LayoutWeb from '../modules/layout/LayoutWeb'
 import ErrorPage from '../lib/errorpage/ErrorPage'
 import User from '../modules/user/User'
 import Product from '../modules/product/Product'
-import Ordermanagement from '../modules/Ordermanagement/Ordermanagement'
-import Statistical from '../modules/Statistical/Statistical'
 
 
 const AppRoute = (isAuth, role) => {
   console.log('console.log is AppRoute isAuth', isAuth)
   console.log('console.log is AppRoute role', role)
   const route = [
+    {
+      path: '/',
+      element: <Main />,
+    },
     {
       path: '/login',
       element: <Login />,
@@ -31,15 +33,6 @@ const AppRoute = (isAuth, role) => {
             path: 'product',
             element: <Product />,
           },
-          {
-            path: 'ordermanagement',
-            element: <Ordermanagement />,
-          },
-          {
-            path: 'statistical',
-            element: <Statistical />,
-          },
-
 
         ],
       }
