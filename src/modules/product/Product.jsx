@@ -136,7 +136,6 @@ const Product = () => {
                 await fetch(`http://localhost:3001/api/product`, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'multipart/form-data; boundary=something',
                         'Authorization': `Bearer ${token}`
                     },
                     body: formDataToSend
@@ -174,7 +173,7 @@ const Product = () => {
                         </tr>
                     </thead>
                 </table>
-                <form onSubmit={e => e.preventDefault()}>
+                <form onSubmit={e => e.preventDefault()} encType='multipart/form-data'>
                     <div className='item-flex'>
                         <div className='item_name'>
                             <InputAdmin
