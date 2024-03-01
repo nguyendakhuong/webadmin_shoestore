@@ -1,8 +1,8 @@
-const Ordermanagement = () => {
+const OrderManagement = () => {
     return (
         <div>
             a
         </div>
     )
 }
-export default Ordermanagement
+export default OrderManagement

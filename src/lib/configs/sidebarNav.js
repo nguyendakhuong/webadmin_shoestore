@@ -19,8 +19,8 @@ const sidebarNav = [
     text: 'Quản lý sản phẩm ',
   },
   {
-    link: '/admin/ordermanagement',
-    section: 'ordermanagement',
+    link: '/admin/order',
+    section: 'order',
     icon: <i className="bx bx-cube"></i>,
     text: 'Quản lý đơn hàng',
   },
@@ -30,8 +30,6 @@ const sidebarNav = [
     icon: <i className="bx bx-cube"></i>,
     text: 'Thống kê - Doanh thu',
   },
-
-
 ]
 
 const CONFIG_ADMIN = {
