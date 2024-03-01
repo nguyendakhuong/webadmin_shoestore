@@ -1,12 +1,33 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Header.scss'; // Đảm bảo import file CSS hoặc SCSS của bạn
 import mailIconImage from '../../asset/image/mail.png'; // Import hình ảnh icon mail
 import notificationIconImage from '../../asset/image/bell.png'; // Import hình ảnh icon thông báo
+import { useNavigate } from 'react-router-dom';
+import UserContext from '../../../context/use.context';
+import { KEY_CONTEXT_USER } from '../../../context/use.reducer';
+import { TYPE_MODEL } from '../../components/modal';
 
 const Header = () => {
+    const navigate = useNavigate()
+    const [{ role }, dispatch] = useContext(UserContext)
+    const handlerAdmin = () => {
+        if (role === "superAdmin") {
+            navigate('/admin/signup')
+        } else {
+            dispatch({
+                type: KEY_CONTEXT_USER.SHOW_MODAL,
+                payload: {
+                    typeModal: 'NOTIFICATION_MODAL',
+                    dataModal: '',
+
+
+                },
+            })
+        }
+    }
     return (
         <header className="header">
-            <div className="logo">
+            <div className="logo" onClick={handlerAdmin}>
                 <img src="/path/to/logo.png" alt="Logo" />
             </div>
             <div className="header-right">

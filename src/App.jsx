@@ -7,9 +7,10 @@ import UserContext from './context/use.context'
 import APP_LOCAL from './lib/localStorage'
 import { KEY_CONTEXT_USER } from './context/use.reducer'
 import ToastApp from './lib/notification/Toast'
+import Modal from './modules/components/modal'
 
 function App() {
-  const [{ role }, dispatch] = useContext(UserContext)
+  const [{ role, isOpenModal }, dispatch] = useContext(UserContext)
   const [isAuth, setIsAuth] = useState(APP_LOCAL.getTokenStorage)
   console.log(role)
   useEffect(() => {
@@ -53,6 +54,7 @@ function App() {
     <div>
       <RouterProvider router={AppRoute(isAuth, role)} />
       <ToastContainer />
+      {isOpenModal && <Modal />}
     </div>
   )
 }

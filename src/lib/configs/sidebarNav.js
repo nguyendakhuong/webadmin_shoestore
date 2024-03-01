@@ -5,12 +5,6 @@ const sidebarNav = [
     icon: <image></image>,
     text: 'Quản lí User',
   },
-  // {
-  //   link: '/admin/orders',
-  //   section: 'orders',
-  //   icon: <i className="bx bx-receipt"></i>,
-  //   text: 'Orders',
-  // },
 
   {
     link: '/admin/product',

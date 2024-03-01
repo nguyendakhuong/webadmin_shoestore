@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './product.scss';
 import editIcon from '../asset/image/edit.png'; // Import biểu tượng icon sửa
 import deleteIcon from '../asset/image/delete.png'; // Import biểu tượng icon xóa
@@ -7,12 +7,19 @@ import ToastApp from '../../lib/notification/Toast';
 import { ParseValid } from '../../lib/validate/ParseValid';
 import { Validate } from '../../lib/validate/Validate';
 import APP_LOCAL from '../../lib/localStorage';
+import UserContext from '../../context/use.context';
+import { KEY_CONTEXT_USER } from '../../context/use.reducer';
+import { TYPE_MODEL } from '../components/modal';
+import moment from 'moment';
 
 const Product = () => {
+    const [userCtx, dispatch] = useContext(UserContext)
     const [navigateCreate, setNavigateCreate] = useState(false);
     const [imageProduct, setImageFileMain] = useState(null);
+    const [showImage, setShowImage] = useState(null);
     const [isButtonDisabled, setIsButtonDisabled] = useState(true)
     const [category, setCategory] = useState('Giày');
+    const [reloadData, setReloadData] = useState(false);
     const [listError, setListError] = useState({
         name: 'Vui lòng nhập trường này!',
         price: 'Vui lòng nhập trường này!',
@@ -22,6 +29,7 @@ const Product = () => {
         timeSaleStart: "",
         timeSaleEnd: "",
         priceSale: "",
+
     })
     const [dataProduct, setDataProduct] = useState({
         name: '',
@@ -34,36 +42,48 @@ const Product = () => {
         timeSaleEnd: '',
     })
     const [data, setData] = useState(null)
-    console.log(data)
-    useEffect(() => {
-        const getProduct = async () => {
-            const token = APP_LOCAL.getTokenStorage();
-            const requestOptions = {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            };
-            fetch(`http://localhost:3001/api/getProducts`, requestOptions)
-                .then(res => {
-                    if (res.status === 200) {
-                        return res.json()
-                    } else {
-                        ToastApp.error('Lỗi: ' + res.message)
-                    }
-                }).then(data => {
-                    setData(data.data)
-                    console.log(data)
-                }).catch(e => {
-                    console.log(e)
-                })
-        }
-        getProduct()
-    }, [])
+
+
+
+    const getProduct = async () => {
+        const token = APP_LOCAL.getTokenStorage();
+        const requestOptions = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        };
+        fetch(`http://localhost:3001/api/getProducts`, requestOptions)
+            .then(res => {
+                if (res.status === 200) {
+                    return res.json()
+                } else {
+                    ToastApp.error('Lỗi: ' + res.message)
+                }
+            }).then(data => {
+                setData(data.data)
+                console.log(data)
+            }).catch(e => {
+                console.log(e)
+            })
+    }
+
+    const clearForm = () => {
+        setDataProduct({
+            name: '',
+            price: '',
+            quantity: '',
+            description: '',
+            introduce: '',
+            priceSale: '',
+            timeSaleStart: '',
+            timeSaleEnd: '',
+        });
+        setImageFileMain(null)
+    };
 
     const handleCreate = () => {
         setNavigateCreate(true)
     }
-    console.log("imageProduct=>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", imageProduct)
     const createProduct = () => {
         const handleBackProduct = () => {
             setNavigateCreate(false)
@@ -104,6 +124,8 @@ const Product = () => {
             const reader = new FileReader();
             reader.onload = function () {
                 const dataURL = reader.result;
+                setShowImage(dataURL)
+                setListError({ image: '' })
             };
             reader.readAsDataURL(file);
         }
@@ -114,6 +136,7 @@ const Product = () => {
                 setIsButtonDisabled(false)
             }
             setImageFileMain(null)
+            setShowImage(null)
         }
         const handleSubmit = async () => {
             const token = APP_LOCAL.getTokenStorage()
@@ -140,15 +163,17 @@ const Product = () => {
                     },
                     body: formDataToSend
                 }).then(res => {
-                    console.log(res)
-                    if (res.status === 200) {
-                        ToastApp.success('Thành công')
-                        return res.json()
-                    } else {
-                        ToastApp.error('Lỗi: ' + res.message)
-                    }
+                    console.log("res==============>", res)
+                    return res.json()
                 }).then(data => {
-                    console.log(data)
+                    console.log("data =========================>", data)
+                    if (data.status === 200) {
+                        ToastApp.success('Thành công')
+                        setReloadData(true);
+                        clearForm();
+                    } else {
+                        ToastApp.error('Lỗi: ' + data.message)
+                    }
                 }).catch(e => {
                     console.log("Lỗi: ", e)
                 })
@@ -271,8 +296,8 @@ const Product = () => {
                                 Category:
                             </label>
                             <select name="selectedFruit" value={category} onChange={handleFruit}>
-                                <option value="apple">Giày</option>
-                                <option value="banana">Dép</option>
+                                <option value="Giày">Giày</option>
+                                <option value="Dép">Dép</option>
                             </select>
                         </div>
                     </div>
@@ -288,13 +313,14 @@ const Product = () => {
                     </div>
                     <div className='file_card'>
                         {
-                            imageProduct ? <img src={imageProduct} alt="Ảnh" /> : (
+                            imageProduct ? <img src={showImage} alt="Ảnh" /> : (
                                 <div className='file_inputs' onChange={handleFileChangeMain}>
                                     <input accept="image/png" type="file" />
                                     <button>Tải ảnh </button>
                                 </div>
                             )
                         }
+
                         <div>
                             <div onClick={fileRemoveMain} className='remove'>
                                 <span>Xóa ảnh</span>
@@ -316,15 +342,51 @@ const Product = () => {
     }
 
 
-    const handleEdit = (productId) => {
-
-        console.log("Sửa sản phẩm giảm giá có id:", productId);
-    };
+    const handleItemClick = (product) => {
+        console.log(product.endDate)
+    }
 
     const handleDelete = (productId) => {
+        dispatch({
+            type: KEY_CONTEXT_USER.SHOW_MODAL,
+            payload: {
+                typeModal: 'DELETE_ITEM',
+                dataModal: productId,
+                typeModal: TYPE_MODEL.DELETE_ITEM,
+                onClickConfirmModel: async () => {
+                    const token = APP_LOCAL.getTokenStorage()
+                    console.log(token)
+                    console.log(productId)
+                    try {
+                        const response = await fetch(`http://localhost:3001/api/removeProduct/${productId}`,
+                            {
+                                method: 'GET',
+                                headers: {
+                                    'Authorization': `Bearer ${token}`
+                                },
 
-        console.log("Xóa sản phẩm giảm giá có id:", productId);
+                            });
+                        const data = await response.json();
+                        if (data.status === 200) {
+                            ToastApp.success('Xóa thành công');
+
+                            setReloadData(true);
+                        } else {
+                            ToastApp.error('Lỗi: ' + data.message);
+                        }
+
+                    } catch (e) {
+                        console.log("Lỗi xóa sản phẩm: ", e)
+                    }
+                },
+            },
+        })
     };
+
+    useEffect(() => {
+        getProduct();
+        setReloadData(false);
+    }, [reloadData]);
 
     return (
         <div className="product-container">
@@ -372,21 +434,18 @@ const Product = () => {
                             {
                                 data ? <tbody>
                                     {data.map(product => (
-                                        <tr key={product.id}>
+                                        <tr key={product.id} onClick={() => handleItemClick(product)}>
                                             <td>{product.id}</td>
                                             <td>{product.name}</td>
                                             <td>{product.price}</td>
                                             <td><img src={product.imageProduct} alt={product.name} /></td>
-                                            <td>{product.discount ? product.discount : "null"}</td>
-                                            <td>{product.startDate ? product.startDate : "null"}</td>
-                                            <td>{product.endDate ? product.endDate : "null"}</td>
+                                            <td>{product.priceSale ? product.priceSale : "null"}</td>
+                                            <td>{product.timeSaleStart ? moment(product.timeSaleStart).format('DD/MM/YYYY') : "null"}</td>
+                                            <td>{product.timeSaleEnd ? moment(product.timeSaleEnd).format('DD/MM/YYYY') : "null"}</td>
                                             <td>{product.description}</td>
                                             <td>{product.quantity}</td>
                                             <td>{product.category}</td>
                                             <td>
-                                                <button onClick={() => handleEdit(product.id)}>
-                                                    <img src={editIcon} alt="Edit" style={{ width: '20px' }} /> {/* Sửa */}
-                                                </button>
                                                 <button onClick={() => handleDelete(product.id)}>
                                                     <img src={deleteIcon} alt="Delete" style={{ width: '20px' }} /> {/* Xóa */}
                                                 </button>

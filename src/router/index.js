@@ -7,6 +7,7 @@ import Product from '../modules/product/Product'
 import Main from '../modules/Main'
 import OrderManagement from '../modules/Ordermanagement/Ordermanagement.jsx'
 import Statistical from '../modules/Statistical/Statistical.jsx'
+import SignUp from '../modules/auth/SignUp.jsx'
 
 const AppRoute = (isAuth, role) => {
   const route = [
@@ -28,6 +29,10 @@ const AppRoute = (isAuth, role) => {
             {
               path: 'users',
               element: <User />,
+            },
+            {
+              path: 'signup',
+              element: <SignUp />,
             },
             {
               path: 'product',
