@@ -57,6 +57,9 @@
   padding: 8px;
   border: 1px solid #ddd;
   text-align: left;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .product-table th {
@@ -108,11 +111,13 @@
   display: flex;
   align-items: center;
 }
+
 form {
   padding: 10px 0;
   height: 100%;
   width: 100%;
 }
+
 .item-flex {
   display: flex;
 }
@@ -121,61 +126,75 @@ form {
   width: 60%;
   margin-right: 10px;
 }
+
 .item_price {
   width: 20%;
   margin-right: 10px;
 }
+
 .item_amount {
   width: 20%;
   margin-right: 10px;
 }
+
 .item-category {
   width: 70%;
 }
+
 .select {
   display: flex;
   flex-direction: column;
   margin-left: 10px;
   width: 30%;
 }
+
 select {
   margin: 10px 0;
   width: 100%;
   height: 4rem;
   border-radius: 10px;
 }
+
 label {
   color: #888888;
   font-size: 1.3rem;
 }
+
 .item {
   width: 33.3%;
   margin-right: 10px;
 }
+
 textarea {
   min-width: 125rem;
   min-height: 10rem;
   max-width: 125rem;
   max-height: 20rem;
 }
+
 .textarea {
   border-radius: 10px;
 }
+
 h2 {
   display: flex;
   flex-direction: row;
   text-align: start;
 }
+
 .file_card {
   margin-top: 10px;
   width: 20rem;
+
   span {
     color: red;
   }
+
   img {
     object-fit: cover;
   }
 }
+
 .file_inputs {
   position: relative;
   margin-bottom: 1.5em;
@@ -214,6 +233,7 @@ h2 {
     }
   }
 }
+
 .remove {
   height: 3rem;
   line-height: 3rem;
@@ -223,10 +243,12 @@ h2 {
   border: 1px solid black;
   border-radius: 5px;
 }
+
 .remove:hover {
   opacity: 0.7;
   cursor: pointer;
 }
+
 .textarea_error {
   color: red;
 }

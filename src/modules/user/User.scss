@@ -1,0 +1,72 @@
+.user-container {
+    padding: 0 20px;
+    /* Đặt lề 20px cho cả hai bên */
+}
+
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+.user-table th,
+.user-table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.user-table th {
+    background-color: #f2f2f2;
+}
+
+.detail-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.detail-button:hover {
+    background-color: #0056b3;
+}
+
+
+
+.header-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    /* Thêm viền cho bảng */
+}
+
+.header-table th {
+    position: relative;
+    /* Đặt vị trí tương đối để chứa đường vạch */
+    background-color: #f2f2f2;
+    font-weight: bold;
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+    border-radius: 8px 8px 0 0;
+    /* Bo góc trên */
+}
+
+.purple-line {
+    position: absolute;
+    /* Đặt vị trí tuyệt đối để chính xác vị trí */
+    width: 100%;
+    height: 3px;
+    /* Độ dày của đường vạch */
+    background-color: #8624db;
+    /* Màu tím */
+    top: 0;
+    /* Đặt vị trí đầu của đường vạch */
+    left: 0;
+    /* Đặt vị trí bắt đầu từ phía trái */
+}

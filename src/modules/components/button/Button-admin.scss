@@ -1,38 +1,29 @@
 .btn {
-  width: 17rem;
-  height: 5rem;
+  padding: 15px 30px;
+
   border: none;
-  font-weight: 700;
-  border-radius: 1rem;
-  font-size: 16px;
-  color: #c89595;
-  background-color: #fff;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
-    0 6px 20px 0 rgba(27, 22, 22, 0.19);
+  border-radius: 8px;
+
+  font-size: 18px;
+
+  cursor: pointer;
+  transition: all 0.3s ease;
+
 }
 
 .btnAuth {
-  width: 100%;
-  height: 100%;
+  background-color: #007bff;
   color: #fff;
-  background-color: #c89595;
 }
 
-.disabled {
-  &:hover {
-    cursor: no-drop;
-  }
+.btn:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
 }
 
-@media only screen and (min-width: 1024px) and (max-width: 1440px) {
-  .btn {
-    width: 14rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .btn {
-    width: 12rem;
-    font-size: 12px;
-  }
+.btnAuth:hover {
+  background-color: #0056b3;
 }

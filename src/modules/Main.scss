@@ -1,0 +1,32 @@
+/* Main.css */
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    /* Hiển thị các phần tử theo hàng dọc */
+    justify-content: center;
+    /* Căn giữa theo chiều dọc */
+    align-items: center;
+    /* Căn giữa theo chiều ngang */
+    height: 100vh;
+}
+
+.button {
+    padding: 15px 40px;
+    /* Kích thước nút */
+    margin: 10px;
+    /* Khoảng cách giữa các nút */
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4994e4ec;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 200px;
+    /* Kích thước của các nút */
+}
+
+.button:hover {
+    background-color: #0056b3;
+}

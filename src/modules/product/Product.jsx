@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import './product.scss';
-import editIcon from '../asset/image/edit.png'; // Import biểu tượng icon sửa
-import deleteIcon from '../asset/image/delete.png'; // Import biểu tượng icon xóa
+import editIcon from '../asset/image/edit.png';
+import deleteIcon from '../asset/image/delete.png';
 import InputAdmin from '../components/input/Input-admin';
 import ToastApp from '../../lib/notification/Toast';
 import { ParseValid } from '../../lib/validate/ParseValid';
@@ -399,10 +399,10 @@ const Product = () => {
                                 <tr>
                                     <th colSpan="10">
                                         <div className="purple-line"></div>
-                                        <span>Danh sách sản phẩm đang giảm giá</span>
+                                        <span>Danh sách sản phẩm </span>
                                     </th>
                                     <div className="button-container">
-                                        <button className="product-button" onClick={handleCreate}>+ Thêm sản phẩm giảm giá</button>
+                                        <button className="product-button" onClick={handleCreate}>+ Thêm sản phẩm </button>
                                     </div>
 
                                 </tr>
