@@ -42,9 +42,6 @@ const Product = () => {
         timeSaleEnd: '',
     })
     const [data, setData] = useState(null)
-
-
-
     const getProduct = async () => {
         const token = APP_LOCAL.getTokenStorage();
         const requestOptions = {

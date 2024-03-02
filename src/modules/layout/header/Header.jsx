@@ -19,8 +19,8 @@ const Header = () => {
                 payload: {
                     typeModal: 'NOTIFICATION_MODAL',
                     dataModal: '',
-
-
+                    titleModel: "Thông báo",
+                    contentModel: "Bạn không được truy cập vào chức năng này"
                 },
             })
         }

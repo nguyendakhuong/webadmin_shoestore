@@ -12,7 +12,7 @@ import APP_LOCAL from '../../lib/localStorage'
 
 const Login = () => {
     const navigate = useNavigate()
-    const [dispatch] = useContext(UserContext)
+    const [userCtx, dispatch] = useContext(UserContext)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [isButtonDisabled, setIsButtonDisabled] = useState(true)
@@ -56,15 +56,10 @@ const Login = () => {
                 },
                 body: JSON.stringify({ email, password }),
             }).then(res => {
-                if (res.status === 200) {
-                    ToastApp.success('Thành công')
-                    navigate('/admin')
-                    return res.json()
-                } else {
-                    ToastApp.error('Lỗi: ' + res.message)
+                return res.json()
 
-                }
             }).then(data => {
+                console.log("data.statusdata.statusdata.statusdata.statusdata.status", data.status)
                 if (data.status === 200) {
                     APP_LOCAL.setTokenStorage(data.data.token)
                     dispatch({
@@ -76,9 +71,11 @@ const Login = () => {
                         payload: data.data.role
                     })
                     ToastApp.success(data.message)
+                    navigate('/admin')
                 } else {
-                    ToastApp.error("Lỗi: " + data.message)
+                    ToastApp.warning('Lỗi: ' + data.message)
                 }
+
             }).catch(e => {
                 console.log("Lỗi đăng nhập: ", e)
             })
