@@ -1,11 +1,38 @@
+// styles.module.scss
+
 .login {
   display: flex;
   justify-content: center;
+  align-items: center;
+  height: 100vh;
+  /* Đảm bảo màn hình login chiếm toàn bộ chiều cao của viewport */
+  background-color: #f0f0f0;
+  /* Màu nền cho màn hình login */
 }
-h2 {
-  text-align: center;
-}
+
 .login_content {
-  width: 30rem;
-  height: 20rem;
+  width: 400px;
+  /* Định kích thước của phần nội dung login */
+  padding: 20px;
+  /* Khoảng cách từ viền nội dung đến các phần tử bên trong */
+  background-color: #fff;
+  /* Màu nền cho phần nội dung login */
+  border-radius: 10px;
+  /* Bo tròn góc của phần nội dung */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  /* Hiệu ứng bóng đổ */
+}
+
+.login_content h2 {
+  margin-bottom: 20px;
+  /* Khoảng cách từ tiêu đề đến các phần tử khác */
+  font-size: 24px;
+  /* Kích thước của tiêu đề */
+  color: #333;
+  /* Màu chữ */
+}
+
+.button {
+  margin-top: 20px;
+  /* Khoảng cách từ nút đăng nhập đến các phần tử trên */
 }
