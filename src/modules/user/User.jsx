@@ -1,13 +1,25 @@
-import React from 'react';
-import './User.scss'; // Import CSS file
+import React, { useState } from 'react';
+import './User.scss';
+import ModalInfouser from '../components/modal/modalInfouser/ModalInfouser';
+
 
 const User = () => {
-    // Giả định dữ liệu người dùng
+    const [showDialog, setShowDialog] = useState(false);
+    const [selectedUser, setSelectedUser] = useState(null);
+
     const users = [
-        { id: 1, name: 'John Doe', email: 'john@example.com', verifyemail: true, role: 'admin' },
-        { id: 2, name: 'Jane Doe', email: 'jane@example.com', verifyemail: false, role: 'user' },
-        // Thêm dữ liệu người dùng khác tại đây nếu cần
+        { id: 1, name: 'John Doe', email: 'john@example.com', verifyemail: true, role: 'admin', phone: '123456789', address: '123 Main St', city: 'New York', dob: '01/01/1990', avatar: 'avatar.jpg', gender: 'Male' },
+        { id: 2, name: 'Jane Doe', email: 'jane@example.com', verifyemail: false, role: 'user', phone: '987654321', address: '456 Elm St', city: 'Los Angeles', dob: '02/02/1995', avatar: 'avatar.jpg', gender: 'Female' },
     ];
+
+    const handleDetailClick = (user) => {
+        setSelectedUser(user);
+        setShowDialog(true);
+    };
+
+    const handleCloseDialog = () => {
+        setShowDialog(false);
+    };
 
     return (
         <div className="user-container">
@@ -17,14 +29,13 @@ const User = () => {
                     <tr>
                         <th colSpan="10">
                             <div className="purple-line"></div>
-                            <span>Danh sách người dùng</span>
+                            <span>Danh sách sản phẩm </span>
                         </th>
 
 
                     </tr>
                 </thead>
             </table>
-
 
             <table className="user-table">
                 <thead>
@@ -46,12 +57,16 @@ const User = () => {
                             <td>{user.verifyemail ? 'Yes' : 'No'}</td>
                             <td>{user.role}</td>
                             <td>
-                                <button className="detail-button">Xem chi tiết</button>
+                                <button className="detail-button" onClick={() => handleDetailClick(user)}>Xem chi tiết</button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
+
+            {showDialog && selectedUser && (
+                <ModalInfouser user={selectedUser} onClose={handleCloseDialog} />
+            )}
         </div>
     );
 };
