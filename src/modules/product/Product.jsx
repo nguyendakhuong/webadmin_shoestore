@@ -11,6 +11,7 @@ import UserContext from '../../context/use.context';
 import { KEY_CONTEXT_USER } from '../../context/use.reducer';
 import { TYPE_MODEL } from '../components/modal';
 import moment from 'moment';
+import { useNavigate } from 'react-router-dom';
 
 const Product = () => {
     const [userCtx, dispatch] = useContext(UserContext)
@@ -20,6 +21,7 @@ const Product = () => {
     const [isButtonDisabled, setIsButtonDisabled] = useState(true)
     const [category, setCategory] = useState('Giày');
     const [reloadData, setReloadData] = useState(false);
+    const navigate = useNavigate();
     const [listError, setListError] = useState({
         name: 'Vui lòng nhập trường này!',
         price: 'Vui lòng nhập trường này!',
@@ -340,7 +342,11 @@ const Product = () => {
 
 
     const handleItemClick = (product) => {
-        console.log(product.endDate)
+        // navigate('/admin/update-product')
+        // console.log(product)
+        const productData = JSON.stringify(product);
+        const encodedProductData = encodeURIComponent(productData);
+        navigate('/admin/update-product?productData=' + encodedProductData);
     }
 
     const handleDelete = (productId) => {
