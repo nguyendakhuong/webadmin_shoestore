@@ -349,6 +349,13 @@ const Product = () => {
         navigate('/admin/update-product?productData=' + encodedProductData);
     }
 
+    const handleEdit = (product, e) => {
+        e.stopPropagation();
+        const productData = JSON.stringify(product);
+        const encodedProductData = encodeURIComponent(productData);
+        navigate('/admin/update-product?productData=' + encodedProductData);
+    }
+
     const handleDelete = (product, e) => {
         e.stopPropagation();
         dispatch({
@@ -448,6 +455,9 @@ const Product = () => {
                                             <td>{product.quantity}</td>
                                             <td>{product.category}</td>
                                             <td>
+                                                <button onClick={(e) => handleEdit(product, e)}>
+                                                    <img src={editIcon} alt="Edit" style={{ width: '20px' }} /> {/* Chỉnh sửa */}
+                                                </button>
                                                 <button onClick={(e) => handleDelete(product, e)}>
                                                     <img src={deleteIcon} alt="Delete" style={{ width: '20px' }} /> {/* Xóa */}
                                                 </button>
