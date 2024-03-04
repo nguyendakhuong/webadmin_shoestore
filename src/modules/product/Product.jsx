@@ -349,19 +349,18 @@ const Product = () => {
         navigate('/admin/update-product?productData=' + encodedProductData);
     }
 
-    const handleDelete = (productId) => {
+    const handleDelete = (product, e) => {
+        e.stopPropagation();
         dispatch({
             type: KEY_CONTEXT_USER.SHOW_MODAL,
             payload: {
                 typeModal: 'DELETE_ITEM',
-                dataModal: productId,
-                typeModal: TYPE_MODEL.DELETE_ITEM,
+                dataModal: product.id,
+                contentModel: "Bạn có chắc chắn muốn xóa sản phẩm " + product.name + " không?",
                 onClickConfirmModel: async () => {
                     const token = APP_LOCAL.getTokenStorage()
-                    console.log(token)
-                    console.log(productId)
                     try {
-                        const response = await fetch(`http://localhost:3001/api/removeProduct/${productId}`,
+                        const response = await fetch(`http://localhost:3001/api/removeProduct/${product.id}`,
                             {
                                 method: 'GET',
                                 headers: {
@@ -449,7 +448,7 @@ const Product = () => {
                                             <td>{product.quantity}</td>
                                             <td>{product.category}</td>
                                             <td>
-                                                <button onClick={() => handleDelete(product.id)}>
+                                                <button onClick={(e) => handleDelete(product, e)}>
                                                     <img src={deleteIcon} alt="Delete" style={{ width: '20px' }} /> {/* Xóa */}
                                                 </button>
                                             </td>

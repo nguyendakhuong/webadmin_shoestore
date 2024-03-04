@@ -1,7 +1,8 @@
 import React from 'react';
 import './ModalInfouse.scss';
 
-const ModalInfouser = ({ user, onClose }) => {
+const ModalInfoUser = ({ user, onClose }) => {
+    console.log(user)
     return (
         <div className="dialog-overlay">
             <div className="dialog">
@@ -19,4 +20,4 @@ const ModalInfouser = ({ user, onClose }) => {
     );
 };
 
-export default ModalInfouser;
+export default ModalInfoUser;
