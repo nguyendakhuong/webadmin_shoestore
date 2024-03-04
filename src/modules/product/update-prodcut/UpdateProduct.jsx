@@ -28,7 +28,7 @@ const UpdateProduct = () => {
 
     useEffect(() => {
         setCurrentImage(updatedProduct?.imageProduct || '');
-    }, [updatedProduct]);
+    }, [reloadData]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -44,48 +44,58 @@ const UpdateProduct = () => {
         };
         reader.readAsDataURL(file);
     };
+    const clearForm = () => {
+        setDataProduct({
+            name: '',
+            price: '',
+            quantity: '',
+            description: '',
+            introduce: '',
+            priceSale: '',
+            timeSaleStart: '',
+            timeSaleEnd: '',
+        });
+    }
 
-    const token = APP_LOCAL.getTokenStorage();
+
     const handleSubmit = async (e) => {
+        const token = APP_LOCAL.getTokenStorage();
+        console.log(token);
         e.preventDefault();
+
         try {
             const formDataToSend = new FormData();
-
             formDataToSend.append('id', updatedProduct.id);
-            formDataToSend.append('name', updatedProduct.name);
-            formDataToSend.append('price', updatedProduct.price);
-            formDataToSend.append('quantity', updatedProduct.quantity);
-            formDataToSend.append('image', imageProduct);
+            formDataToSend.append('price', +updatedProduct.price);
+            formDataToSend.append('quantity', +updatedProduct.quantity);
+            formDataToSend.append('image', currentImage);
             formDataToSend.append('description', updatedProduct.description);
             formDataToSend.append('introduce', updatedProduct.introduce);
-            formDataToSend.append('priceSale', updatedProduct.priceSale);
+            formDataToSend.append('priceSale', +updatedProduct.priceSale);
             formDataToSend.append('timeSaleStart', updatedProduct.timeSaleStart);
             formDataToSend.append('timeSaleEnd', updatedProduct.timeSaleEnd);
             formDataToSend.append('category', category);
 
-            const response = await fetch(`http://localhost:3001/api/updateProduct/${updatedProduct.id}`, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                },
-                body: formDataToSend
-            });
+            for (let [key, value] of formDataToSend.entries()) {
+                console.log(key, value);
+            }
+
+            const response = await fetch(`http://localhost:3001/api/updateProduct`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+
+                    },
+                    body: formDataToSend
+                });
 
             const data = await response.json();
             if (data.status === 200) {
                 ToastApp.success('Thành công');
                 setReloadData(true);
                 setCurrentImage(updatedProduct.imageProduct);
-                setDataProduct({
-                    name: '',
-                    price: '',
-                    quantity: '',
-                    description: '',
-                    introduce: '',
-                    priceSale: '',
-                    timeSaleStart: '',
-                    timeSaleEnd: '',
-                });
+                clearForm()
             } else {
                 ToastApp.error('Lỗi: ' + data.message);
             }
@@ -97,7 +107,7 @@ const UpdateProduct = () => {
     return (
         <div className="update-product-container">
             <h2>Cập nhật sản phẩm</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} encType='multipart/form-data'>
                 <div className="form-group">
                     <label htmlFor="name">Tên sản phẩm:</label>
                     <input type="text" id="name" name="name" value={updatedProduct?.name || ''} readOnly />
