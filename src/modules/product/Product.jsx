@@ -141,7 +141,6 @@ const Product = () => {
             const token = APP_LOCAL.getTokenStorage()
             try {
                 const formDataToSend = new FormData()
-
                 formDataToSend.append('name', dataProduct.name)
                 formDataToSend.append('price', +dataProduct.price)
                 formDataToSend.append('quantity', +dataProduct.quantity)
@@ -152,30 +151,29 @@ const Product = () => {
                 formDataToSend.append('timeSaleStart', dataProduct.timeSaleStart)
                 formDataToSend.append('timeSaleEnd', dataProduct.timeSaleEnd)
                 formDataToSend.append('category', category)
-                for (let [key, value] of formDataToSend.entries()) {
-                    console.log(key, value);
-                }
-                await fetch(`http://localhost:3001/api/product`, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: formDataToSend
-                }).then(res => {
-                    console.log("res==============>", res)
-                    return res.json()
-                }).then(data => {
-                    console.log("data =========================>", data)
-                    if (data.status === 200) {
-                        ToastApp.success('Thành công')
-                        setReloadData(true);
-                        clearForm();
-                    } else {
-                        ToastApp.error('Lỗi: ' + data.message)
-                    }
-                }).catch(e => {
-                    console.log("Lỗi: ", e)
-                })
+
+                await fetch(`http://localhost:3001/api/product`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: formDataToSend
+                    }).then(res => {
+                        console.log("res==============>", res)
+                        return res.json()
+                    }).then(data => {
+                        console.log("data =========================>", data)
+                        if (data.status === 200) {
+                            ToastApp.success('Thành công')
+                            setReloadData(true);
+                            clearForm();
+                        } else {
+                            ToastApp.error('Lỗi: ' + data.message)
+                        }
+                    }).catch(e => {
+                        console.log("Lỗi: ", e)
+                    })
             } catch (e) {
                 console.log(e)
             }
@@ -341,13 +339,13 @@ const Product = () => {
     }
 
 
-    const handleItemClick = (product) => {
-        // navigate('/admin/update-product')
-        // console.log(product)
-        const productData = JSON.stringify(product);
-        const encodedProductData = encodeURIComponent(productData);
-        navigate('/admin/update-product?productData=' + encodedProductData);
-    }
+    // const handleItemClick = (product) => {
+    //     // navigate('/admin/update-product')
+    //     // console.log(product)
+    //     const productData = JSON.stringify(product);
+    //     const encodedProductData = encodeURIComponent(productData);
+    //     navigate('/admin/update-product?productData=' + encodedProductData);
+    // }
 
     const handleEdit = (product, e) => {
         e.stopPropagation();
@@ -443,7 +441,7 @@ const Product = () => {
                             {
                                 data ? <tbody>
                                     {data.map(product => (
-                                        <tr key={product.id} onClick={() => handleItemClick(product)}>
+                                        <tr >
                                             <td>{product.id}</td>
                                             <td>{product.name}</td>
                                             <td>{product.price}</td>
