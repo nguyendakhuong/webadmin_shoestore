@@ -18,7 +18,6 @@ const UserReducer = (state, action) => {
       return { ...state, token: action.payload }
     case KEY_CONTEXT_USER.SET_ROLE:
       return { ...state, role: action.payload }
-
     case KEY_CONTEXT_USER.SET_LOADING:
       return { ...state, isLoading: action.payload }
     case KEY_CONTEXT_USER.SHOW_MODAL:

@@ -60,7 +60,6 @@ const Product = () => {
                 }
             }).then(data => {
                 setData(data.data)
-                console.log(data)
             }).catch(e => {
                 console.log(e)
             })
@@ -376,7 +375,6 @@ const Product = () => {
                         const data = await response.json();
                         if (data.status === 200) {
                             ToastApp.success('Xóa thành công');
-
                             setReloadData(true);
                         } else {
                             ToastApp.error('Lỗi: ' + data.message);
@@ -433,6 +431,7 @@ const Product = () => {
                                     <th>Ngày bắt đầu</th>
                                     <th>Ngày kết thúc</th>
                                     <th>Mô tả</th>
+                                    <th>Giới thiệu</th>
                                     <th>Số lượng</th>
                                     <th>Loại</th>
                                     <th>Hành động</th> { }
@@ -450,6 +449,7 @@ const Product = () => {
                                             <td>{product.timeSaleStart ? moment(product.timeSaleStart).format('DD/MM/YYYY') : "null"}</td>
                                             <td>{product.timeSaleEnd ? moment(product.timeSaleEnd).format('DD/MM/YYYY') : "null"}</td>
                                             <td>{product.description}</td>
+                                            <td>{product.introduce}</td>
                                             <td>{product.quantity}</td>
                                             <td>{product.category}</td>
                                             <td>
