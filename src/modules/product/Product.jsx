@@ -12,6 +12,8 @@ import { KEY_CONTEXT_USER } from '../../context/use.reducer';
 import { TYPE_MODEL } from '../components/modal';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
+import ModalProduct from '../components/modal/modalProduct/modalProduct'
+
 
 const Product = () => {
     const [userCtx, dispatch] = useContext(UserContext)
@@ -44,6 +46,9 @@ const Product = () => {
         timeSaleEnd: '',
     })
     const [data, setData] = useState(null)
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [selectedProduct, setSelectedProduct] = useState(null);
+
     const getProduct = async () => {
         const token = APP_LOCAL.getTokenStorage();
         const requestOptions = {
@@ -179,6 +184,7 @@ const Product = () => {
         }
         return (
             <div className='product-container'>
+
                 <table className="header-table">
                     <thead>
                         <tr>
@@ -401,6 +407,7 @@ const Product = () => {
                 </div>
             ) : (
                 <div className="product-container">
+                    <ModalProduct isOpen={isDialogOpen} onClose={() => setIsDialogOpen(false)} product={selectedProduct} />
                     <div className="header-table-container">
                         <table className="header-table">
                             <thead>
@@ -440,7 +447,8 @@ const Product = () => {
                             {
                                 data ? <tbody>
                                     {data.map(product => (
-                                        <tr >
+                                        <tr onClick={() => { setIsDialogOpen(true); setSelectedProduct(product); }}>
+
                                             <td>{product.id}</td>
                                             <td>{product.name}</td>
                                             <td>{product.price}</td>
