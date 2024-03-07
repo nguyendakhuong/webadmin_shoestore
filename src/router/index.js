@@ -9,6 +9,7 @@ import OrderManagement from '../modules/ordermanagement/Ordermanagement.jsx'
 import Statistical from '../modules/statistical/Statistical.jsx'
 import SignUp from '../modules/auth/SignUp.jsx'
 import UpdateProduct from '../modules/product/update-prodcut/UpdateProduct.jsx'
+import Discountcode from '../modules/discountcode/discountcode.jsx'
 
 const AppRoute = (isAuth, role) => {
   const route = [
@@ -51,6 +52,10 @@ const AppRoute = (isAuth, role) => {
             path: 'statistical',
             element: <Statistical />,
           },
+          {
+            path: 'discountcode',
+            element: <Discountcode />
+          }
         ],
       }
       : {
