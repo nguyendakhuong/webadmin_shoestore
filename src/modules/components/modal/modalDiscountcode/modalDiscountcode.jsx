@@ -1,15 +1,27 @@
 import React, { useState } from 'react';
 import './modalDiscountcode.scss';
+import ToastApp from '../../../../lib/notification/Toast';
+import APP_LOCAL from '../../../../lib/localStorage';
 
 const ModaladdDiscountcode = ({ isOpen, onClose }) => {
     const [formData, setFormData] = useState({
         name: '',
-        type: '',
+        type: '1',
         quantity: '',
         startDate: '',
         endDate: '',
         discount: ''
     });
+    const clearForm = () => {
+        setFormData({
+            name: '',
+            type: '',
+            quantity: '',
+            startDate: '',
+            endDate: '',
+            discount: ''
+        })
+    }
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -19,10 +31,41 @@ const ModaladdDiscountcode = ({ isOpen, onClose }) => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // logic
-        onClose();
+        const token = APP_LOCAL.getTokenStorage()
+        try {
+            const formDataToSend = new FormData()
+
+            formDataToSend.append('name', formData.name)
+            formDataToSend.append('type', formData.type)
+            formDataToSend.append('discount', formData.discount)
+            formDataToSend.append('startDate', formData.startDate)
+            formDataToSend.append('endDate', formData.endDate)
+            formDataToSend.append('quantity', formData.quantity)
+
+            const response = await fetch("http://localhost:3001/discount/createDiscount",
+                {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: formDataToSend,
+                });
+
+            const data = await response.json();
+            console.log("data =======================>", data)
+            if (data.status === 200) {
+                ToastApp.success('Thêm thành công');
+                clearForm();
+                onClose();
+
+            } else {
+                ToastApp.warning('Cảnh báo: ' + data.message);
+            }
+        } catch (e) {
+            ToastApp.error("Lỗi: " + e)
+        }
     };
 
     return (
@@ -32,7 +75,7 @@ const ModaladdDiscountcode = ({ isOpen, onClose }) => {
                     <div className="modal-content">
                         <button className="close-button" onClick={onClose}>X</button>
                         <h2>Thêm mã giảm giá</h2>
-                        <form onSubmit={handleSubmit}>
+                        <form>
                             <label>
                                 Tên mã:
                                 <input type="text" name="name" value={formData.name} onChange={handleChange} required />
@@ -55,30 +98,29 @@ const ModaladdDiscountcode = ({ isOpen, onClose }) => {
                                     <input
                                         type="radio"
                                         name="type"
-                                        value="%"
-                                        checked={formData.type === '%'}
+                                        value="1"
+                                        checked={true}
                                         onChange={handleChange}
                                     />
-                                    <span></span> %
+                                    <span></span> VNĐ
                                 </label>
                                 <label>
                                     <input
                                         type="radio"
                                         name="type"
-                                        value="VNĐ"
-                                        checked={formData.type === 'VNĐ'}
+                                        value="2"
                                         onChange={handleChange}
                                     />
-                                    <span></span> VNĐ
+                                    <span></span> %
                                 </label>
                             </div>
                             <label>
                                 Trị giá:
-                                <input type="text" name="discount" value={formData.discount} onChange={handleChange} required />
+                                <input type="number" name="discount" min={0} max={500000} value={formData.discount} onChange={handleChange} required />
                             </label>
 
                             <div className="modal-buttons">
-                                <button type="submit">Thêm mã giảm giá</button>
+                                <button onClick={handleSubmit} type="submit">Thêm mã giảm giá</button>
                                 <button className="exit-button" onClick={onClose}>Thoát</button>
                             </div>
                         </form>

@@ -343,15 +343,6 @@ const Product = () => {
         )
     }
 
-
-    // const handleItemClick = (product) => {
-    //     // navigate('/admin/update-product')
-    //     // console.log(product)
-    //     const productData = JSON.stringify(product);
-    //     const encodedProductData = encodeURIComponent(productData);
-    //     navigate('/admin/update-product?productData=' + encodedProductData);
-    // }
-
     const handleEdit = (product, e) => {
         e.stopPropagation();
         const productData = JSON.stringify(product);
