@@ -1,63 +1,67 @@
 .dialog-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .dialog {
-    background-color: #fff;
+  background-color: #fff;
 
-    border-radius: 8px;
+  border-radius: 8px;
 
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
-    max-width: 400px;
-    width: 100%;
-    overflow: hidden;
-
+  max-width: 400px;
+  width: 100%;
+  overflow: hidden;
 }
 
 .dialog h2 {
-    font-size: 20px;
-    margin-bottom: 20px;
+  font-size: 20px;
+  margin-bottom: 20px;
 }
 
 .dialog p {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .dialog p strong {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .dialog img {
-    margin-top: 10px;
-    max-width: 100%;
-    height: auto;
+  margin-top: 10px;
+  max-width: 100%;
+  height: auto;
 }
 
 .close-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #007bff;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
 
-    color: #fff;
+  color: #fff;
 
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .close-button:hover {
-    background-color: #0056b3;
-
+  background-color: #0056b3;
+}
+.comment-item {
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #f4f4f4;
+  border-radius: 5px;
 }
