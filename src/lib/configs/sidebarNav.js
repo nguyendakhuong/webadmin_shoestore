@@ -24,6 +24,12 @@ const sidebarNav = [
     icon: <i className="bx bx-cube"></i>,
     text: 'Thống kê - Doanh thu',
   },
+  {
+    link: '/admin/discountcode',
+    section: 'discountcode',
+    icon: <i className="bx bx-cube"></i>,
+    text: 'Quản lí mã giảm giá',
+  },
 ]
 
 const CONFIG_ADMIN = {

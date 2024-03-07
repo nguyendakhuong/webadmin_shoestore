@@ -1,21 +1,15 @@
 .header {
     background-color: #6d6d6d;
-
     color: #fff;
-
     padding: 1rem;
-
     display: flex;
     justify-content: space-between;
-
     align-items: center;
 }
 
 .logo img {
     width: 100px;
-
     height: auto;
-
 }
 
 .header-right {
@@ -24,8 +18,9 @@
 }
 
 .search-box {
+    display: flex;
+    /* Sử dụng flexbox để sắp xếp nội dung trong search-box */
     margin-right: 20px;
-
 }
 
 .search-box input[type="text"] {
@@ -33,15 +28,18 @@
     border: none;
     border-radius: 4px;
     margin-right: 10px;
+    height: 40px;
 }
 
 .search-box button {
+    margin-top: 4px;
     padding: 0.5rem 1rem;
     background-color: #fff;
     color: #333;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    height: 40px;
 }
 
 .icon-container {
@@ -56,20 +54,10 @@
     margin-right: 10px;
     cursor: pointer;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
-}
-
-.mail-icon i,
-.notification-icon i {
-    font-size: 1.2rem;
-    color: #fff;
-
 }
 
 .mail-icon-img,
 .notification-icon-img {
     width: 20px;
-
     height: auto;
-
 }

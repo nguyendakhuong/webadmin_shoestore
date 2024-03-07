@@ -415,10 +415,8 @@ const Product = () => {
                                     <th colSpan="10">
                                         <div className="purple-line"></div>
                                         <span>Danh sách sản phẩm </span>
-                                    </th>
-                                    <div className="button-container">
                                         <button className="product-button" onClick={handleCreate}>+ Thêm sản phẩm </button>
-                                    </div>
+                                    </th>
 
                                 </tr>
                             </thead>
