@@ -9,7 +9,9 @@
 
 .logo img {
     width: 100px;
+
     height: auto;
+    margin-left: 30px;
 }
 
 .header-right {
@@ -19,7 +21,7 @@
 
 .search-box {
     display: flex;
-    /* Sử dụng flexbox để sắp xếp nội dung trong search-box */
+
     margin-right: 20px;
 }
 

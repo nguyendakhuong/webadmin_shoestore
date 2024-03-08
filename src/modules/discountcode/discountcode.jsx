@@ -125,11 +125,12 @@ const Discountcode = () => {
 
                                     <td>{value.startDate ? moment(value.startDate).format('DD/MM/YYYY') : "null"}</td>
                                     <td>{value.endDate ? moment(value.endDate).format('DD/MM/YYYY') : "null"}</td>
-                                    <td>
+                                    <td className={value.endDate && value.startDate && moment(value.endDate).isAfter(value.startDate) ? 'active' : 'inactive'}>
                                         {value.endDate && value.startDate && moment(value.endDate).isAfter(value.startDate)
-                                            ? "Hoạt động"
-                                            : "Không hoạt động"}
+                                            ? <span className="active-text">Hoạt động</span>
+                                            : <span className="inactive-text">Không hoạt động</span>}
                                     </td>
+
                                     <td>
                                         <div onClick={() => handleDeleteItem(value)}>
                                             <img src={deleteIcon} alt="Delete" style={{ width: '20px' }} />

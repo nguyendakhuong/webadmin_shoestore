@@ -280,6 +280,7 @@ const SignUp = () => {
                                     <th>email</th>
                                     <th>verifyEmail</th>
                                     <th>role</th>
+                                    <th>Hành động</th>
                                     { }
                                 </tr>
                             </thead>
