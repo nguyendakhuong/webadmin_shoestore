@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './discountcode.scss';
 import deleteIcon from '../asset/image/delete.png';
 import ModaladdDiscountcode from '../components/modal/modalDiscountcode/modalDiscountcode'
 import APP_LOCAL from '../../lib/localStorage';
 import ToastApp from '../../lib/notification/Toast';
 import moment from 'moment';
+import UserContext from '../../context/use.context';
+import { KEY_CONTEXT_USER } from '../../context/use.reducer';
 
 const Discountcode = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [data, setData] = useState(null);
-    const [reload, setReload] = useState(false);
+    const [reload, setReloadData] = useState(false);
+    const [userCtx, dispatch] = useContext(UserContext)
     const handleOpenModal = () => {
         setIsModalOpen(true);
     };
@@ -36,14 +39,49 @@ const Discountcode = () => {
                 ToastApp.error('Lỗi: ' + data.message);
             }
         } catch (e) {
-
+            console.log("Lỗi: " + e)
         }
+    }
+
+    const handleDeleteItem = async (item) => {
+        dispatch({
+            type: KEY_CONTEXT_USER.SHOW_MODAL,
+            payload: {
+                typeModal: 'DELETE_ITEM',
+                dataModal: item.id,
+                contentModel: "Bạn có chắc chắn muốn xóa sản phẩm " + item.name + " không?",
+                onClickConfirmModel: async () => {
+                    const token = APP_LOCAL.getTokenStorage()
+                    console.log(item.id)
+                    try {
+                        const response = await fetch(`http://localhost:3001/discount/deleteDiscount/${item.id}`,
+                            {
+                                method: 'GET',
+                                headers: {
+                                    'Authorization': `Bearer ${token}`
+                                },
+
+                            });
+                        const data = await response.json();
+                        if (data.status === 200) {
+                            ToastApp.success('Xóa thành công');
+                            setReloadData(true);
+                        } else {
+                            ToastApp.error('Lỗi: ' + data.message);
+                        }
+
+                    } catch (e) {
+                        console.log("Lỗi xóa sản phẩm: ", e)
+                    }
+                },
+            },
+        })
     }
 
     useEffect(() => {
         getData();
-        setReload(false)
-    }, [reload])
+        setReloadData(false);
+    }, [isModalOpen, reload])
 
 
     return (
@@ -92,7 +130,11 @@ const Discountcode = () => {
                                             ? "Hoạt động"
                                             : "Không hoạt động"}
                                     </td>
-                                    <td><img src={deleteIcon} alt="Delete" style={{ width: '20px' }} /></td>
+                                    <td>
+                                        <div onClick={() => handleDeleteItem(value)}>
+                                            <img src={deleteIcon} alt="Delete" style={{ width: '20px' }} />
+                                        </div>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody> : <div>

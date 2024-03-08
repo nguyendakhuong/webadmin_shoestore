@@ -6,16 +6,15 @@ import APP_LOCAL from '../../../../lib/localStorage';
 const ModaladdDiscountcode = ({ isOpen, onClose }) => {
     const [formData, setFormData] = useState({
         name: '',
-        type: '1',
         quantity: '',
         startDate: '',
         endDate: '',
         discount: ''
     });
+    const [type, setType] = useState(1);
     const clearForm = () => {
         setFormData({
             name: '',
-            type: '',
             quantity: '',
             startDate: '',
             endDate: '',
@@ -30,41 +29,38 @@ const ModaladdDiscountcode = ({ isOpen, onClose }) => {
             [name]: value
         }));
     };
+    const handleChangeRadio = (e) => {
+        setType(parseInt(e.target.value));
+    }
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleSubmit = async () => {
         const token = APP_LOCAL.getTokenStorage()
         try {
-            const formDataToSend = new FormData()
+            const name = formData.name
+            const discount = +formData.discount
+            const startDate = formData.startDate
+            const endDate = formData.endDate
+            const quantity = +formData.quantity
 
-            formDataToSend.append('name', formData.name)
-            formDataToSend.append('type', formData.type)
-            formDataToSend.append('discount', formData.discount)
-            formDataToSend.append('startDate', formData.startDate)
-            formDataToSend.append('endDate', formData.endDate)
-            formDataToSend.append('quantity', formData.quantity)
-
-            const response = await fetch("http://localhost:3001/discount/createDiscount",
-                {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: formDataToSend,
-                });
+            const response = await fetch('http://localhost:3001/discount/createDiscount', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ name, type, discount, startDate, endDate, quantity })
+            });
 
             const data = await response.json();
-            console.log("data =======================>", data)
             if (data.status === 200) {
                 ToastApp.success('Thêm thành công');
                 clearForm();
                 onClose();
-
             } else {
                 ToastApp.warning('Cảnh báo: ' + data.message);
             }
-        } catch (e) {
-            ToastApp.error("Lỗi: " + e)
+        } catch (error) {
+            console.error('Đã xảy ra lỗi:', error);
         }
     };
 
@@ -75,7 +71,7 @@ const ModaladdDiscountcode = ({ isOpen, onClose }) => {
                     <div className="modal-content">
                         <button className="close-button" onClick={onClose}>X</button>
                         <h2>Thêm mã giảm giá</h2>
-                        <form>
+                        <form onSubmit={e => e.preventDefault()}>
                             <label>
                                 Tên mã:
                                 <input type="text" name="name" value={formData.name} onChange={handleChange} required />
@@ -98,9 +94,9 @@ const ModaladdDiscountcode = ({ isOpen, onClose }) => {
                                     <input
                                         type="radio"
                                         name="type"
-                                        value="1"
-                                        checked={true}
-                                        onChange={handleChange}
+                                        value={1}
+                                        checked={type === 1}
+                                        onChange={handleChangeRadio}
                                     />
                                     <span></span> VNĐ
                                 </label>
@@ -108,8 +104,9 @@ const ModaladdDiscountcode = ({ isOpen, onClose }) => {
                                     <input
                                         type="radio"
                                         name="type"
-                                        value="2"
-                                        onChange={handleChange}
+                                        value={2}
+                                        checked={type === 2}
+                                        onChange={handleChangeRadio}
                                     />
                                     <span></span> %
                                 </label>
