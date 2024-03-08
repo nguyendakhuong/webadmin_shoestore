@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './modalProduct.scss';
 import ToastApp from '../../../../lib/notification/Toast';
 import APP_LOCAL from '../../../../lib/localStorage';
@@ -7,6 +7,7 @@ import moment from 'moment';
 const ModalProduct = ({ product, onClose, isOpen }) => {
     const [data, setData] = useState(null);
     const [comment, setComment] = useState(null);
+    const dialogRef = useRef();
 
     useEffect(() => {
         if (isOpen) {
@@ -36,10 +37,16 @@ const ModalProduct = ({ product, onClose, isOpen }) => {
         }
     };
 
+    const handleClickOutside = (event) => {
+        if (dialogRef.current && !dialogRef.current.contains(event.target)) {
+            onClose();
+        }
+    };
+
     return (
         isOpen && (
-            <div className="dialog-overlay">
-                <div className="dialog">
+            <div className="dialog-overlay" onClick={handleClickOutside}>
+                <div className="dialog" ref={dialogRef}>
                     <h2>Thông tin chi tiết sản phẩm</h2>
                     {data ? (
                         <>
@@ -75,8 +82,8 @@ const ModalProduct = ({ product, onClose, isOpen }) => {
                             </div>
                         </>
                     ) : "Đang tải dữ liệu"}
+
                 </div>
-                <button className="close-button" onClick={onClose}>Đóng</button>
             </div>
         )
     );

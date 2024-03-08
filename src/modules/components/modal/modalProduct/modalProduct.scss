@@ -8,6 +8,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
 }
 
 .dialog {
@@ -21,6 +22,7 @@
   overflow-y: auto;
 
   position: relative;
+
 }
 
 .dialog h2 {
@@ -72,6 +74,7 @@
   margin-top: 675px;
   margin-right: 700px;
   transition: background-color 0.3s;
+
 }
 
 .close-button:hover {
