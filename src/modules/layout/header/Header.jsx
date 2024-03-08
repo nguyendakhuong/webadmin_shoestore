@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
-import './Header.scss'; // Đảm bảo import file CSS hoặc SCSS của bạn
-import mailIconImage from '../../asset/image/mail.png'; // Import hình ảnh icon mail
-import notificationIconImage from '../../asset/image/bell.png'; // Import hình ảnh icon thông báo
+import './Header.scss';
+import mailIconImage from '../../asset/image/mail.png';
+import notificationIconImage from '../../asset/image/bell.png';
+import logo from '../../asset/image/logo.png'
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../../../context/use.context';
 import { KEY_CONTEXT_USER } from '../../../context/use.reducer';
@@ -28,7 +29,7 @@ const Header = () => {
     return (
         <header className="header">
             <div className="logo" onClick={handlerAdmin}>
-                <img src="/path/to/logo.png" alt="Logo" />
+                <img src={logo} alt="Logo" />
             </div>
             <div className="header-right">
                 <div className="search-box">

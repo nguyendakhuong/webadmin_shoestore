@@ -1,14 +1,12 @@
+/* Button-admin.scss */
+
 .btn {
-  padding: 15px 30px;
-
-  border: none;
-  border-radius: 8px;
-
-  font-size: 18px;
-
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
   cursor: pointer;
-  transition: all 0.3s ease;
-
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .btnAuth {
@@ -16,14 +14,12 @@
   color: #fff;
 }
 
-.btn:hover {
-  background-color: #0056b3;
-  transform: scale(1.05);
-
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
-}
-
 .btnAuth:hover {
   background-color: #0056b3;
+}
+
+.btn.disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
 }

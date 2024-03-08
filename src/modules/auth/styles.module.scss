@@ -1,38 +1,52 @@
-// styles.module.scss
-
 .login {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  /* Đảm bảo màn hình login chiếm toàn bộ chiều cao của viewport */
-  background-color: #f0f0f0;
-  /* Màu nền cho màn hình login */
+  background-color: #817b7bc9;
 }
 
 .login_content {
-  width: 400px;
-  /* Định kích thước của phần nội dung login */
-  padding: 20px;
-  /* Khoảng cách từ viền nội dung đến các phần tử bên trong */
-  background-color: #fff;
-  /* Màu nền cho phần nội dung login */
+  display: flex;
+  width: 800px;
+
+  background-color: #ffffff;
   border-radius: 10px;
-  /* Bo tròn góc của phần nội dung */
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  /* Hiệu ứng bóng đổ */
+  height: 500px;
 }
 
-.login_content h2 {
+
+
+.login_image img {
+  width: 400px;
+  height: 500px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.login_form {
+  flex: 1;
+  padding: 0 20px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.login_form h2 {
   margin-bottom: 20px;
-  /* Khoảng cách từ tiêu đề đến các phần tử khác */
   font-size: 24px;
-  /* Kích thước của tiêu đề */
   color: #333;
-  /* Màu chữ */
 }
 
 .button {
   margin-top: 20px;
-  /* Khoảng cách từ nút đăng nhập đến các phần tử trên */
+  background-color: blue;
+  font-size: 20px;
+  text-align: center;
+  color: #ffffff;
+  padding: 5px;
+  height: 40px;
+  border-radius: 5px;
+
+
 }
