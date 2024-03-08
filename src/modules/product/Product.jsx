@@ -405,8 +405,14 @@ const Product = () => {
                                 <tr>
                                     <th colSpan="10">
                                         <div className="purple-line"></div>
-                                        <span>Danh sách sản phẩm </span>
-                                        <button className="product-button" onClick={handleCreate}>+ Thêm sản phẩm </button>
+                                        <span>Danh sách sản phẩm  </span>
+                                        <div className="search-box">
+                                            <input type="text" placeholder="Tìm kiếm..." />
+                                            <button type="button">Tìm kiếm</button>
+                                            <button type="product-button" onClick={handleCreate}>+ Thêm sản phẩm </button>
+                                        </div>
+
+
                                     </th>
 
                                 </tr>
