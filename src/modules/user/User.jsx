@@ -121,7 +121,6 @@ const User = () => {
 
                 return res.json()
             }).then(data => {
-                console.log(data)
                 if (data.status === 200) {
                     setData(data.data)
                 } else {

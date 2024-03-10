@@ -22,6 +22,9 @@ const Product = () => {
     const [showImage, setShowImage] = useState(null);
     const [isButtonDisabled, setIsButtonDisabled] = useState(true)
     const [category, setCategory] = useState('Giày');
+    const [searchData, setSearchData] = useState('');
+    const [dataSearch, setDataSearch] = useState(null);
+
     const [reloadData, setReloadData] = useState(false);
     const navigate = useNavigate();
     const [listError, setListError] = useState({
@@ -164,10 +167,10 @@ const Product = () => {
                         },
                         body: formDataToSend
                     }).then(res => {
-                        console.log("res==============>", res)
+
                         return res.json()
                     }).then(data => {
-                        console.log("data =========================>", data)
+
                         if (data.status === 200) {
                             ToastApp.success('Thành công')
                             setReloadData(true);
@@ -385,6 +388,33 @@ const Product = () => {
         })
     };
 
+    const handleInputSearch = (e) => {
+        const { name, value } = e.target
+        if (name === "search") {
+            setSearchData(value.trim())
+        }
+    }
+    const searchProduct = async () => {
+        try {
+            const response = await fetch(`http://localhost:3001/api/search`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ searchData })
+                });
+            const data = await response.json();
+            if (data.status === 200) {
+                setDataSearch(data.data)
+            } else {
+                ToastApp.error('Lỗi: ' + data.message);
+            }
+        } catch (e) {
+            console.log("Lỗi search:" + e)
+        }
+    }
+
     useEffect(() => {
         getProduct();
         setReloadData(false);
@@ -407,8 +437,12 @@ const Product = () => {
                                         <div className="purple-line"></div>
                                         <span>Danh sách sản phẩm  </span>
                                         <div className="search-box">
-                                            <input type="text" placeholder="Tìm kiếm..." />
-                                            <button type="button">Tìm kiếm</button>
+                                            <input type="text"
+                                                placeholder="Tìm kiếm..."
+                                                name='search'
+                                                value={searchData}
+                                                onChange={handleInputSearch} />
+                                            <button type="button" onClick={searchProduct}>Tìm kiếm</button>
                                             <button type="product-button" onClick={handleCreate}>+ Thêm sản phẩm </button>
                                         </div>
 
@@ -440,35 +474,109 @@ const Product = () => {
                                 </tr>
                             </thead>
                             {
-                                data ? <tbody>
-                                    {data.map(product => (
-                                        <tr onClick={() => { setIsDialogOpen(true); setSelectedProduct(product); }}>
-
-                                            <td>{product.id}</td>
-                                            <td>{product.name}</td>
-                                            <td>{product.price}</td>
-                                            <td><img src={product.imageProduct} alt={product.name} /></td>
-                                            <td>{product.priceSale ? product.priceSale : "null"}</td>
-                                            <td>{product.timeSaleStart ? moment(product.timeSaleStart).format('DD/MM/YYYY') : "null"}</td>
-                                            <td>{product.timeSaleEnd ? moment(product.timeSaleEnd).format('DD/MM/YYYY') : "null"}</td>
-                                            <td>{product.description}</td>
-                                            <td>{product.introduce}</td>
-                                            <td>{product.quantity}</td>
-                                            <td>{product.category}</td>
-                                            <td>
-                                                <button onClick={(e) => handleEdit(product, e)}>
-                                                    <img src={editIcon} alt="Edit" style={{ width: '20px' }} /> {/* Chỉnh sửa */}
-                                                </button>
-                                                <button onClick={(e) => handleDelete(product, e)}>
-                                                    <img src={deleteIcon} alt="Delete" style={{ width: '20px' }} /> {/* Xóa */}
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                                    : <div>
-                                        Chưa có dữ liệu
-                                    </div>
+                                dataSearch && dataSearch.length > 0 ? (
+                                    <tbody>
+                                        {dataSearch.map((product) => (
+                                            <tr
+                                                key={product.id}
+                                                onClick={() => {
+                                                    setIsDialogOpen(true);
+                                                    setSelectedProduct(product);
+                                                }}
+                                            >
+                                                <td>{product.id}</td>
+                                                <td>{product.name}</td>
+                                                <td>{product.price}</td>
+                                                <td>
+                                                    <img src={product.imageProduct} alt={product.name} />
+                                                </td>
+                                                <td>{product.priceSale ? product.priceSale : "null"}</td>
+                                                <td>
+                                                    {product.timeSaleStart
+                                                        ? moment(product.timeSaleStart).format("DD/MM/YYYY")
+                                                        : "null"}
+                                                </td>
+                                                <td>
+                                                    {product.timeSaleEnd
+                                                        ? moment(product.timeSaleEnd).format("DD/MM/YYYY")
+                                                        : "null"}
+                                                </td>
+                                                <td>{product.description}</td>
+                                                <td>{product.introduce}</td>
+                                                <td>{product.quantity}</td>
+                                                <td>{product.category}</td>
+                                                <td>
+                                                    <button
+                                                        onClick={(e) => handleEdit(product, e)}
+                                                    >
+                                                        <img src={editIcon} alt="Edit" style={{ width: "20px" }} />
+                                                        {/* Chỉnh sửa */}
+                                                    </button>
+                                                    <button
+                                                        onClick={(e) => handleDelete(product, e)}
+                                                    >
+                                                        <img src={deleteIcon} alt="Delete" style={{ width: "20px" }} />
+                                                        {/* Xóa */}
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                ) : (
+                                    <tbody>
+                                        {data && data.length > 0 ? (
+                                            data.map((product) => (
+                                                <tr
+                                                    key={product.id}
+                                                    onClick={() => {
+                                                        setIsDialogOpen(true);
+                                                        setSelectedProduct(product);
+                                                    }}
+                                                >
+                                                    <td>{product.id}</td>
+                                                    <td>{product.name}</td>
+                                                    <td>{product.price}</td>
+                                                    <td>
+                                                        <img src={product.imageProduct} alt={product.name} />
+                                                    </td>
+                                                    <td>{product.priceSale ? product.priceSale : "null"}</td>
+                                                    <td>
+                                                        {product.timeSaleStart
+                                                            ? moment(product.timeSaleStart).format("DD/MM/YYYY")
+                                                            : "null"}
+                                                    </td>
+                                                    <td>
+                                                        {product.timeSaleEnd
+                                                            ? moment(product.timeSaleEnd).format("DD/MM/YYYY")
+                                                            : "null"}
+                                                    </td>
+                                                    <td>{product.description}</td>
+                                                    <td>{product.introduce}</td>
+                                                    <td>{product.quantity}</td>
+                                                    <td>{product.category}</td>
+                                                    <td>
+                                                        <button
+                                                            onClick={(e) => handleEdit(product, e)}
+                                                        >
+                                                            <img src={editIcon} alt="Edit" style={{ width: "20px" }} />
+                                                            {/* Chỉnh sửa */}
+                                                        </button>
+                                                        <button
+                                                            onClick={(e) => handleDelete(product, e)}
+                                                        >
+                                                            <img src={deleteIcon} alt="Delete" style={{ width: "20px" }} />
+                                                            {/* Xóa */}
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            ))
+                                        ) : (
+                                            <tr>
+                                                <td colSpan="12">Chưa có dữ liệu</td>
+                                            </tr>
+                                        )}
+                                    </tbody>
+                                )
                             }
                         </table>
                     </div>

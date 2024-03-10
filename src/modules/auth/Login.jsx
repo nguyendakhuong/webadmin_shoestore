@@ -59,7 +59,6 @@ const Login = () => {
             }).then(res => {
                 return res.json();
             }).then(data => {
-                console.log("data.statusdata.statusdata.statusdata.statusdata.status", data.status)
                 if (data.status === 200) {
                     APP_LOCAL.setTokenStorage(data.data.token);
                     dispatch({

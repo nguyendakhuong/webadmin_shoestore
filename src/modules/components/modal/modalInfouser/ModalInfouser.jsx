@@ -5,9 +5,7 @@ import APP_LOCAL from '../../../../lib/localStorage';
 import moment from 'moment';
 
 const ModalInfoUser = ({ user, onClose }) => {
-
     const [data, setData] = useState(null);
-    console.log(data)
 
     const getInfoUser = async () => {
         const token = APP_LOCAL.getTokenStorage()

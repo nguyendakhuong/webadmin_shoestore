@@ -52,7 +52,7 @@ const Discountcode = () => {
                 contentModel: "Bạn có chắc chắn muốn xóa sản phẩm " + item.name + " không?",
                 onClickConfirmModel: async () => {
                     const token = APP_LOCAL.getTokenStorage()
-                    console.log(item.id)
+
                     try {
                         const response = await fetch(`http://localhost:3001/discount/deleteDiscount/${item.id}`,
                             {

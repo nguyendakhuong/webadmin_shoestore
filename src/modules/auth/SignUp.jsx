@@ -94,7 +94,6 @@ const SignUp = () => {
 
             } catch (e) {
                 ToastApp.error("Lỗi hệ thống: ", e)
-                console.log(e)
             }
         }
         return (
@@ -186,7 +185,6 @@ const SignUp = () => {
 
                 return res.json()
             }).then(data => {
-                console.log(data)
                 if (data.status === 200) {
                     setData(data.data)
                 } else {
