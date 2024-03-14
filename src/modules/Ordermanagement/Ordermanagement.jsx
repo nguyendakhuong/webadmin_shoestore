@@ -2,35 +2,28 @@ import React, { useState, useEffect } from 'react';
 import './ordermanagenment.scss';
 import APP_LOCAL from '../../lib/localStorage';
 import ToastApp from '../../lib/notification/Toast';
-import OrderDetail from '../components/modal/modalOder/modalOder'
+import OrderDetail from '../components/modal/modalOder/modalOder';
 
-
-const OrderManagenment = (order) => {
+const OrderManagenment = () => {
     const [confirmedOrderId, setConfirmedOrderId] = useState(null);
     const [reloadData, setReloadData] = useState(false);
     const [data, setData] = useState(null);
     const [selectedOrder, setSelectedOrder] = useState(null);
 
-    const handleConfirmOrder = () => {
+    const getOrderStatus = async (orderId) => {
         const token = APP_LOCAL.getTokenStorage();
-        if (!token) {
-            ToastApp.error('Không có token.');
-            return;
-        }
-
         const requestOptions = {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
         };
 
-        fetch(`http://localhost:3001/order/configOrder/${order.id}`, requestOptions)
-            .then(res => {
-                return res.json();
-            })
+        fetch(`http://localhost:3001/order/configOrder/${orderId}`, requestOptions)
+            .then(res => res.json())
             .then(data => {
                 if (data.status === 200) {
-                    setData(data.data);
+                    const orderStatus = data.status;
+                    console.log('Trạng thái của đơn hàng:', orderStatus);
                 } else {
                     ToastApp.error('Lỗi: ' + data.message);
                 }
@@ -42,12 +35,8 @@ const OrderManagenment = (order) => {
     };
 
 
-    const handleCancelOrder = (id) => {
+    const handleCancelOrder = () => {
         setConfirmedOrderId(null);
-    };
-
-    const handleRowClick = (order) => {
-        setSelectedOrder(order.id);
     };
 
     const getOrder = async () => {
@@ -58,32 +47,33 @@ const OrderManagenment = (order) => {
             },
         };
         fetch(`http://localhost:3001/order/getOrder`, requestOptions)
-            .then(res => {
-                return res.json();
-            }).then(data => {
+            .then(res => res.json())
+            .then(data => {
                 if (data.status === 200) {
                     setData(data.data);
                 } else {
                     ToastApp.error('Lỗi: ' + data.message);
                 }
-            }).catch(e => {
-                console.log(e);
             })
-    }
+            .catch(e => {
+                console.log(e);
+            });
+    };
 
     useEffect(() => {
         getOrder();
         setReloadData(false);
-
     }, [reloadData]);
+
+    const viewOrderDetail = (order) => {
+        setSelectedOrder(order.id);
+    };
 
     return (
         <div>
             {selectedOrder ? (
-
-                <OrderDetail order={selectedOrder} onClose={() => setSelectedOrder(null)} />
+                <OrderDetail orderId={selectedOrder} onClose={() => setSelectedOrder(null)} />
             ) : (
-
                 <div>
                     <table className="header-table">
                         <thead>
@@ -95,7 +85,6 @@ const OrderManagenment = (order) => {
                             </tr>
                         </thead>
                     </table>
-
                     <div className="discount-table-container">
                         <table className="discount-table">
                             <thead>
@@ -111,7 +100,7 @@ const OrderManagenment = (order) => {
                             </thead>
                             <tbody>
                                 {data ? data.map((order, index) => (
-                                    <tr key={order.id} onClick={() => handleRowClick(order)}>
+                                    <tr key={order.id}>
                                         <td>{order.id}</td>
                                         <td>{order.userId}</td>
                                         <td>{order.total}</td>
@@ -123,8 +112,9 @@ const OrderManagenment = (order) => {
                                                 <>Đã xác nhận</>
                                             ) : (
                                                 <>
-                                                    <button onClick={() => handleConfirmOrder(order.id)}>Xác nhận</button>
+                                                    <button onClick={() => getOrderStatus(order.id)}>Xác nhận</button>
                                                     <button onClick={() => handleCancelOrder(order.id)}>Hủy</button>
+                                                    <button onClick={() => viewOrderDetail(order)}>Xem chi tiết</button>
                                                 </>
                                             )}
                                         </td>

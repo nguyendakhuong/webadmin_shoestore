@@ -1,77 +1,58 @@
-import React, { useEffect, useState, useRef } from 'react';
+// modalOder.jsx
+import React, { useEffect, useState } from 'react';
 import './modalOder.scss';
 import ToastApp from '../../../../lib/notification/Toast';
 import APP_LOCAL from '../../../../lib/localStorage';
 import moment from 'moment';
 
-const ModalOder = ({ order, onClose, isOpen }) => {
-    const [data, setData] = useState(null);
-
-    const dialogRef = useRef();
+const ModalOder = ({ order, onClose }) => {
+    const [orderData, setOrderData] = useState(null);
 
     useEffect(() => {
-        if (isOpen) {
-            getOderInfo();
-        }
-    }, [isOpen]);
+        fetchOrderData();
+    }, []);
 
-    const getOderInfo = async () => {
+    const fetchOrderData = async () => {
         const token = APP_LOCAL.getTokenStorage();
+        const requestOptions = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        };
+
         try {
-            const response = await fetch(`http://localhost:3001/order/verifyOrder/${order.id}`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
+            const response = await fetch(`http://localhost:3001/order/verifyOrder/${order.id}`, requestOptions);
             const data = await response.json();
             if (data.status === 200) {
-                setData(data.data);
-
+                setOrderData(data.data);
             } else {
-                onClose();
-                ToastApp.warning(data.message);
+                ToastApp.error('Lỗi: ' + data.message);
             }
-        } catch (e) {
-            ToastApp.error("Lỗi: " + e);
-        }
-    };
-
-    const handleClickOutside = (event) => {
-        if (dialogRef.current && !dialogRef.current.contains(event.target)) {
-            onClose();
+        } catch (error) {
+            console.log(error);
+            ToastApp.error('Lỗi khi gửi yêu cầu');
         }
     };
 
     return (
-        isOpen && (
-            <div className="dialog-overlay" onClick={handleClickOutside}>
-                <div className="dialog" ref={dialogRef}>
-                    <h2>Thông tin chi đơn hàng</h2>
-                    {data ? (
-                        <>
-                            <div className="dialog-content">
+        <div className="modal-overlay" onClick={onClose}>
+            <div className="modal" onClick={(e) => e.stopPropagation()}>
+                <h2>Chi tiết đơn hàng</h2>
+                {orderData ? (
+                    <div className="modal-content">
+                        <p><strong>Mã đơn hàng:</strong> {orderData.id}</p>
+                        <p><strong>ID người dùng:</strong> {orderData.userId}</p>
+                        <p><strong>Tổng tiền:</strong> {orderData.total}</p>
+                        <p><strong>Số điện thoại:</strong> {orderData.phone}</p>
+                        <p><strong>Địa chỉ:</strong> {orderData.address}</p>
+                        <p><strong>Trạng thái:</strong> {orderData.status}</p>
 
-
-                                <div className="info-container">
-
-                                    <p><strong>Id:</strong> {data.id}</p>
-
-                                    <p><strong>Số lượng:</strong> {data.quantity}</p>
-                                    <p><strong>Deletedat:</strong> {data.deletedAt}</p>
-                                    <p><strong>createdAt:</strong> {data.createdAt}</p>
-                                    <p><strong>updatedAt:</strong> {data.updatedAt}</p>
-                                    <p><strong>Sản phẩm:</strong> {data.OrderId}</p>
-                                    <p><strong>Sản phẩm:</strong> {data.productId}</p>
-                                </div>
-                            </div>
-
-                        </>
-                    ) : "Đang tải dữ liệu"}
-
-                </div>
+                    </div>
+                ) : (
+                    <p>Đang tải dữ liệu...</p>
+                )}
             </div>
-        )
+        </div>
     );
 };
 

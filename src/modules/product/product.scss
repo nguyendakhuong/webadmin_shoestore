@@ -162,6 +162,7 @@ form {
 .item_name {
   width: 60%;
   margin-right: 10px;
+
 }
 
 .item_price {
@@ -296,8 +297,42 @@ h2 {
   color: red;
 }
 
-.product-container {
-  margin: 0 auto; // căn giữa theo chiều ngang
-  max-width: 1200px; // giới hạn chiều rộng tối đa của phần tử
+.form_add {
+  width: 1200px;
+  height: 600px;
+  background-color: #ffffff;
+}
 
+.back-button {
+  margin-left: 130px;
+  margin-top: 5px;
+}
+
+.input-container {
+  position: relative;
+
+}
+
+.input-container .error-text {
+  position: absolute;
+  bottom: -20px;
+
+  left: 0;
+  color: red;
+
+  font-size: 12px;
+
+}
+
+
+.input-container .error-text-pricesale {
+  display: block;
+  position: absolute;
+  top: -200px;
+  /* Điều chỉnh vị trí theo ý muốn của bạn */
+  left: 0;
+  color: red;
+  /* Màu của error text */
+  font-size: 12px;
+  /* Cỡ chữ của error text */
 }

@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #817b7bc9;
+  background-color: #d8d7d7c9;
 }
 
 .login_content {
@@ -16,6 +16,21 @@
   height: 500px;
 }
 
+.register {
+  width: 500px;
+  height: 500px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 300px;
+  border: 1px;
+}
+
+.register_content {
+  width: 400px;
+}
 
 
 .login_image img {
@@ -40,7 +55,7 @@
 
 .button {
   margin-top: 20px;
-  background-color: blue;
+  background-color: rgb(184, 184, 241);
   font-size: 20px;
   text-align: center;
   color: #ffffff;
@@ -49,4 +64,10 @@
   border-radius: 5px;
 
 
+}
+
+.form-container {
+  width: 400px;
+  margin: 0 auto;
+  margin-left: 400px;
 }
