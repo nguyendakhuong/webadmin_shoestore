@@ -89,32 +89,33 @@ const OrderManagenment = (order) => {
             },
         };
         fetch(`http://localhost:3001/order/getOrder`, requestOptions)
-            .then(res => {
-                return res.json();
-            }).then(data => {
+            .then(res => res.json())
+            .then(data => {
                 if (data.status === 200) {
                     setData(data.data);
                 } else {
                     ToastApp.error('Lỗi: ' + data.message);
                 }
-            }).catch(e => {
-                console.log(e);
             })
-    }
+            .catch(e => {
+                console.log(e);
+            });
+    };
 
     useEffect(() => {
         getOrder();
         setReloadData(false);
-
     }, [reloadData]);
+
+    const viewOrderDetail = (order) => {
+        setSelectedOrder(order.id);
+    };
 
     return (
         <div>
             {selectedOrder ? (
-
-                <OrderDetail order={selectedOrder} onClose={() => setSelectedOrder(null)} />
+                <OrderDetail orderId={selectedOrder} onClose={() => setSelectedOrder(null)} />
             ) : (
-
                 <div>
                     <table className="header-table">
                         <thead>
@@ -126,7 +127,6 @@ const OrderManagenment = (order) => {
                             </tr>
                         </thead>
                     </table>
-
                     <div className="discount-table-container">
                         <table className="discount-table">
                             <thead>

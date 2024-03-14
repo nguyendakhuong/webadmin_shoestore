@@ -98,28 +98,27 @@ const SignUp = () => {
         }
         return (
             <div>
-                <div className="header-table-container">
-                    <table className="header-table">
-                        <thead>
-                            <tr>
-                                <th colSpan="10">
-                                    <div className="purple-line"></div>
-                                    <span>Danh sách tài khoản admin</span>
-                                </th>
-                                <div className="button-container">
-                                    <button className="product-button" onClick={handleBackProduct}>+ Quay lại</button>
-                                </div>
 
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
+                <table className="header-table">
+                    <thead>
+                        <tr>
+                            <th colSpan="10">
+                                <div className="purple-line"></div>
+                                <span>Danh sách tài khoản admin</span>
+                                <button className="product-button" onClick={handleBackProduct}>+ Quay lại</button>
+                            </th>
 
-                <div className={styles.login}>
 
-                    <div className={styles.login_content}>
+                        </tr>
+                    </thead>
+                </table>
 
-                        <h2>Đăng nhập</h2>
+
+                <div className={styles.register}>
+
+                    <div className={styles.register_content}>
+
+                        <h2>Đăng ký tài khoản</h2>
                         <form onSubmit={e => e.preventDefault()}>
 
 
@@ -160,7 +159,7 @@ const SignUp = () => {
 
                             <div className={styles.button}>
                                 <ButtonWed
-                                    title={'Đăng nhập'}
+                                    title={'Đăng ký'}
                                     buttonAuth
                                     disabledBtn={isButtonDisabled}
                                     onClick={handleOnClick}
@@ -253,22 +252,21 @@ const SignUp = () => {
                 status ? (
                     <div>{signupAdmin()}</div>
                 ) : <div className="product-container">
-                    <div className="header-table-container">
-                        <table className="header-table">
-                            <thead>
-                                <tr>
-                                    <th colSpan="10">
-                                        <div className="purple-line"></div>
-                                        <span>Danh sách tài khoản admin</span>
-                                    </th>
-                                    <div className="button-container">
-                                        <button className="product-button" onClick={handleNavigateSignUp}>+ Tạo tài khoản</button>
-                                    </div>
 
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
+                    <table className="header-table">
+                        <thead>
+                            <tr>
+                                <th colSpan="10">
+                                    <div className="purple-line"></div>
+                                    <span>Danh sách tài khoản admin</span>
+                                    <button className="product-button" onClick={handleNavigateSignUp}>+ Tạo tài khoản</button>
+                                </th>
+
+
+                            </tr>
+                        </thead>
+                    </table>
+
                     <div className="product-table-container">
                         <table className="product-table">
                             <thead>

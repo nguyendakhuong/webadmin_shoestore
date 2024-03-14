@@ -69,7 +69,7 @@ const ModaladdDiscountcode = ({ isOpen, onClose }) => {
             {isOpen && (
                 <div className="modal-overlay">
                     <div className="modal-content">
-                        <button className="close-button" onClick={onClose}>X</button>
+
                         <h2>Thêm mã giảm giá</h2>
                         <form onSubmit={e => e.preventDefault()}>
                             <label>
