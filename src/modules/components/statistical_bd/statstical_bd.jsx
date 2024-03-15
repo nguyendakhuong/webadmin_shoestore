@@ -4,11 +4,11 @@ import { Chart, BarController, LinearScale, CategoryScale, BarElement } from 'ch
 
 const StatisticalChart = () => {
     React.useEffect(() => {
-        // Đảm bảo sử dụng adapter cho Node.js nếu bạn muốn render biểu đồ trên server-side
+
         Chart.register(BarController, LinearScale, CategoryScale, BarElement);
 
 
-        // Dữ liệu biểu đồ doanh thu (ví dụ)
+
         const data = {
             labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
             datasets: [
