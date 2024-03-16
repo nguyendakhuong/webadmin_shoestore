@@ -1,138 +1,126 @@
 .container-box {
-    display: flex;
-    flex-direction: row;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 10px;
+  display: flex;
+  flex-direction: row;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
 }
 
 .box {
-    flex: 1;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    background-color: rgb(255, 255, 255);
-    height: 100px;
-    margin-right: 20px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+  height: 100px;
+  margin-right: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
 }
 
 .box:hover {
-    transform: scale(1.05);
-
+  transform: scale(1.05);
 }
 
 .box:last-child {
-    margin-right: 0;
+  margin-right: 0;
 }
 
 .left {
-    width: 40%;
+  width: 40%;
 
-    height: 100px;
-
-
+  height: 100px;
 }
 
 .left img {
-    max-width: 50px;
+  max-width: 50px;
 
-    margin-left: 20px;
-    margin-top: 20px;
-
+  margin-left: 20px;
+  margin-top: 20px;
 }
 
 .right {
-    width: 60%;
-    display: flex;
-    margin-bottom: 50px;
-    padding-left: 10px;
-    font-size: 15px;
-
+  width: 60%;
+  display: flex;
+  margin-bottom: 50px;
+  padding-left: 10px;
+  font-size: 15px;
 }
 
-
-
 .left-container {
-    flex: 1;
-    background-color: rgb(117, 244, 247);
-
+  flex: 1;
+  background-color: rgb(117, 244, 247);
 }
 
 .left-container1 {
-    flex: 1;
-    background-color: rgb(236, 97, 89);
-
+  flex: 1;
+  background-color: rgb(236, 97, 89);
 }
 
 .left-container2 {
-    flex: 1;
-    background-color: rgb(73, 213, 42);
-
+  flex: 1;
+  background-color: rgb(73, 213, 42);
 }
 
 .left-container3 {
-    flex: 1;
-    background-color: rgb(227, 217, 78);
-
+  flex: 1;
+  background-color: rgb(227, 217, 78);
 }
 
 .container-statistical {
-    display: flex;
-    width: 100%;
-    height: 600px;
-    padding: 20px;
-    justify-content: space-between;
-
+  display: flex;
+  width: 100%;
+  height: 600px;
+  padding: 20px;
+  justify-content: space-between;
 }
 
 .container-colum {
-    position: relative;
-    width: 60%;
+  position: relative;
+  width: 60%;
 
-    background-color: rgba(220, 186, 186, 0.827);
-    margin-right: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-
+  background-color: rgba(220, 186, 186, 0.827);
+  margin-right: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 .container-colum text {
-    font-size: 20px;
-    text-align: center;
-    margin-left: 280px;
+  font-size: 20px;
+  text-align: center;
+  margin-left: 280px;
 }
 
 .container-circle {
-    width: 40%;
-    background-color: rgba(255, 255, 255, 0.827);
+  width: 40%;
+  background-color: rgba(255, 255, 255, 0.827);
 
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 .container-circle text {
-
-    font-size: 20px;
-    text-align: center;
-    margin-left: 120px;
+  font-size: 20px;
+  text-align: center;
+  margin-left: 120px;
 }
 
 .chart-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90%;
-    height: 90%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  height: 90%;
 }
 
-
 .chart {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .bestselling {
-    padding-left: 30px;
+  padding-left: 30px;
+}
+
+.data {
+  font-size: 3rem;
 }
