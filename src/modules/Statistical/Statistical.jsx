@@ -5,6 +5,7 @@ import imageUser from '../asset/image/group (1).png'
 import imageCart from '../asset/image/shopping-cart.png'
 import imageMoney from '../asset/image/save-money.png'
 import StatisticalChar from '../components/statistical_bd/statstical_bd'
+import BestSellingProducts from '../components/bestsellingproduct/bestsellingproduct'
 
 const Statistical = () => {
     return (
@@ -78,7 +79,7 @@ const Statistical = () => {
 
                 </div>
                 <div className='container-circle'>
-                    <text>Top sản phẩm bán chạy</text>
+                    <BestSellingProducts className="bestselling" />
                 </div>
             </div>
 

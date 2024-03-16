@@ -268,8 +268,9 @@ const UpdateProduct = () => {
                     }
 
                     <div>
-                        <div onClick={fileRemoveMain} className='remove'>
-                            <span>Xóa ảnh</span>
+
+                        <div>
+                            <button onClick={fileRemoveMain}>Xóa ảnh</button>
                         </div>
                     </div>
                 </div>

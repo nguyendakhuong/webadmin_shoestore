@@ -1,0 +1,103 @@
+.best-selling-container {
+    margin-top: 20px;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 20px;
+    padding: 10px;
+}
+
+.product-item-bestsell {
+    position: relative;
+
+    padding: 10px;
+    height: 70px;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+
+
+    &:hover {
+        transform: scale(1.1);
+    }
+
+    &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20%;
+        height: 100%;
+        z-index: -1;
+    }
+
+    &:nth-child(1):before {
+        background-color: rgba(234, 234, 75, 0.903);
+    }
+
+    &:nth-child(2):before {
+        background-color: rgba(93, 197, 232, 0.874);
+    }
+
+    &:nth-child(3):before {
+        background-color: rgba(165, 42, 42, 0.852);
+    }
+
+    &:nth-child(4):before,
+    &:nth-child(5):before {
+        background-color: rgba(192, 192, 192, 0.873);
+    }
+
+    &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 20%;
+
+        width: 80%;
+
+        height: 100%;
+        background-color: #baaaaa;
+
+        z-index: -2;
+
+    }
+}
+
+.date-filter {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    height: 50px;
+}
+
+.date-label {
+    margin-top: 7px;
+    font-size: 14px;
+    font-family: 'Times New Roman', Times, serif;
+    display: flex;
+    margin-left: 10px;
+}
+
+.date-input label {
+    margin-right: 10px;
+}
+
+.top-info {
+    display: flex;
+    flex-direction: row;
+}
+
+.top-number {
+    font-size: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 20%;
+    padding: 10px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.product-info_bestsell {
+    width: 80%;
+}
