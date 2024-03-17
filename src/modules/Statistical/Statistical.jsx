@@ -15,7 +15,6 @@ const Statistical = () => {
         product: 0,
         revenue: 0,
     })
-    const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -63,16 +62,10 @@ const Statistical = () => {
             } catch (e) {
                 console.log(e);
             }
-
-
-            setIsLoading(false)
         };
 
         fetchData();
     }, []);
-    if (isLoading) {
-        return <div>...</div>;
-    }
     return (
         <div>
             <table className="header-table">
