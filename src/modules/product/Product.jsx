@@ -185,6 +185,8 @@ const Product = () => {
                 console.log(e)
             }
         }
+        console.log(imageProduct);
+
         return (
             <div className='form_add'>
 
@@ -427,6 +429,8 @@ const Product = () => {
         setReloadData(false);
     }, [reloadData]);
 
+
+
     return (
         <div className="product-container">
             {navigateCreate ? (
@@ -477,6 +481,7 @@ const Product = () => {
                                     <th>Giới thiệu</th>
                                     <th>Số lượng</th>
                                     <th>Loại</th>
+                                    <th>Trạng thái</th>{ }
                                     <th>Hành động</th> { }
                                 </tr>
                             </thead>
@@ -512,6 +517,8 @@ const Product = () => {
                                                 <td>{product.introduce}</td>
                                                 <td>{product.quantity}</td>
                                                 <td>{product.category}</td>
+                                                <td> <button>{product.status === 1 ? 'Dừng hoạt động' : 'Bật hoạt động'}</button></td>
+
                                                 <td>
                                                     <button
                                                         onClick={(e) => handleEdit(product, e)}
@@ -561,6 +568,8 @@ const Product = () => {
                                                     <td>{product.introduce}</td>
                                                     <td>{product.quantity}</td>
                                                     <td>{product.category}</td>
+                                                    <td> <button>{product.status === 1 ? 'Dừng hoạt động' : 'Bật hoạt động'}</button></td>
+
                                                     <td>
                                                         <button
                                                             onClick={(e) => handleEdit(product, e)}

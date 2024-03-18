@@ -1,0 +1,70 @@
+.grid-container_info {
+    margin-top: 20px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.grid-item_info {
+    width: calc(25% - 20px);
+    height: 400px;
+    background-color: #f0f0f0;
+    justify-content: center;
+    text-align: center;
+    font-size: 18px;
+
+}
+
+.grid-item_info-colum {
+
+
+    height: 20%;
+    background-color: rgb(117, 244, 247);
+}
+
+.grid-item_info-colum1 {
+
+    height: 20%;
+    background-color: rgb(236, 97, 89);
+}
+
+.grid-item_info-colum2 {
+    height: 20%;
+    background-color: rgb(73, 213, 42);
+}
+
+.grid-item_info-colum3 {
+    height: 20%;
+    background-color: rgb(227, 217, 78);
+}
+
+.grid-item_info .content {
+    height: 80%;
+    background-color: rgb(203, 203, 203);
+}
+
+.modal-content_info {
+    width: 1400px;
+    height: 600px;
+    background-color: rgba(78, 78, 78, 0.773);
+    border-radius: 10px;
+}
+
+.modal-content_info h2 {
+    font-size: 20px;
+    color: #f0f0f0;
+}
+
+.time-selector {
+    display: flex;
+    padding: 20px;
+    align-items: center;
+}
+
+.time-selector input[type="date"] {
+    margin-right: 10px;
+}
+
+.time-selector button {
+    margin-left: 10px;
+}
