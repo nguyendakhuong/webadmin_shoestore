@@ -14,7 +14,6 @@
   margin-top: 15px;
   margin-left: 20px;
   font-size: 13px;
-
 }
 
 // .header-table th {
@@ -40,13 +39,11 @@
   top: 0;
 
   left: 0;
-
 }
 
 .product-table-container {
   overflow-x: auto;
   padding: 20px;
-
 }
 
 .product-table {
@@ -55,7 +52,6 @@
   border: 1px solid #ddd;
 
   border-radius: 0 0 80px 8px;
-
 }
 
 .product-table th,
@@ -95,7 +91,6 @@
   margin-top: 5px;
   margin-left: 10px;
   margin-bottom: 10px;
-
 }
 
 .search-box {
@@ -105,8 +100,7 @@
   margin-left: 200px;
 }
 
-
-.search-box input[type="text"] {
+.search-box input[type='text'] {
   padding: 0.5rem;
   border: none;
   border-radius: 4px;
@@ -127,9 +121,7 @@
   width: 100px;
 }
 
-
-
-.search-box button[type="product-button"] {
+.search-box button[type='product-button'] {
   border-radius: 5px;
   background-color: #e898f8;
   width: 200px;
@@ -147,192 +139,4 @@
 .headerCreateProduct {
   display: flex;
   align-items: center;
-}
-
-form {
-  padding: 10px 0;
-  height: 100%;
-  width: 100%;
-}
-
-.item-flex {
-  display: flex;
-}
-
-.item_name {
-  width: 60%;
-  margin-right: 10px;
-
-}
-
-.item_price {
-  width: 20%;
-  margin-right: 10px;
-}
-
-.item_amount {
-  width: 20%;
-  margin-right: 10px;
-}
-
-.item-category {
-  width: 70%;
-}
-
-.select {
-  display: flex;
-  flex-direction: column;
-  margin-left: 10px;
-  width: 30%;
-}
-
-select {
-  margin: 10px 0;
-  width: 100%;
-  height: 4rem;
-  border-radius: 10px;
-}
-
-label {
-  color: #888888;
-  font-size: 1.3rem;
-}
-
-.item {
-  width: 33.3%;
-  margin-right: 10px;
-}
-
-textarea {
-  min-width: 116.5rem;
-  min-height: 12rem;
-  max-width: 60rem;
-  max-height: 20rem;
-}
-
-.textarea {
-  border-radius: 10px;
-  margin-right: 20px;
-}
-
-h2 {
-  display: flex;
-  flex-direction: row;
-  text-align: start;
-}
-
-.file_card {
-  margin-top: 10px;
-  width: 20rem;
-
-  span {
-    color: red;
-  }
-
-  img {
-    object-fit: cover;
-  }
-}
-
-.file_inputs {
-  position: relative;
-  margin-bottom: 1.5em;
-
-  input {
-    position: relative;
-    text-align: right;
-    opacity: 0;
-    z-index: 2;
-    cursor: pointer;
-    height: 46px;
-    max-width: 20rem;
-  }
-
-  button {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    background-color: #c89595;
-    font-size: 1.4rem;
-    cursor: pointer;
-    border-radius: 10px;
-    border: none;
-  }
-
-  &:hover {
-    button {
-      background-color: #d5adad;
-    }
-  }
-}
-
-.remove {
-  height: 3rem;
-  line-height: 3rem;
-  text-align: center;
-  font-size: 1.6rem;
-  background-color: #f0e5e5;
-  border: 1px solid black;
-  border-radius: 5px;
-}
-
-.remove span {
-  margin-top: 620px;
-  margin-left: 340px;
-}
-
-.remove:hover {
-  opacity: 0.7;
-  cursor: pointer;
-}
-
-.textarea_error {
-  color: red;
-}
-
-.form_add {
-  width: 1200px;
-  height: 600px;
-  background-color: #ffffff;
-}
-
-.back-button {
-  margin-left: 130px;
-  margin-top: 5px;
-}
-
-.input-container {
-  position: relative;
-
-}
-
-.input-container .error-text {
-  position: absolute;
-  bottom: -20px;
-
-  left: 0;
-  color: red;
-
-  font-size: 12px;
-
-}
-
-
-.input-container .error-text-pricesale {
-  display: block;
-  position: absolute;
-  top: -200px;
-  /* Điều chỉnh vị trí theo ý muốn của bạn */
-  left: 0;
-  color: red;
-  /* Màu của error text */
-  font-size: 12px;
-  /* Cỡ chữ của error text */
 }

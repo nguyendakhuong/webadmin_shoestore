@@ -65,6 +65,7 @@ const ModalProduct = ({ product, onClose, isOpen }) => {
                                     <p><strong>Giá giảm giá:</strong> {data.priceSale ? data.priceSale : "Null"}</p>
                                     <p><strong>Thời gian bắt đầu giảm giá:</strong> {data.timeSaleStart ? moment(data.timeSaleStart).format('DD/MM/YYYY') : "Null"}</p>
                                     <p><strong>Thời gian kết thúc giảm giá:</strong> {data.timeSaleEnd ? moment(data.timeSaleEnd).format('DD/MM/YYYY') : "Null"}</p>
+                                    <p><strong>Trạng thái: </strong> {data.status === 1 ? "Đang hoạt động" : "Không hoạt động"}</p>
                                     <p><strong>Loại:</strong> {data.category}</p>
                                 </div>
                             </div>

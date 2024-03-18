@@ -43,9 +43,6 @@ const BestSellingProducts = () => {
 
         fetchData();
     }, [startDate, endDate]);
-    console.log(data)
-
-
     const handleStartDateChange = (event) => {
         setStartDate(event.target.value);
     };
