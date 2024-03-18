@@ -1,12 +1,13 @@
+import React, { useEffect, useState } from 'react';
+import './Statistical.scss';
+import imageProduct from '../asset/image/product.png';
+import imageUser from '../asset/image/group (1).png';
+import imageCart from '../asset/image/shopping-cart.png';
+import imageMoney from '../asset/image/save-money.png';
+import StatisticalChar from '../components/statistical_bd/statstical_bd';
+import BestSellingProducts from '../components/bestsellingproduct/bestsellingproduct';
+import StatisticalInfo from '../components/statistical_info/statistical_info';
 
-import './Statistical.scss'
-import imageProduct from '../asset/image/product.png'
-import imageUser from '../asset/image/group (1).png'
-import imageCart from '../asset/image/shopping-cart.png'
-import imageMoney from '../asset/image/save-money.png'
-import StatisticalChar from '../components/statistical_bd/Statstical_bd'
-import BestSellingProducts from '../components/bestsellingproduct/bestsellingproduct'
-import { useEffect, useState } from 'react'
 
 const Statistical = () => {
     const [data, setData] = useState({
@@ -14,7 +15,9 @@ const Statistical = () => {
         account: 0,
         product: 0,
         revenue: 0,
-    })
+    });
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -28,6 +31,7 @@ const Statistical = () => {
             } catch (e) {
                 console.log(e);
             }
+
             try {
                 const responseAccount = await fetch(`http://localhost:3001/getAccountCount`, {
                     method: "GET",
@@ -41,16 +45,17 @@ const Statistical = () => {
             }
 
             try {
-                const responseAccount = await fetch(`http://localhost:3001/getProductCount`, {
+                const responseProduct = await fetch(`http://localhost:3001/getProductCount`, {
                     method: "GET",
                 });
-                const productData = await responseAccount.json();
+                const productData = await responseProduct.json();
                 if (productData.status === 200) {
                     setData((prevData) => ({ ...prevData, product: productData.data }));
                 }
             } catch (e) {
                 console.log(e);
             }
+
             try {
                 const responseRevenue = await fetch(`http://localhost:3001/getRevenue`, {
                     method: "GET",
@@ -66,6 +71,21 @@ const Statistical = () => {
 
         fetchData();
     }, []);
+
+    const handleOpenDialog = () => {
+        setIsDialogOpen(true);
+    };
+
+    const handleCloseDialog = () => {
+        setIsDialogOpen(false);
+    };
+
+    const handleOverlayClick = (event) => {
+        if (event.target === event.currentTarget) {
+            handleCloseDialog();
+        }
+    };
+
     return (
         <div>
             <table className="header-table">
@@ -78,6 +98,9 @@ const Statistical = () => {
                     </tr>
                 </thead>
             </table>
+            <div>
+                <button onClick={handleOpenDialog}>Chi tiết thống kê</button>
+            </div>
             <div className="container-box">
                 <div className="box">
                     <div className="left-container">
@@ -138,21 +161,24 @@ const Statistical = () => {
 
             <div className='container-statistical'>
                 <div className='container-colum'>
-
                     <div className="chart-container">
                         <StatisticalChar className="chart" />
                     </div>
-
                 </div>
                 <div className='container-circle'>
                     <BestSellingProducts className="bestselling" />
                 </div>
             </div>
 
-
-
+            {isDialogOpen && (
+                <div className="modal-overlay" onClick={handleOverlayClick}>
+                    <StatisticalInfo onClose={handleCloseDialog}>
+                        <StatisticalInfo data={data} />
+                    </StatisticalInfo>
+                </div>
+            )}
         </div>
+    );
+};
 
-    )
-}
-export default Statistical
+export default Statistical;
