@@ -145,6 +145,8 @@ const CreateProduct = () => {
         }
     }
     const handleBack = () => {
+        navigate(-1);
+
 
     }
     return (

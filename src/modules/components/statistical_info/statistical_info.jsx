@@ -1,8 +1,66 @@
-// statistical_info.jsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './statistical_info.scss';
 
-const StatisticalInfo = ({ onClose, data }) => {
+const StatisticalInfo = () => {
+    const [data, setData] = useState({
+        order: 0,
+        account: 0,
+        product: 0,
+        revenue: 0,
+    });
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const responseOrder = await fetch(`http://localhost:3001/getOrderCount`, {
+                    method: "GET",
+                });
+                const orderData = await responseOrder.json();
+                if (orderData.status === 200) {
+                    setData((prevData) => ({ ...prevData, order: orderData.data }));
+                }
+            } catch (e) {
+                console.log(e);
+            }
+
+            try {
+                const responseAccount = await fetch(`http://localhost:3001/getAccountCount`, {
+                    method: "GET",
+                });
+                const accountData = await responseAccount.json();
+                if (accountData.status === 200) {
+                    setData((prevData) => ({ ...prevData, account: accountData.data }));
+                }
+            } catch (e) {
+                console.log(e);
+            }
+
+            try {
+                const responseProduct = await fetch(`http://localhost:3001/getProductCount`, {
+                    method: "GET",
+                });
+                const productData = await responseProduct.json();
+                if (productData.status === 200) {
+                    setData((prevData) => ({ ...prevData, product: productData.data }));
+                }
+            } catch (e) {
+                console.log(e);
+            }
+
+            try {
+                const responseRevenue = await fetch(`http://localhost:3001/getRevenue`, {
+                    method: "GET",
+                });
+                const revenueData = await responseRevenue.json();
+                if (revenueData.status === 200) {
+                    setData((prevData) => ({ ...prevData, revenue: revenueData.data }));
+                }
+            } catch (e) {
+                console.log(e);
+            }
+        };
+
+        fetchData();
+    }, []);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
 
@@ -33,25 +91,26 @@ const StatisticalInfo = ({ onClose, data }) => {
                     <div className="grid-item_info">
                         <div className='grid-item_info-colum'>Tổng số đơn hàng</div>
                         <div className="content">
-
+                            {data.order}
                         </div>
                     </div>
                     <div className="grid-item_info">
                         <div className='grid-item_info-colum1'>Số lượng tài khoản</div>
                         <div className="content">
-
+                            {data.account}
                         </div>
                     </div>
                     <div className="grid-item_info">
                         <div className='grid-item_info-colum2'>Số lượng sản phẩm</div>
                         <div className="content">
+                            {data.product}
 
                         </div>
                     </div>
                     <div className="grid-item_info">
                         <div className='grid-item_info-colum3'>Doanh thu </div>
                         <div className="content">
-
+                            {data.revenue}
                         </div>
                     </div>
                 </div>
