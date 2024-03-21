@@ -7,6 +7,7 @@ import imageMoney from '../asset/image/save-money.png';
 import StatisticalChar from '../components/statistical_bd/statstical_bd';
 import BestSellingProducts from '../components/bestsellingproduct/bestsellingproduct';
 import StatisticalInfo from '../components/statistical_info/statistical_info';
+import PotentialCustomers from '../components/potentialCustomers/potentialCustomers';
 
 
 const Statistical = () => {
@@ -167,8 +168,11 @@ const Statistical = () => {
                 </div>
                 <div className='container-circle'>
                     <BestSellingProducts className="bestselling" />
+
+
                 </div>
             </div>
+            <div className='potentialCustomers'><PotentialCustomers /></div>
 
             {isDialogOpen && (
                 <div className="modal-overlay" onClick={handleOverlayClick}>

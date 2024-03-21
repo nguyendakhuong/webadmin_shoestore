@@ -1,0 +1,56 @@
+.potential-customers-container {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #86d0f5;
+}
+
+.heading {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.customer-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 20px;
+}
+
+.customer-item {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+}
+
+.customer-rank {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.customer-details {
+    margin-top: 10px;
+}
+
+.customer-name {
+    font-size: 16px;
+    color: #333;
+}
+
+.customer-email {
+    margin-top: 5px;
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.loading-message {
+    font-size: 1.2rem;
+    color: #777;
+    text-align: center;
+    margin-top: 20px;
+}
