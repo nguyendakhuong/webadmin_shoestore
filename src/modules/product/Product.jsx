@@ -168,7 +168,7 @@ const Product = () => {
                 <td>{product.quantity}</td>
                 <td>{product.category}</td>
                 <td>
-                    <button onClick={(e) => handleClickStatus(e, product.id)}>{product.status === 1 ? "Dừng hoạt động" : "Bật hoạt động"}</button>
+                    <button onClick={(e) => handleClickStatus(e, product.id)}>{product.status === 1 ? "Đang hoạt động" : "Không hoạt động"}</button>
                 </td>
                 <td>
                     <button onClick={(e) => handleEdit(product, e)}>

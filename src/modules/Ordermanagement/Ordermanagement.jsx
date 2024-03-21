@@ -158,7 +158,7 @@ const OrderManagenment = (order) => {
                                             )}
                                         </td>
                                         <td>
-                                            <button onClick={(e) => handleCancelOrder(order.id, e)}>Xác nhận hủy</button>
+                                            <button onClick={(e) => handleCancelOrder(order.id, e)}>Hủy đơn hàng</button>
                                         </td>
                                     </tr>
                                 )) : "Đang tải dữ liệu"}
