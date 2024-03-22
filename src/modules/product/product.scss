@@ -43,10 +43,14 @@
 
 .product-table-container {
   overflow-x: auto;
+  overflow-y: auto;
   padding: 20px;
 }
 
+
+
 .product-table {
+
   width: 100%;
   border-collapse: collapse;
   border: 1px solid #ddd;
