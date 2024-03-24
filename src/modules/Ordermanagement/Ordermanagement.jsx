@@ -16,7 +16,7 @@ const OrderManagenment = (order) => {
         createOrder: "Đang chờ xác nhận",
         delivering: "Đang giao hàng",
         configOrder: "Đã nhận hàng",
-        cancelOrder: "Đang chờ hủy đơn hàng",
+        cancelOrder: "Đơn hàng đã bị hủy",
     };
     const handleConfirmOrder = async (id, e) => {
         const token = APP_LOCAL.getTokenStorage();
@@ -75,12 +75,6 @@ const OrderManagenment = (order) => {
         })
 
     };
-
-    // const handleRowClick = (order) => {
-    //     setSelectedOrder(order.id);
-    // };
-    console.log(data)
-
     const getOrder = async () => {
         const token = APP_LOCAL.getTokenStorage();
         const requestOptions = {
@@ -108,13 +102,13 @@ const OrderManagenment = (order) => {
     }, [reloadData]);
 
     const viewOrderDetail = (order) => {
-        setSelectedOrder(order.id);
+        setSelectedOrder(order);
     };
 
     return (
         <div>
             {selectedOrder ? (
-                <OrderDetail orderId={selectedOrder} onClose={() => setSelectedOrder(null)} />
+                <OrderDetail order={selectedOrder} onClose={() => setSelectedOrder(null)} />
             ) : (
                 <div>
                     <table className="header-table">
@@ -143,7 +137,7 @@ const OrderManagenment = (order) => {
                             </thead>
                             <tbody>
                                 {data ? data.map((order, index) => (
-                                    <tr key={order.id}>
+                                    <tr key={order.id} onClick={() => viewOrderDetail(order)}>
                                         <td>{order.id}</td>
                                         <td>{order.userId}</td>
                                         <td>{order.total}</td>
