@@ -1,4 +1,4 @@
-.dialog-overlay {
+.modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -8,104 +8,95 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
-.dialog {
-    background-color: #fff;
-    border-radius: 10px;
+.modal {
+    background-color: #ffffff;
+    border-radius: 8px;
     padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    max-width: 800px;
-    max-height: 600px;
+    width: 1000px;
+    height: 500px;
+}
+
+.left-content {
+    flex: 1.2;
+    padding: 20px;
+    flex-direction: row;
+    max-height: 400px;
     overflow-y: auto;
 
-    position: relative;
-
 }
 
-.dialog h2 {
-    text-align: center;
-
-    margin-bottom: 10px;
+.right-content {
+    flex: 0.8;
+    font-size: 18px;
+    padding-top: 20px;
 }
 
-.dialog-content {
+.modal1-content {
     display: flex;
+    flex-wrap: wrap;
 }
 
-.image-container {
-    width: 50%;
-    margin-right: 20px;
-    height: 50%;
+.modal1-content>div {
+    margin-bottom: 20px;
+}
+
+.modal1-content img {
+    max-width: 100px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.item-container {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+.item-container img {
+    width: 100%;
+    height: auto;
+    margin-right: 10px;
+}
+
+.order-info {
+    margin: 10px 0;
+
+}
+
+.order-info1 {
+    margin-left: 750px;
+    font-size: 18px;
     margin-top: 10px;
 }
 
-.info-container {
-    width: 50%;
-    max-width: 340px;
-    word-wrap: break-word;
+.order-info strong {
+    font-weight: bold;
 }
 
-.info-container p {
-    border-bottom: 1px solid #ddd;
-
-    padding-bottom: 5px;
-    padding-top: 15px;
-}
-
-
-.product-image {
-    max-width: 100%;
-    height: auto;
-}
-
-.close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: #007bff;
-    color: #fff;
+.order-divider {
     border: none;
-    border-radius: 10px;
-    padding: 10px;
-    cursor: pointer;
-    margin-top: 675px;
-    margin-right: 700px;
-    transition: background-color 0.3s;
-
-}
-
-.close-button:hover {
-    background-color: #0056b3;
-}
-
-.comments {
+    border-top: 1px solid #ccc;
     margin-top: 20px;
 }
 
-.comments h2 {
-    margin-right: 500px;
+.modal {
+    position: relative;
+    /* Đảm bảo modal là relative để footer có thể làm việc trong phạm vi của nó */
 }
 
-.comment-list {
-    max-height: 200px;
-    overflow-y: auto;
-
-}
-
-
-
-.comment-item {
-    margin-bottom: 10px;
+.footer {
+    border-radius: 0 0 8px 8px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #d56a30;
+    /* Màu nền của footer */
     padding: 10px;
-    background-color: #f4f4f4;
-    border-radius: 5px;
-}
-
-.button-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+    /* Khoảng cách giữa nội dung và biên của footer */
 }
