@@ -9,8 +9,9 @@ const ModalOder = ({ order, onClose }) => {
         delivering: "Đang giao hàng",
         configOrder: "Đã nhận hàng",
         cancelOrder: "Đơn hàng đã bị hủy",
+        PaidCreateOrder: "Đơn hàng đã thanh toán và chờ xác nhận",
+        paidDelivering: "Đơn hàng đã thanh toán và đang giao hàng"
     };
-
     const fetchOrderData = async () => {
         try {
             const productIds = order.OrdersProducts.map(item => item.productId);
