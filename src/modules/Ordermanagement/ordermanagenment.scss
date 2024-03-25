@@ -1,8 +1,7 @@
-.discount-table-container {
-    width: calc(100% - 40px);
+.order-table-container {
 
-    margin-left: 20px;
-    margin-right: 20px;
+    padding: 20px;
+
 }
 
 .header-table {
@@ -59,12 +58,7 @@
 }
 
 
-.discount-table-container {
-    max-height: 300px;
 
-    // overflow-y: auto;
-
-}
 
 .discount-button {
     width: 150px;

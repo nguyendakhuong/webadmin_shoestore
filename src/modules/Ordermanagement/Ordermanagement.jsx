@@ -123,7 +123,7 @@ const OrderManagenment = (order) => {
                             </tr>
                         </thead>
                     </table>
-                    <div className="discount-table-container">
+                    <div className="order-table-container">
                         <table className="discount-table">
                             <thead>
                                 <tr>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './modalOder.scss';
 import ToastApp from '../../../../lib/notification/Toast';
+
 const ModalOder = ({ order, onClose }) => {
     const [data, setData] = useState([]);
     const statusLabels = {
@@ -9,6 +10,7 @@ const ModalOder = ({ order, onClose }) => {
         configOrder: "Đã nhận hàng",
         cancelOrder: "Đơn hàng đã bị hủy",
     };
+
     const fetchOrderData = async () => {
         try {
             const productIds = order.OrdersProducts.map(item => item.productId);
@@ -42,30 +44,37 @@ const ModalOder = ({ order, onClose }) => {
         fetchOrderData();
     }, []);
 
-
     return (
         <div className="modal-overlay" onClick={onClose}>
             <div className="modal" onClick={(e) => e.stopPropagation()}>
                 <h2>Chi tiết đơn hàng</h2>
                 {data ? (
-                    <div className="modal-content">
-                        <p><strong>Mã đơn hàng:</strong> {order.id}</p>
-                        <p><strong>ID người dùng:</strong> {order.userId}</p>
-                        <p><strong>Tổng tiền:</strong> {order.total}</p>
-                        <p><strong>Số điện thoại:</strong> {order.phone}</p>
-                        <p><strong>Địa chỉ:</strong> {order.address}</p>
-                        <p><strong>Trạng thái:</strong> {statusLabels[order.status]}</p>
-
-                        <div>
-                            {data.map((item, index) => (
-                                <div key={index}>
-                                    <p><strong>Tên sản phẩm :</strong> {item.name}</p>
-                                    <p><strong>Số lượng đơn hàng:</strong> {item.quantity} </p>
-                                    <p><img src={item.image} alt='' /></p>
-                                </div>
-                            ))}
+                    <>
+                        <div className="modal1-content">
+                            <div className='left-content'>
+                                {data.map((item, index) => (
+                                    <div key={index} className="item-container">
+                                        <img src={item.image} alt='' />
+                                        <div className="info">
+                                            <p><strong>{item.name}</strong></p>
+                                            <p>x<strong>{item.quantity}</strong></p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className='right-content'>
+                                <p className="order-info"><strong>Mã đơn hàng:</strong> {order.id}</p>
+                                <p className="order-info"><strong>ID người dùng:</strong> {order.userId}</p>
+                                <p className="order-info"><strong>Số điện thoại:</strong> {order.phone}</p>
+                                <p className="order-info"><strong>Địa chỉ:</strong> {order.address}</p>
+                                <p className="order-info"><strong>Trạng thái:</strong> {statusLabels[order.status]}</p>
+                                <hr className="order-divider" />
+                            </div>
                         </div>
-                    </div>
+                        <div className="footer">
+                            <p className="order-info1"><strong>Tổng tiền:</strong> {order.total}</p>
+                        </div>
+                    </>
                 ) : (
                     <p>Đang tải dữ liệu...</p>
                 )}
