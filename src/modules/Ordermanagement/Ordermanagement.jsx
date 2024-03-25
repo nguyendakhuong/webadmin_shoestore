@@ -17,6 +17,8 @@ const OrderManagenment = (order) => {
         delivering: "Đang giao hàng",
         configOrder: "Đã nhận hàng",
         cancelOrder: "Đơn hàng đã bị hủy",
+        PaidCreateOrder: "Đơn hàng đã thanh toán và chờ xác nhận",
+        paidDelivering: "Đơn hàng đã thanh toán và đang giao hàng"
     };
     const handleConfirmOrder = async (id, e) => {
         const token = APP_LOCAL.getTokenStorage();
@@ -145,7 +147,7 @@ const OrderManagenment = (order) => {
                                         <td>{order.address}</td>
                                         <td>{statusLabels[order.status]}</td>
                                         <td>
-                                            {order.status === "createOrder" ? (
+                                            {order.status === "createOrder" || order.status === "PaidCreateOrder" ? (
                                                 <button onClick={(e) => handleConfirmOrder(order.id, e)}>Xác nhận</button>
                                             ) : (
                                                 <> Đã Xác nhận</>
