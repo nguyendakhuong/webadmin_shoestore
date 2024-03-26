@@ -12,8 +12,6 @@ const BestSellingProducts = () => {
             try {
                 let url = '';
                 if (startDate && endDate) {
-                    console.log(startDate)
-                    console.log(endDate)
                     url = 'http://localhost:3001/statistical';
                     const response = await fetch(url, {
                         method: 'POST',

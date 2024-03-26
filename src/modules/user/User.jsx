@@ -111,24 +111,25 @@ const User = () => {
 
     const getAccounts = async () => {
         const token = APP_LOCAL.getTokenStorage();
-        const requestOptions = {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        };
-        fetch(`http://localhost:3001/api/Accounts`, requestOptions)
-            .then(res => {
-
-                return res.json()
-            }).then(data => {
-                if (data.status === 200) {
-                    setData(data.data)
-                } else {
-                    ToastApp.error('Lỗi: ' + data.message)
-                }
-            }).catch(e => {
-                console.log(e)
-            })
+        try {
+            dispatch({ type: KEY_CONTEXT_USER.SET_LOADING, payload: true })
+            const requestOptions = {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            };
+            const response = await fetch(`http://localhost:3001/api/Accounts`, requestOptions)
+            const data = await response.json()
+            if (data.status === 200) {
+                setData(data.data)
+            } else {
+                ToastApp.error('Lỗi: ' + data.message);
+            }
+        } catch (e) {
+            console.log(e)
+        } finally {
+            dispatch({ type: KEY_CONTEXT_USER.SET_LOADING, payload: false })
+        }
     }
 
     useEffect(() => {
@@ -184,7 +185,7 @@ const User = () => {
                                     </button>
                                 </td>
                             </tr>
-                        )) : "Đang tải dữ liệu"
+                        )) : null
                     }
                 </tbody>
             </table>

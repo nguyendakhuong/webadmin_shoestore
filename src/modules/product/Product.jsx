@@ -123,6 +123,7 @@ const Product = () => {
     const handleStatus = async (e, id) => {
         e.stopPropagation();
         try {
+            dispatch({ type: KEY_CONTEXT_USER.SET_LOADING, payload: true })
             const response = await fetch(`http://localhost:3001/api/statusProduct/${id}`,
                 {
                     method: 'GET',
@@ -136,6 +137,8 @@ const Product = () => {
             }
         } catch (e) {
             console.log(e)
+        } finally {
+            dispatch({ type: KEY_CONTEXT_USER.SET_LOADING, payload: false })
         }
     }
 
@@ -239,11 +242,7 @@ const Product = () => {
                                     data.map((product) => (
                                         <TableRow product={product} handleEdit={handleEdit} handleDelete={handleDelete} key={product.id} handleClick={handleClickItem} handleClickStatus={handleStatus} />
                                     ))
-                                ) : (
-                                    <tr>
-                                        <td colSpan="12">Chưa có dữ liệu</td>
-                                    </tr>
-                                )}
+                                ) : null}
                             </tbody>
                         </table>
                     </div>

@@ -24,44 +24,44 @@ const AppRoute = (isAuth, role) => {
 
     isAuth && (role === 'admin' || role === 'superAdmin')
       ? {
-        path: '/admin',
-        element: <LayoutWeb />,
-        children: [
-          { index: true, element: <User /> },
-          {
-            path: 'users',
-            element: <User />,
-          },
-          {
-            path: 'signup',
-            element: <SignUp />,
-          },
-          {
-            path: 'product',
-            element: <Product />,
-          },
-          {
-            path: 'update-product',
-            element: <UpdateProduct />,
-          },
-          {
-            path: 'order',
-            element: <OrderManagement />,
-          },
-          {
-            path: 'statistical',
-            element: <Statistical />,
-          },
-          {
-            path: 'discountcode',
-            element: <Discountcode />
-          }
-        ],
-      }
+          path: '/admin',
+          element: <LayoutWeb />,
+          children: [
+            { index: true, element: <User /> },
+            {
+              path: 'users',
+              element: <User />,
+            },
+            {
+              path: 'signup',
+              element: <SignUp />,
+            },
+            {
+              path: 'product',
+              element: <Product />,
+            },
+            {
+              path: 'update-product',
+              element: <UpdateProduct />,
+            },
+            {
+              path: 'order',
+              element: <OrderManagement />,
+            },
+            {
+              path: 'statistical',
+              element: <Statistical />,
+            },
+            {
+              path: 'discountcode',
+              element: <Discountcode />,
+            },
+          ],
+        }
       : {
-        path: '*',
-        element: <ErrorPage />,
-      },
+          path: '*',
+          element: <ErrorPage />,
+        },
   ]
   return createBrowserRouter(route)
 }

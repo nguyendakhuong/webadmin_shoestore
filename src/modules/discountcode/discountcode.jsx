@@ -23,15 +23,14 @@ const Discountcode = () => {
     const getData = async () => {
         const token = APP_LOCAL.getTokenStorage()
         try {
+            dispatch({ type: KEY_CONTEXT_USER.SET_LOADING, payload: true })
             const response = await fetch(`http://localhost:3001/discount/getData`,
                 {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`
                     },
-
                 });
-
             const data = await response.json();
             if (data.status === 200) {
                 setData(data.data)
@@ -40,6 +39,8 @@ const Discountcode = () => {
             }
         } catch (e) {
             console.log("Lỗi: " + e)
+        } finally {
+            dispatch({ type: KEY_CONTEXT_USER.SET_LOADING, payload: false })
         }
     }
 
@@ -52,8 +53,8 @@ const Discountcode = () => {
                 contentModel: "Bạn có chắc chắn muốn xóa sản phẩm " + item.name + " không?",
                 onClickConfirmModel: async () => {
                     const token = APP_LOCAL.getTokenStorage()
-
                     try {
+                        dispatch({ type: KEY_CONTEXT_USER.SET_LOADING, payload: true })
                         const response = await fetch(`http://localhost:3001/discount/deleteDiscount/${item.id}`,
                             {
                                 method: 'GET',
@@ -72,6 +73,8 @@ const Discountcode = () => {
 
                     } catch (e) {
                         console.log("Lỗi xóa sản phẩm: ", e)
+                    } finally {
+                        dispatch({ type: KEY_CONTEXT_USER.SET_LOADING, payload: false })
                     }
                 },
             },
@@ -125,8 +128,16 @@ const Discountcode = () => {
 
                                     <td>{value.startDate ? moment(value.startDate).format('DD/MM/YYYY') : "null"}</td>
                                     <td>{value.endDate ? moment(value.endDate).format('DD/MM/YYYY') : "null"}</td>
-                                    <td className={value.endDate && value.startDate && moment(value.endDate).isAfter(value.startDate) ? 'active' : 'inactive'}>
-                                        {value.endDate && value.startDate && moment(value.endDate).isAfter(value.startDate)
+                                    <td className={
+                                        value.endDate && value.startDate &&
+                                            moment(value.endDate).isAfter(value.startDate) &&
+                                            moment(value.endDate).isAfter(moment()) &&
+                                            moment(value.startDate).isBefore(moment())
+                                            ? 'active' : 'inactive'}>
+                                        {value.endDate && value.startDate &&
+                                            moment(value.endDate).isAfter(value.startDate) &&
+                                            moment(value.endDate).isAfter(moment()) &&
+                                            moment(value.startDate).isBefore(moment())
                                             ? <span className="active-text">Hoạt động</span>
                                             : <span className="inactive-text">Không hoạt động</span>}
                                     </td>

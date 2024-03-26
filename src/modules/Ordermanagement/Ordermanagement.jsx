@@ -18,7 +18,8 @@ const OrderManagenment = (order) => {
         configOrder: "Đã nhận hàng",
         cancelOrder: "Đơn hàng đã bị hủy",
         PaidCreateOrder: "Đơn hàng đã thanh toán và chờ xác nhận",
-        paidDelivering: "Đơn hàng đã thanh toán và đang giao hàng"
+        paidDelivering: "Đơn hàng đã thanh toán và đang giao hàng",
+        PaidCancelOrder: "Đơn hàng đã thanh toán và đã hủy"
     };
     const handleConfirmOrder = async (id, e) => {
         const token = APP_LOCAL.getTokenStorage();
@@ -79,23 +80,24 @@ const OrderManagenment = (order) => {
     };
     const getOrder = async () => {
         const token = APP_LOCAL.getTokenStorage();
-        const requestOptions = {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        };
-        fetch(`http://localhost:3001/order/getOrder`, requestOptions)
-            .then(res => res.json())
-            .then(data => {
-                if (data.status === 200) {
-                    setData(data.data);
-                } else {
-                    ToastApp.error('Lỗi: ' + data.message);
-                }
-            })
-            .catch(e => {
-                console.log(e);
-            });
+        try {
+            dispatch({ type: KEY_CONTEXT_USER.SET_LOADING, payload: true })
+            const requestOptions = {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            };
+            const response = await fetch(`http://localhost:3001/order/getOrder`, requestOptions)
+            const data = await response.json();
+            if (data.status === 200) {
+                setData(data.data);
+            }
+        }
+        catch (e) {
+            console.log(e)
+        } finally {
+            dispatch({ type: KEY_CONTEXT_USER.SET_LOADING, payload: false })
+        }
     };
 
     useEffect(() => {
@@ -138,7 +140,7 @@ const OrderManagenment = (order) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {data ? data.map((order, index) => (
+                                {data ? data.reverse().map((order, index) => (
                                     <tr key={order.id} onClick={() => viewOrderDetail(order)}>
                                         <td>{order.id}</td>
                                         <td>{order.userId}</td>

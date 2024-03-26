@@ -1,27 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './Statistical.scss';
 import imageProduct from '../asset/image/product.png';
 import imageUser from '../asset/image/group (1).png';
 import imageCart from '../asset/image/shopping-cart.png';
 import imageMoney from '../asset/image/save-money.png';
-import StatisticalChar from '../components/statistical_bd/statstical_bd';
 import BestSellingProducts from '../components/bestsellingproduct/bestsellingproduct';
 import StatisticalInfo from '../components/statistical_info/statistical_info';
 import PotentialCustomers from '../components/potentialCustomers/potentialCustomers';
+import UserContext from '../../context/use.context';
+import { KEY_CONTEXT_USER } from '../../context/use.reducer';
 
 
 const Statistical = () => {
+    const [userCtx, dispatch] = useContext(UserContext)
     const [data, setData] = useState({
         order: 0,
         account: 0,
         product: 0,
         revenue: 0,
+        month: null
     });
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
+
                 const responseOrder = await fetch(`http://localhost:3001/getOrderCount`, {
                     method: "GET",
                 });
@@ -34,6 +38,7 @@ const Statistical = () => {
             }
 
             try {
+
                 const responseAccount = await fetch(`http://localhost:3001/getAccountCount`, {
                     method: "GET",
                 });
@@ -56,14 +61,14 @@ const Statistical = () => {
             } catch (e) {
                 console.log(e);
             }
-
             try {
                 const responseRevenue = await fetch(`http://localhost:3001/getRevenue`, {
                     method: "GET",
                 });
                 const revenueData = await responseRevenue.json();
                 if (revenueData.status === 200) {
-                    setData((prevData) => ({ ...prevData, revenue: revenueData.data }));
+                    console.log("a", revenueData.month)
+                    setData((prevData) => ({ ...prevData, revenue: revenueData.totalRevenue, month: revenueData.month }));
                 }
             } catch (e) {
                 console.log(e);
@@ -111,7 +116,7 @@ const Statistical = () => {
                         </div>
                     </div>
                     <div className="right">
-                        <text>Tổng số đơn hàng</text>
+                        <text>Tổng số đơn hàng tháng {data.month}</text>
                     </div>
                     <div className='data'>
                         {data.order}
@@ -152,7 +157,7 @@ const Statistical = () => {
                         </div>
                     </div>
                     <div className="right">
-                        <text>Tổng doanh thu của tháng</text>
+                        <text>Tổng doanh thu của tháng {data.month}</text>
                     </div>
                     <div className='data'>
                         {data.revenue}
@@ -161,17 +166,10 @@ const Statistical = () => {
             </div>
 
             <div className='container-statistical'>
-                <div className='container-colum'>
-                    <div className="chart-container">
-                        <StatisticalChar className="chart" />
-                    </div>
-                </div>
                 <div className='container-circle'>
                     <BestSellingProducts className="bestselling" />
-
-
                 </div>
-            </div>
+            </div>*
             <div className='potentialCustomers'><PotentialCustomers /></div>
 
             {isDialogOpen && (

@@ -10,7 +10,8 @@ const ModalOder = ({ order, onClose }) => {
         configOrder: "Đã nhận hàng",
         cancelOrder: "Đơn hàng đã bị hủy",
         PaidCreateOrder: "Đơn hàng đã thanh toán và chờ xác nhận",
-        paidDelivering: "Đơn hàng đã thanh toán và đang giao hàng"
+        paidDelivering: "Đơn hàng đã thanh toán và đang giao hàng",
+        PaidCancelOrder: "Đơn hàng đã thanh toán và đã hủy"
     };
     const fetchOrderData = async () => {
         try {

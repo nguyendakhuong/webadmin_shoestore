@@ -8,6 +8,7 @@ import APP_LOCAL from './lib/localStorage'
 import { KEY_CONTEXT_USER } from './context/use.reducer'
 import ToastApp from './lib/notification/Toast'
 import Modal from './modules/components/modal'
+import Loading from './modules/components/loading/Loading'
 
 function App() {
   const [{ role, isOpenModal }, dispatch] = useContext(UserContext)
@@ -54,6 +55,7 @@ function App() {
     <div>
       <RouterProvider router={AppRoute(isAuth, role)} />
       <ToastContainer />
+      <Loading />
       {isOpenModal && <Modal />}
     </div>
   )

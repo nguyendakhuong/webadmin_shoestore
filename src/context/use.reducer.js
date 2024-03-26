@@ -3,6 +3,7 @@ const InitState = {
   role: '',
   isOpenModal: false,
   dataModal: null,
+  isLoading: false,
 }
 const KEY_CONTEXT_USER = {
   SET_TOKEN: 'SET_TOKEN',
