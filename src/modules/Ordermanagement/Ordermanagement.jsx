@@ -21,27 +21,50 @@ const OrderManagenment = (order) => {
         paidDelivering: "Đơn hàng đã thanh toán và đang giao hàng",
         PaidCancelOrder: "Đơn hàng đã thanh toán và đã hủy"
     };
-    const handleConfirmOrder = async (id, e) => {
-        const token = APP_LOCAL.getTokenStorage();
+
+    const handleConfirmOrder = async (id, userId, e) => {
         e.stopPropagation();
 
         try {
-            const response = await fetch(`http://localhost:3001/order/verifyOrder/${id}`, {
-                method: "GET",
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-            const data = await response.json();
-            if (data.status === 200) {
-                ToastApp.success("Xác nhận đơn hàng thành công")
-                setReloadData(true)
+            const token = APP_LOCAL.getTokenStorage();
+            await verifyOrder(id, token);
+            ToastApp.success("Xác nhận đơn hàng thành công");
+            setReloadData(true);
+            await sendNotification(userId);
+            console.log("Thông báo thành công");
+        } catch (error) {
+            if (error instanceof Response) {
+                const data = await error.json();
+                ToastApp.warning("Cảnh báo: " + data.message);
             } else {
-                ToastApp.warning("Cảnh báo: " + data.message)
+                ToastApp.error("Lỗi hệ thống: " + error);
             }
+        }
+    };
 
-        } catch (e) {
-            return ToastApp.error("Lỗi hệ thống: " + e)
+    const verifyOrder = async (id, token) => {
+        const response = await fetch(`http://localhost:3001/order/verifyOrder/${id}`, {
+            method: "GET",
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (!response.ok) {
+            throw response;
+        }
+    };
+
+    const sendNotification = async (userId) => {
+        const response = await fetch(`http://localhost:3001/notification/notification${userId}`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw response;
         }
     };
     const handleCancelOrder = async (id, e) => {
@@ -150,7 +173,7 @@ const OrderManagenment = (order) => {
                                         <td>{statusLabels[order.status]}</td>
                                         <td>
                                             {order.status === "createOrder" || order.status === "PaidCreateOrder" ? (
-                                                <button onClick={(e) => handleConfirmOrder(order.id, e)}>Xác nhận</button>
+                                                <button onClick={(e) => handleConfirmOrder(order.id, order.userId, e)}>Xác nhận</button>
                                             ) : (
                                                 <> Đã Xác nhận</>
                                             )}
