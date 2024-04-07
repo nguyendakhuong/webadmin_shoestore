@@ -72,7 +72,9 @@
   width: 100%;
   height: 600px;
   padding: 20px;
+
   justify-content: space-between;
+
 }
 
 .container-colum {
@@ -104,28 +106,53 @@
 }
 
 .chart-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90%;
-  height: 90%;
+  width: 60%;
+  background-color: rgba(176, 230, 224, 0.827);
+
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+
+  margin-left: 10px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
 }
 
-.chart {
-  width: 100%;
-  height: 100%;
+.chart-container h2 {
+  margin-top: 30px;
+  font-size: 20px;
+  font-style: 'bold';
+
 }
+
+
+
+
 
 .bestselling {
   padding-left: 30px;
 }
 
 .data {
-  font-size: 3rem;
+  font-size: 2rem;
 }
 
 .potentialCustomers {
   padding: 0 20px;
   padding-bottom: 10px;
+}
+
+.statistical-info-dialog {
+  padding-left: 20px;
+
+}
+
+.statistical-info-dialog button {
+  color: rgb(255, 255, 255);
+  width: 150px;
+  height: 40px;
+  background-color: #d0bee0b8;
+  border-radius: 10px;
+  border-width: 0.5px;
 }

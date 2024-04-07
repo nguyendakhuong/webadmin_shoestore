@@ -8,6 +8,7 @@ import BestSellingProducts from '../components/bestsellingproduct/bestsellingpro
 import StatisticalInfo from '../components/statistical_info/statistical_info';
 import PotentialCustomers from '../components/potentialCustomers/potentialCustomers';
 import UserContext from '../../context/use.context';
+import MyPieChart from '../components/chartstatistical/chart_statistical';
 import { KEY_CONTEXT_USER } from '../../context/use.reducer';
 
 
@@ -18,8 +19,16 @@ const Statistical = () => {
         account: 0,
         product: 0,
         revenue: 0,
+        category: 0,
         month: null
     });
+    const pieChartData = [
+        { id: 'order', value: data.order },
+        { id: 'account', value: data.account },
+        { id: 'product', value: data.product },
+
+    ];
+
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
     useEffect(() => {
@@ -104,7 +113,7 @@ const Statistical = () => {
                     </tr>
                 </thead>
             </table>
-            <div>
+            <div className='statistical-info-dialog'>
                 <button onClick={handleOpenDialog}>Chi tiết thống kê</button>
             </div>
             <div className="container-box">
@@ -116,11 +125,10 @@ const Statistical = () => {
                         </div>
                     </div>
                     <div className="right">
-                        <text>Tổng số đơn hàng tháng {data.month}</text>
+                        <text>Tổng số đơn hàng tháng {data.month}: {data.order}</text>
+
                     </div>
-                    <div className='data'>
-                        {data.order}
-                    </div>
+
                 </div>
                 <div className="box">
                     <div className="left-container1">
@@ -131,10 +139,9 @@ const Statistical = () => {
                     </div>
                     <div className="right">
                         <text>Số lượng tài khoản:</text>
-                    </div>
-                    <div className='data'>
                         {data.account}
                     </div>
+
                 </div>
                 <div className="box">
                     <div className="left-container2">
@@ -145,10 +152,9 @@ const Statistical = () => {
                     </div>
                     <div className="right">
                         <text>Tổng số sản phẩm:</text>
-                    </div>
-                    <div className='data'>
                         {data.product}
                     </div>
+
                 </div>
                 <div className="box">
                     <div className="left-container3">
@@ -157,11 +163,10 @@ const Statistical = () => {
                         </div>
                     </div>
                     <div className="right">
-                        <text>Tổng doanh thu của tháng {data.month}</text>
+                        <text>Doanh thu tháng {data.month}:{data.revenue}</text>
+
                     </div>
-                    <div className='data'>
-                        {data.revenue}
-                    </div>
+
                 </div>
             </div>
 
@@ -169,7 +174,11 @@ const Statistical = () => {
                 <div className='container-circle'>
                     <BestSellingProducts className="bestselling" />
                 </div>
-            </div>*
+                <div className='chart-container'>
+                    <h2>Biểu đồ thống kê</h2>
+                    <MyPieChart data={pieChartData} />
+                </div>
+            </div>
             <div className='potentialCustomers'><PotentialCustomers /></div>
 
             {isDialogOpen && (
