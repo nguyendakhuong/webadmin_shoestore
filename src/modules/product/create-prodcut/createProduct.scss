@@ -119,6 +119,7 @@ h2 {
     }
   }
 }
+
 .remove {
   height: 3rem;
   line-height: 3rem;
@@ -147,11 +148,20 @@ h2 {
   width: 1200px;
   height: 600px;
   background-color: #ffffff;
+  padding: 20px;
 }
 
-.back-button {
-  margin-left: 130px;
-  margin-top: 5px;
+.button-back-product {
+  padding-left: 20px;
+
+}
+
+.button-back-product button {
+  width: 100px;
+  color: #fff;
+  height: 40px;
+  border-radius: 8px;
+  background-color: #d0bee0b8;
 }
 
 .error-text {

@@ -151,7 +151,7 @@ const CreateProduct = () => {
     }
     return (
         <div className='form_add'>
-            <div>
+            <div className='button-back-product'>
                 <button onClick={handleBack}>Back</button>
             </div>
             <form onSubmit={e => e.preventDefault()} encType='multipart/form-data'>
