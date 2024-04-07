@@ -19,9 +19,12 @@ const OrderManagenment = (order) => {
         cancelOrder: "Đơn hàng đã bị hủy",
         PaidCreateOrder: "Đơn hàng đã thanh toán và chờ xác nhận",
         paidDelivering: "Đơn hàng đã thanh toán và đang giao hàng",
-        PaidCancelOrder: "Đơn hàng đã thanh toán và đã hủy"
+        PaidCancelOrder: "Đơn hàng đã thanh toán và đã hủy",
+        payment: "Đơn hàng đã thanh toán nhưng có Lỗi",
+        PaymentAndCancel: "Đơn hàng đã thanh toán nhưng có lỗi và đã hủy"
     };
 
+    console.log(data)
     const handleConfirmOrder = async (id, userId, e) => {
         e.stopPropagation();
 
@@ -154,7 +157,7 @@ const OrderManagenment = (order) => {
                                 <tr>
                                     <th>Mã đơn hàng</th>
                                     <th>ID người dùng</th>
-                                    <th>Số tiền phải trả</th>
+                                    <th>Số tiền </th>
                                     <th>Số điện thoại</th>
                                     <th>Địa chỉ</th>
                                     <th>Trạng thái</th>
@@ -172,11 +175,12 @@ const OrderManagenment = (order) => {
                                         <td>{order.address}</td>
                                         <td>{statusLabels[order.status]}</td>
                                         <td>
-                                            {order.status === "createOrder" || order.status === "PaidCreateOrder" ? (
+                                            {order.status === "payment" ? "Lỗi đơn hàng" : order.status === "createOrder" || order.status === "PaidCreateOrder" ? (
                                                 <button onClick={(e) => handleConfirmOrder(order.id, order.userId, e)}>Xác nhận</button>
                                             ) : (
                                                 <> Đã Xác nhận</>
-                                            )}
+                                            )
+                                            }
                                         </td>
                                         <td>
                                             <button onClick={(e) => handleCancelOrder(order.id, e)}>Hủy đơn hàng</button>
