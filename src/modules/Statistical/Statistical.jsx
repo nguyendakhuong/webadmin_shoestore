@@ -28,6 +28,10 @@ const Statistical = () => {
         { id: 'product', value: data.product },
 
     ];
+    const formatter = new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+    });
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -125,7 +129,11 @@ const Statistical = () => {
                         </div>
                     </div>
                     <div className="right">
-                        <text>Tổng số đơn hàng tháng {data.month}: {data.order}</text>
+                        <div className='statistical-colum-month'>
+                            <span className="label">Tổng đơn tháng {data.month}:</span>
+                            <span className="data-value">{data.order}</span>
+                        </div>
+
 
                     </div>
 
@@ -138,8 +146,12 @@ const Statistical = () => {
                         </div>
                     </div>
                     <div className="right">
-                        <text>Số lượng tài khoản:</text>
-                        {data.account}
+                        <div className='statistical-colum-month'>
+                            <span className="label">Số lượng tài khoản:</span>
+                            <span className="data-value">{data.account}</span>
+                        </div>
+
+
                     </div>
 
                 </div>
@@ -151,8 +163,10 @@ const Statistical = () => {
                         </div>
                     </div>
                     <div className="right">
-                        <text>Tổng số sản phẩm:</text>
-                        {data.product}
+                        <div className='statistical-colum-month'>
+                            <span className="label">Tổng số sản phẩm:</span>
+                            <span className="data-value">{data.product}</span>
+                        </div>
                     </div>
 
                 </div>
@@ -163,7 +177,11 @@ const Statistical = () => {
                         </div>
                     </div>
                     <div className="right">
-                        <text>Doanh thu tháng {data.month}:{data.revenue}</text>
+                        <div className='statistical-colum-month'>
+                            <span className="label">Doanh thu tháng {data.month}:</span>
+                            <span className="data-value">{formatter.format(data.revenue)}</span>
+                        </div>
+
 
                     </div>
 

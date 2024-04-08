@@ -150,142 +150,164 @@ const CreateProduct = () => {
 
     }
     return (
-        <div className='form_add'>
-            <div className='button-back-product'>
-                <button onClick={handleBack}>Back</button>
-            </div>
-            <form onSubmit={e => e.preventDefault()} encType='multipart/form-data'>
-                <div className='item-flex'>
-                    <div className='item_name input-container'>
-                        <InputAdmin
-                            name={'name'}
-                            // required={true}
-                            label={'Tên sản phẩm'}
-                            placeholder={'Nhập tên ...'}
-                            validate={'required||minLength:1||maxLength:20'}
-                            type={'text'}
-                            onChange={onChangeInput}
-                            value={dataProduct.name}
-                        />
-                        {listError.name && <label className='error-text'>{listError.name}</label>}
-                    </div>
-                    <div className='item_price input-container'>
-                        <InputAdmin
-                            name={'price'}
-                            // required={true}
-                            label={'Giá sản phẩm'}
-                            placeholder={'Nhập giá ...'}
-                            validate={'required||checkNumber||checkNegative'}
-                            type={'number'}
-                            onChange={onChangeInput}
-                            value={dataProduct.price}
-                        />
-                        {listError.price && <label className='error-text'>{listError.price}</label>}
-                    </div>
-                    <div className='item_amount input-container'>
-                        <InputAdmin
-                            name={'quantity'}
-                            // required={true}
-                            label={'Số lượng sản phẩm'}
-                            placeholder={'Nhập số lượng ...'}
-                            validate={'required||checkNumber||checkNegative'}
-                            type={'number'}
-                            onChange={onChangeInput}
-
-                            value={dataProduct.quantity}
-                        />
-                        {listError.quantity && <label className='error-text'>{listError.quantity}</label>}
-                    </div>
-                </div>
-                <div className='item-flex'>
-                    <div className='item input-container'>
-                        <InputAdmin
-                            name={'priceSale'}
-                            label={'Giá giảm giá'}
-                            placeholder={'Nhập ...'}
-                            type={'number'}
-                            validate={'checkNumber||checkPrice||checkNegative'}
-                            onChange={onChangeInput}
-                            value={dataProduct.priceSale}
-                        />
-                        {listError.priceSale && <label className='error-text'>{listError.priceSale}</label>}
-                    </div>
-                    <div className='item input-container'>
-                        <InputAdmin
-                            name={"timeSaleStart"}
-                            label={'Thời gian bắt đầu'}
-                            type={'date'}
-                            validate={'checkDate'}
-                            onChange={onChangeInput}
-                            value={dataProduct.timeSaleStart}
-
-                        />
-                        {listError.timeSaleStart && <label className='error-text'>{listError.timeSaleStart}</label>}
-                    </div>
-                    <div className='item input-container'>
-                        <InputAdmin
-                            name={"timeSaleEnd"}
-                            label={'Thời gian kết thúc'}
-                            type={'date'}
-                            validate={'checkTimeEnd||checkDate'}
-                            onChange={onChangeInput}
-                            value={dataProduct.timeSaleEnd}
-                            errorText={listError.timeSaleEnd}
-                        />
-                        {listError.timeSaleEnd && <label className='error-text'>{listError.timeSaleEnd}</label>}
-                    </div>
-                </div>
-                <div className='item-flex'>
-                    <div className='item-category input-container'>
-                        <InputAdmin
-                            name={'introduce'}
-                            // required={true}
-                            label={'Giới thiệu sản phẩm'}
-                            placeholder={'Nhập ...'}
-                            validate={'required'}
-                            type={'text'}
-                            onChange={onChangeInput}
-                            value={dataProduct.introduce}
-                        />
-                        {listError.introduce && <label className='error-text'>{listError.introduce}</label>}
-                    </div>
-                    <div className='select'>
-                        <label>
-                            Category:
-                        </label>
-                        <select name="selectedFruit" value={category} onChange={handleFruit}>
-                            <option value="Giày">Giày</option>
-                            <option value="Dép">Dép</option>
-                        </select>
-                    </div>
-                </div>
-                <div className='textarea input-container'>
-                    <textarea
-                        placeholder='Nhập ...'
-                        onChange={onChangeInput}
-                        name={'description'}
-                        value={dataProduct.description || ''}
-                        validate={'required'}
-                    ></textarea>
-                    {listError.description && <label className='error-text'>{listError.description}</label>}
-                </div>
-                <div className='file_card'>
-                    {
-                        imageProduct ? <img src={showImage} alt="Ảnh" /> : (
-                            <div className='file_inputs' onChange={handleFileChangeMain}>
-                                <input accept="image/png" type="file" />
-                                <button>Tải ảnh </button>
+        <div className='product-container'>
+            <table className="header-table">
+                <thead>
+                    <tr>
+                        <th colSpan="1">
+                            <div className='headerCreateProduct'>
+                                <div className="button-back-product">
+                                    <button onClick={handleBack}>Back</button>
+                                </div>
+                                <div className="purple-line"></div>
+                                <span>Thêm sản phẩm</span>
                             </div>
-                        )
-                    }
-                    <div>
-                        <button onClick={fileRemoveMain}>Xóa ảnh</button>
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+
+
+            <div className='form_add'>
+                <h2>Thêm sản phẩm</h2>
+
+                <form onSubmit={e => e.preventDefault()} encType='multipart/form-data'>
+                    <div className='item-flex'>
+                        <div className='item_name input-container'>
+                            <InputAdmin
+                                name={'name'}
+                                // required={true}
+                                label={'Tên sản phẩm'}
+                                placeholder={'Nhập tên ...'}
+                                validate={'required||minLength:1||maxLength:20'}
+                                type={'text'}
+                                onChange={onChangeInput}
+                                value={dataProduct.name}
+                            />
+                            {listError.name && <label className='error-text'>{listError.name}</label>}
+                        </div>
+                        <div className='item_price input-container'>
+                            <InputAdmin
+                                name={'price'}
+                                // required={true}
+                                label={'Giá sản phẩm'}
+                                placeholder={'Nhập giá ...'}
+                                validate={'required||checkNumber||checkNegative'}
+                                type={'number'}
+                                onChange={onChangeInput}
+                                value={dataProduct.price}
+                            />
+                            {listError.price && <label className='error-text'>{listError.price}</label>}
+                        </div>
+                        <div className='item_amount input-container'>
+                            <InputAdmin
+                                name={'quantity'}
+                                // required={true}
+                                label={'Số lượng sản phẩm'}
+                                placeholder={'Nhập số lượng ...'}
+                                validate={'required||checkNumber||checkNegative'}
+                                type={'number'}
+                                onChange={onChangeInput}
+
+                                value={dataProduct.quantity}
+                            />
+                            {listError.quantity && <label className='error-text'>{listError.quantity}</label>}
+                        </div>
                     </div>
-                </div>
-                <div>
-                    <button onClick={!isButtonDisabled ? handleSubmit : () => { ToastApp.warning('Vui lòng nhập đủ các thông tin') }}>Thêm sản phẩm</button>
-                </div>
-            </form>
+                    <div className='item-flex'>
+                        <div className='item input-container'>
+                            <InputAdmin
+                                name={'priceSale'}
+                                label={'Giá giảm giá'}
+                                placeholder={'Nhập ...'}
+                                type={'number'}
+                                validate={'checkNumber||checkPrice||checkNegative'}
+                                onChange={onChangeInput}
+                                value={dataProduct.priceSale}
+                            />
+                            {listError.priceSale && <label className='error-text'>{listError.priceSale}</label>}
+                        </div>
+                        <div className='item input-container'>
+                            <InputAdmin
+                                name={"timeSaleStart"}
+                                label={'Thời gian bắt đầu'}
+                                type={'date'}
+                                validate={'checkDate'}
+                                onChange={onChangeInput}
+                                value={dataProduct.timeSaleStart}
+
+                            />
+                            {listError.timeSaleStart && <label className='error-text'>{listError.timeSaleStart}</label>}
+                        </div>
+                        <div className='item input-container'>
+                            <InputAdmin
+                                name={"timeSaleEnd"}
+                                label={'Thời gian kết thúc'}
+                                type={'date'}
+                                validate={'checkTimeEnd||checkDate'}
+                                onChange={onChangeInput}
+                                value={dataProduct.timeSaleEnd}
+                                errorText={listError.timeSaleEnd}
+                            />
+                            {listError.timeSaleEnd && <label className='error-text'>{listError.timeSaleEnd}</label>}
+                        </div>
+                    </div>
+                    <div className='item-flex'>
+                        <div className='item-category input-container'>
+                            <InputAdmin
+                                name={'introduce'}
+                                // required={true}
+                                label={'Giới thiệu sản phẩm'}
+                                placeholder={'Nhập ...'}
+                                validate={'required'}
+                                type={'text'}
+                                onChange={onChangeInput}
+                                value={dataProduct.introduce}
+                            />
+                            {listError.introduce && <label className='error-text'>{listError.introduce}</label>}
+                        </div>
+                        <div className='select'>
+                            <label>
+                                Category:
+                            </label>
+                            <select name="selectedFruit" value={category} onChange={handleFruit}>
+                                <option value="Giày">Giày</option>
+                                <option value="Dép">Dép</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className='textarea input-container'>
+                        <textarea
+                            placeholder='Nhập mô tả...'
+                            onChange={onChangeInput}
+                            name={'description'}
+                            value={dataProduct.description || ''}
+                            validate={'required'}
+                        ></textarea>
+                        {listError.description && <label className='error-text'>{listError.description}</label>}
+                    </div>
+                    <div className='file_card'>
+                        {
+                            imageProduct ? <img src={showImage} alt="Ảnh" /> : (
+                                <div className='file_inputs' onChange={handleFileChangeMain}>
+                                    <input accept="image/png" type="file" />
+                                    <button>Tải ảnh </button>
+                                </div>
+                            )
+                        }
+                        <div className='button-group-createproduct'>
+                            <div className='button-deleteimg'>
+                                <button onClick={fileRemoveMain}>Xóa ảnh</button>
+                            </div>
+                            <div className='button-submit-product'>
+                                <button onClick={!isButtonDisabled ? handleSubmit : () => { ToastApp.warning('Vui lòng nhập đủ các thông tin') }}>Thêm sản phẩm</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
         </div>
 
     )

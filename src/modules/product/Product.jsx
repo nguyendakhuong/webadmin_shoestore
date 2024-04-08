@@ -150,6 +150,7 @@ const Product = () => {
 
 
     const TableRow = ({ product, handleEdit, handleDelete, handleClick, handleClickStatus }) => {
+        const buttonClass = product.status === 1 ? 'active-product' : 'inactive-product';
         return (
             <tr onClick={() => { setIsDialogOpen(true); handleClick(product) }}
             >
@@ -171,7 +172,9 @@ const Product = () => {
                 <td>{product.quantity}</td>
                 <td>{product.category}</td>
                 <td>
-                    <button onClick={(e) => handleClickStatus(e, product.id)}>{product.status === 1 ? "Đang hoạt động" : "Không hoạt động"}</button>
+                    <button onClick={(e) => handleClickStatus(e, product.id)} className={buttonClass}>
+                        {product.status === 1 ? "Đang hoạt động" : "Không hoạt động"}
+                    </button>
                 </td>
                 <td>
                     <button onClick={(e) => handleEdit(product, e)}>

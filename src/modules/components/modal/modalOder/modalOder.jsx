@@ -11,8 +11,14 @@ const ModalOder = ({ order, onClose }) => {
         cancelOrder: "Đơn hàng đã bị hủy",
         PaidCreateOrder: "Đơn hàng đã thanh toán và chờ xác nhận",
         paidDelivering: "Đơn hàng đã thanh toán và đang giao hàng",
-        PaidCancelOrder: "Đơn hàng đã thanh toán và đã hủy"
+        PaidCancelOrder: "Đơn hàng đã thanh toán và đã hủy",
+        payment: "Đơn hàng đã thanh toán nhưng có lỗi",
+        PaymentAndCancel: "Đơn hàng đã thanh toán nhưng có lỗi và đã hủy"
     };
+    const formatter = new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+    });
     const fetchOrderData = async () => {
         try {
             const productIds = order.OrdersProducts.map(item => item.productId);
@@ -74,7 +80,7 @@ const ModalOder = ({ order, onClose }) => {
                             </div>
                         </div>
                         <div className="footer">
-                            <p className="order-info1"><strong>Tổng tiền:</strong> {order.total}</p>
+                            <p className="order-info1"><strong>Tổng tiền:</strong> {formatter.format(order.total)}</p>
                         </div>
                     </>
                 ) : (
