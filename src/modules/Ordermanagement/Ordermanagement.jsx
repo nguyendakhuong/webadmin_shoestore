@@ -20,7 +20,7 @@ const OrderManagenment = (order) => {
         PaidCreateOrder: "Đơn hàng đã thanh toán và chờ xác nhận",
         paidDelivering: "Đơn hàng đã thanh toán và đang giao hàng",
         PaidCancelOrder: "Đơn hàng đã thanh toán và đã hủy",
-        payment: "Đơn hàng đã thanh toán nhưng có Lỗi",
+        payment: "Đơn hàng đã thanh toán nhưng có lỗi",
         PaymentAndCancel: "Đơn hàng đã thanh toán nhưng có lỗi và đã hủy"
     };
 
@@ -176,14 +176,14 @@ const OrderManagenment = (order) => {
                                         <td>{statusLabels[order.status]}</td>
                                         <td>
                                             {order.status === "payment" ? "Lỗi đơn hàng" : order.status === "createOrder" || order.status === "PaidCreateOrder" ? (
-                                                <button onClick={(e) => handleConfirmOrder(order.id, order.userId, e)}>Xác nhận</button>
+                                                <button className='btn-config-oder' onClick={(e) => handleConfirmOrder(order.id, order.userId, e)}>Xác nhận</button>
                                             ) : (
                                                 <> Đã Xác nhận</>
                                             )
                                             }
                                         </td>
                                         <td>
-                                            <button onClick={(e) => handleCancelOrder(order.id, e)}>Hủy đơn hàng</button>
+                                            <button className='btn-cancle-oder' onClick={(e) => handleCancelOrder(order.id, e)}>Hủy đơn hàng</button>
                                         </td>
                                     </tr>
                                 )) : "Đang tải dữ liệu"}

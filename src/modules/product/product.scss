@@ -16,6 +16,25 @@
   font-size: 13px;
 }
 
+.active-product {
+  background-color: rgba(0, 117, 0, 0.862);
+  color: rgb(255, 255, 255);
+  border: 0.3px;
+  border-radius: 3px;
+  width: 100px;
+  height: 35px;
+}
+
+.inactive-product {
+  background-color: rgb(255, 62, 62);
+  color: white;
+  border: none;
+  border-radius: 3px;
+  width: 100px;
+  height: 35px;
+}
+
+
 // .header-table th {
 //   position: relative;
 
