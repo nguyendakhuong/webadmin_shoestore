@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import './Header.scss';
 import mailIconImage from '../../asset/image/mail.png';
 import notificationIconImage from '../../asset/image/bell.png';
-import logo from '../../asset/image/logo.png'
+import logo from '../../asset/image/logo1.png'
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../../../context/use.context';
 import { KEY_CONTEXT_USER } from '../../../context/use.reducer';

@@ -108,19 +108,8 @@ const StatisticalInfo = () => {
                             {data.order}
                         </div>
                     </div>
-                    <div className="grid-item_info">
-                        <div className='grid-item_info-colum1'>Số lượng tài khoản</div>
-                        <div className="content">
-                            {data.account}
-                        </div>
-                    </div>
-                    <div className="grid-item_info">
-                        <div className='grid-item_info-colum2'>Số lượng sản phẩm</div>
-                        <div className="content">
-                            {data.product}
 
-                        </div>
-                    </div>
+
                     <div className="grid-item_info">
                         <div className='grid-item_info-colum3'>Doanh thu </div>
                         <div className="content-revenue">

@@ -9,7 +9,7 @@ import ButtonWed from '../components/button/Button-admin';
 import { KEY_CONTEXT_USER } from '../../context/use.reducer';
 import ToastApp from '../../lib/notification/Toast';
 import APP_LOCAL from '../../lib/localStorage';
-import LoginImage from '../asset/image/20 June 2024.png';
+import LoginImage from '../asset/image/bg-formlgin.png';
 import stylesBtn from '../auth/styles.module.scss'
 
 
