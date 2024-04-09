@@ -3,8 +3,10 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #d8d7d7c9;
+  background-color: #cfcfcf;
+  background-image: url('../asset/image/bg-login.png');
 }
+
 
 .login_content {
   display: flex;
@@ -44,7 +46,7 @@
   flex: 1;
   padding: 0 20px;
   padding: 20px;
-  border-radius: 10px;
+  border-radius: 3px;
 }
 
 .login_form h2 {
@@ -53,18 +55,7 @@
   color: #333;
 }
 
-.button {
-  margin-top: 20px;
-  background-color: rgb(184, 184, 241);
-  font-size: 20px;
-  text-align: center;
-  color: #ffffff;
-  padding: 5px;
-  height: 40px;
-  border-radius: 5px;
 
-
-}
 
 .form-container {
   width: 400px;

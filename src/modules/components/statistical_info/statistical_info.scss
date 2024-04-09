@@ -6,7 +6,7 @@
 }
 
 .grid-item_info {
-    width: calc(25% - 20px);
+    width: calc(50% - 20px);
     height: 400px;
     background-color: #fff9f9;
     justify-content: center;
@@ -22,16 +22,7 @@
     background-color: rgb(117, 244, 247);
 }
 
-.grid-item_info-colum1 {
 
-    height: 20%;
-    background-color: rgb(236, 97, 89);
-}
-
-.grid-item_info-colum2 {
-    height: 20%;
-    background-color: rgb(73, 213, 42);
-}
 
 .grid-item_info-colum3 {
     height: 20%;
