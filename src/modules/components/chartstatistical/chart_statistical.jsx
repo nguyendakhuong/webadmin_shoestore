@@ -1,40 +1,69 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ResponsiveBar } from '@nivo/bar';
-
-const dataByProduct = {
-    product1: [
-        { month: 'January', quantity: 30 },
-        { month: 'February', quantity: 40 },
-        { month: 'March', quantity: 50 },
-        { month: 'April', quantity: 35 },
-        { month: 'May', quantity: 45 },
-        { month: 'June', quantity: 55 },
-        { month: 'July', quantity: 60 },
-        { month: 'August', quantity: 70 },
-        { month: 'September', quantity: 80 },
-        { month: 'October', quantity: 90 },
-        { month: 'November', quantity: 100 },
-        { month: 'December', quantity: 110 },
-    ],
-    product2: [
-        { month: 'January', quantity: 25 },
-        { month: 'February', quantity: 35 },
-        { month: 'March', quantity: 45 },
-        { month: 'April', quantity: 40 },
-        { month: 'May', quantity: 50 },
-        { month: 'June', quantity: 60 },
-        { month: 'July', quantity: 70 },
-        { month: 'August', quantity: 80 },
-        { month: 'September', quantity: 90 },
-        { month: 'October', quantity: 100 },
-        { month: 'November', quantity: 20 },
-        { month: 'December', quantity: 10 },
-    ],
-};
+import ToastApp from '../../../lib/notification/Toast';
+import UserContext from '../../../context/use.context';
+import { KEY_CONTEXT_USER } from '../../../context/use.reducer';
 
 const MyBarChart = () => {
-    const [selectedProduct, setSelectedProduct] = useState('product1');
+    const [userCtx, dispatch] = useContext(UserContext)
+    const [selectedProduct, setSelectedProduct] = useState('');
     const [selectedYear, setSelectedYear] = useState('');
+    const [nameProduct, setNameProduct] = useState([]);
+    const [data, setData] = useState([])
+    const getNameProduct = async () => {
+        try {
+            const response = await fetch(`http://localhost:3001/api/getNameProduct`,
+                {
+                    method: 'GET',
+                });
+            const data = await response.json();
+            if (data.status === 200) {
+                setNameProduct(data.data)
+            } else {
+                ToastApp.error('Lỗi: ' + data.message);
+            }
+        } catch (e) {
+            console.log("Lỗi lấy tên sản phẩm: " + e)
+        }
+    }
+
+    const getData = async () => {
+        try {
+            const response = await fetch(`http://localhost:3001/getProductSalesByMonth`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ selectedProduct })
+                },
+            )
+            const data = await response.json();
+            if (data.status === 200) {
+                setData(data.data)
+            } else {
+                ToastApp.error('Lỗi a: ' + data.message);
+            }
+        } catch (e) {
+            console.log("Lỗi: " + e)
+        } finally {
+            dispatch({ type: KEY_CONTEXT_USER.SET_LOADING, payload: false })
+        }
+    }
+
+    useEffect(() => {
+        getNameProduct()
+    }, [])
+
+    useEffect(() => {
+        getData()
+    }, [selectedProduct])
+
+    useEffect(() => {
+        if (nameProduct.length > 0) {
+            setSelectedProduct(nameProduct[0].name);
+        }
+    }, [nameProduct])
 
     const handleProductChange = (event) => {
         setSelectedProduct(event.target.value);
@@ -44,32 +73,29 @@ const MyBarChart = () => {
         setSelectedYear(event.target.value);
     };
 
-    const selectedProductData = dataByProduct[selectedProduct];
-
     return (
         <div>
             <div style={{ display: 'flex' }}>
                 <div style={{ marginLeft: '180px', marginRight: '10px' }}>
                     <label htmlFor="product" style={{ marginRight: '20px' }}>Chọn sản phẩm:</label>
                     <select id="product" value={selectedProduct} onChange={handleProductChange} style={{ width: '300px', padding: '5px' }}>
-                        <option value="product1">Sản phẩm 1</option>
-                        <option value="product2">Sản phẩm 2</option>
-                        {/* Thêm các option cho các sản phẩm khác */}
+                        {nameProduct.map((value, index) => (
+                            <option key={index} value={value.name}>{value.name}</option>
+                        ))}
                     </select>
                 </div>
-                <div>
+                {/* <div>
                     <label htmlFor="year" >Chọn năm:</label>
                     <select id="year" value={selectedYear} onChange={handleYearChange} style={{ width: '200px', padding: '5px' }}>
                         <option value="2022">2022</option>
                         <option value="2023">2023</option>
                         <option value="2024">2024</option>
-                        {/* Thêm các option cho các năm khác */}
                     </select>
-                </div>
+                </div> */}
             </div>
             <div style={{ width: '840px', height: '460px', margin: '0 auto' }}>
                 <ResponsiveBar
-                    data={selectedProductData}
+                    data={data}
                     keys={['quantity']}
                     indexBy="month"
                     margin={{ top: 50, right: 130, bottom: 45, left: 55 }}

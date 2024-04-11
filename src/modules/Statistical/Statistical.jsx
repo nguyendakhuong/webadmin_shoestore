@@ -11,8 +11,8 @@ import UserContext from '../../context/use.context';
 import MyPieChart from '../components/chartstatistical/chart_statistical';
 import { KEY_CONTEXT_USER } from '../../context/use.reducer';
 
-
 const Statistical = () => {
+
     const [userCtx, dispatch] = useContext(UserContext)
     const [data, setData] = useState({
         order: 0,
@@ -22,12 +22,6 @@ const Statistical = () => {
         category: 0,
         month: null
     });
-    const pieChartData = [
-        { id: 'order', value: data.order },
-        { id: 'account', value: data.account },
-        { id: 'product', value: data.product },
-
-    ];
     const formatter = new Intl.NumberFormat('vi-VN', {
         style: 'currency',
         currency: 'VND',
@@ -80,7 +74,6 @@ const Statistical = () => {
                 });
                 const revenueData = await responseRevenue.json();
                 if (revenueData.status === 200) {
-                    console.log("a", revenueData.month)
                     setData((prevData) => ({ ...prevData, revenue: revenueData.totalRevenue, month: revenueData.month }));
                 }
             } catch (e) {
@@ -194,7 +187,7 @@ const Statistical = () => {
                 </div>
                 <div className='chart-container'>
                     <h2>Biểu đồ thống kê</h2>
-                    <MyPieChart data={pieChartData} />
+                    <MyPieChart />
                 </div>
             </div>
             <div className='potentialCustomers'><PotentialCustomers /></div>
