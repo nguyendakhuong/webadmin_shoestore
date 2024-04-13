@@ -10,6 +10,12 @@ const MyBarChart = () => {
     const [selectedYear, setSelectedYear] = useState('');
     const [nameProduct, setNameProduct] = useState([]);
     const [data, setData] = useState([])
+    const formatYAxis = value => {
+        const intValue = parseInt(value, 10);
+        return intValue % 2 === 0 ? intValue : '';
+    };
+
+
     const getNameProduct = async () => {
         try {
             const response = await fetch(`http://localhost:3001/api/getNameProduct`,
@@ -113,7 +119,9 @@ const MyBarChart = () => {
                         tickRotation: 0,
                         legend: 'Số lượng đơn hàng',
                         legendPosition: 'middle',
-                        legendOffset: -40
+                        legendOffset: -40,
+                        tickFormat: formatYAxis
+
                     }}
                     labelSkipWidth={12}
                     labelSkipHeight={12}

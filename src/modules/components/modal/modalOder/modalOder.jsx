@@ -21,6 +21,9 @@ const ModalOder = ({ order, onClose }) => {
     });
     const fetchOrderData = async () => {
         try {
+            if (!order || !order.OrdersProducts) {
+                return; // Nếu không có order hoặc OrdersProducts, không thực hiện gì cả
+            }
             const productIds = order.OrdersProducts.map(item => item.productId);
             const response = await fetch(`http://localhost:3001/api/getProductsId/?id=${productIds.join(',')}`);
             const responseData = await response.json();
@@ -47,6 +50,7 @@ const ModalOder = ({ order, onClose }) => {
             ToastApp.error('Lỗi khi gửi yêu cầu');
         }
     };
+
 
     useEffect(() => {
         fetchOrderData();

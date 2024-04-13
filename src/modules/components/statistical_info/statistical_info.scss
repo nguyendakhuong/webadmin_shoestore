@@ -6,25 +6,54 @@
 }
 
 .grid-item_info {
-    width: calc(50% - 20px);
+    width: calc(33% - 20px);
     height: 400px;
     background-color: #fff9f9;
     justify-content: center;
     text-align: center;
     font-size: 18px;
+    border-top-left-radius: 10px;
+
+    border-top-right-radius: 10px;
 
 }
 
 .grid-item_info-colum {
 
 
+    border-top-left-radius: 10px;
+
+    border-top-right-radius: 10px;
+
     height: 20%;
     background-color: rgb(117, 244, 247);
+}
+
+.grid-item_info-colum2 {
+
+
+
+    border-top-left-radius: 10px;
+
+    border-top-right-radius: 10px;
+
+    height: 20%;
+    background-color: rgb(239, 13, 13);
+}
+
+.grid-item_info-colum2 text {
+    text-align: center;
+
+    color: #fff9f9;
 }
 
 
 
 .grid-item_info-colum3 {
+    border-top-left-radius: 10px;
+    /* Bo tròn góc trên bên trái */
+    border-top-right-radius: 10px;
+    /* Bo tròn góc trên bên phải */
     height: 20%;
     background-color: rgb(227, 217, 78);
 }
@@ -58,4 +87,30 @@
 
 .time-selector button {
     margin-left: 10px;
+}
+
+.account-container-statistical {
+
+    flex-wrap: wrap;
+}
+
+.account-item-statistical {
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.account-info-statistical {
+    padding-right: 20px;
+}
+
+.context-statistical {
+    margin-top: 50px;
+    font-size: 20px;
+}
+
+.context-statistical-account {
+    padding: 5px;
 }
