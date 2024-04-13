@@ -17,7 +17,7 @@ const Main = () => {
             </video>
 
             <div className="content">
-                <button className="button" onClick={handleLogin}>
+                <button className="button-mainlogin" onClick={handleLogin}>
                     Đăng nhập
                 </button>
             </div>

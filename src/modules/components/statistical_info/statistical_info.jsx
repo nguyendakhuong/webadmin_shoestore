@@ -61,28 +61,38 @@ const StatisticalInfo = () => {
                 <div className="grid-container_info">
                     <div className="grid-item_info">
                         <div className='grid-item_info-colum'>Tổng số đơn hàng</div>
-                        <div className="content">
+                        <div className="context-statistical">
                             {data.order}
                         </div>
                     </div>
-
-
                     <div className="grid-item_info">
-                        <div className='grid-item_info-colum3'>Doanh thu </div>
-                        <div className="content-revenue">
-                            {data.totalRevenue} đ
-                            {Array.isArray(data.account) ? (
-                                <div>
+                        <div className='grid-item_info-colum2'><text>Tài khoản người dùng mua hàng</text></div>
+                        <div className="context-statistical-account">
+                            {Array.isArray(data.account) && data.account.length > 0 ? (
+                                <div className="account-container-statistical">
                                     {data.account.map((item, index) => (
-                                        <div key={index}>
-                                            <p>Account: {item.email}</p>
-                                            <p>Số lượng sản phẩm đã mua: {item.totalQuantity}</p>
+                                        <div className="account-item-statistical" key={index}>
+                                            <div className="account-info-statistical">
+                                                <p><strong>Account:</strong> {item.email}</p>
+                                                <p><strong>Số lượng sản phẩm đã mua:</strong> {item.totalQuantity}</p>
+                                            </div>
                                         </div>
                                     ))}
                                 </div>
                             ) : (
                                 <p>Không có dữ liệu</p>
                             )}
+                        </div>
+                    </div>
+
+
+
+
+                    <div className="grid-item_info">
+                        <div className='grid-item_info-colum3'>Doanh thu </div>
+                        <div className="context-statistical">
+                            {data.totalRevenue} đ
+
                         </div>
                     </div>
                 </div>
