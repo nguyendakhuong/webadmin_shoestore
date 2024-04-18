@@ -50,6 +50,10 @@ const ModalOder = ({ order, onClose }) => {
             ToastApp.error('Lỗi khi gửi yêu cầu');
         }
     };
+    const updatedAtDate = new Date(order.updatedAt);
+    const formattedUpdatedAt = `${updatedAtDate.getUTCDate() < 10 ? '0' + updatedAtDate.getUTCDate() :
+        updatedAtDate.getUTCDate()}-${updatedAtDate.getUTCMonth() + 1 < 10 ? '0' + (updatedAtDate.getUTCMonth() + 1) :
+            updatedAtDate.getUTCMonth() + 1}-${updatedAtDate.getUTCFullYear()}`;
 
 
     useEffect(() => {
@@ -79,6 +83,7 @@ const ModalOder = ({ order, onClose }) => {
                                 <p className="order-info"><strong>ID người dùng:</strong> {order.userId}</p>
                                 <p className="order-info"><strong>Số điện thoại:</strong> {order.phone}</p>
                                 <p className="order-info"><strong>Địa chỉ:</strong> {order.address}</p>
+                                <p className="order-info"><strong>Thời gian:</strong> {formattedUpdatedAt}</p>
                                 <p className="order-info"><strong>Trạng thái:</strong> {statusLabels[order.status]}</p>
                                 <hr className="order-divider" />
                             </div>

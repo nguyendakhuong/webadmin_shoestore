@@ -1,135 +1,134 @@
 .order-table-container {
-
-    padding: 20px;
-
+  padding: 20px;
 }
 
 .header-table {
-    width: calc(100% - 40px);
+  width: calc(100% - 40px);
 
-    margin-left: 20px;
-    margin-right: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .discount-table {
-    width: 100%;
-    border-collapse: collapse;
-    border: 1px solid #ddd;
-    margin-bottom: 20px;
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
 }
 
 .active {
-    color: rgb(0, 98, 255);
+  color: rgb(0, 98, 255);
 }
 
 .inactive {
-    color: red;
+  color: red;
 }
 
 .active-text {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .inactive-text {
-    font-style: bold;
+  font-style: bold;
 }
 
 .discount-table th,
 .discount-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
 }
 
 .discount-table th {
-    background-color: #f2f2f2;
+  background-color: #f2f2f2;
 }
 
 .discount-table tr:hover {
-    background-color: #f5f5f5;
-
+  background-color: #f5f5f5;
 }
 
 .discount-table td div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
-
-
-
 .discount-button {
-    width: 150px;
-    height: 35px;
-    margin-left: 20px;
-    border: none;
-    border-radius: 10px;
-    background-color: #a352cb;
-    color: #ffffff;
+  width: 150px;
+  height: 35px;
+  margin-left: 20px;
+  border: none;
+  border-radius: 10px;
+  background-color: #a352cb;
+  color: #ffffff;
 }
 
 .btn-config-oder {
-    width: 80px;
-    height: 30px;
-    background-color: rgb(48, 255, 58);
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
+  width: 80px;
+  height: 30px;
+  background-color: rgb(48, 255, 58);
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
 }
 
 .btn-cancle-oder {
-    width: 100px;
-    height: 30px;
-    background-color: rgb(255, 48, 48);
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
+  width: 100px;
+  height: 30px;
+  background-color: rgb(255, 48, 48);
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+}
+.btn-configOder {
+  width: 100px;
+  height: 30px;
+  background-color: rgb(117, 105, 191);
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
 }
 
 .search-box-oder {
-    display: flex;
+  display: flex;
 
-
-    margin-right: 20px;
-    margin-left: 150px;
-
+  margin-right: 20px;
+  margin-left: 150px;
 }
 
 .search-box-oder input[type='text'] {
-    padding: 0.5rem;
-    border: none;
-    border-radius: 4px;
-    margin-right: 10px;
-    height: 40px;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 4px;
+  margin-right: 10px;
+  height: 40px;
 }
 
 .search-box-oder button {
-    margin-top: 4px;
-    padding: 0.5rem 1rem;
-    background-color: #5151f7;
-    color: #eae7e7;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    height: 40px;
-    margin-right: 5px;
-    width: 100px;
+  margin-top: 4px;
+  padding: 0.5rem 1rem;
+  background-color: #5151f7;
+  color: #eae7e7;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 40px;
+  margin-right: 5px;
+  width: 100px;
 }
 
 .search-box-oder button[type='product-button'] {
-    border-radius: 5px;
-    background-color: #e898f8;
-    width: 200px;
-    height: 40px;
-    margin-left: 5px;
-    color: #ffffff;
-    border: none;
-    transition: background-color 0.3s;
+  border-radius: 5px;
+  background-color: #e898f8;
+  width: 200px;
+  height: 40px;
+  margin-left: 5px;
+  color: #ffffff;
+  border: none;
+  transition: background-color 0.3s;
 }
 
 .header-table span {
-    font-size: 13px;
-
+  font-size: 13px;
 }

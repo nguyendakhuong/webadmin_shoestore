@@ -66,7 +66,7 @@ const BestSellingProducts = () => {
                             <div className="top-info">
                                 <div className="top-number">{index + 1}</div>
                                 <div className="product-info_bestsell">{product.productName}</div>
-                                <div className="product-info_bestsell">Số lượng đã bán:{product.totalQuantity}</div>
+                                <div className="product-info_bestsell">Số đơn hàng:{product.totalQuantity}</div>
                             </div>
                         </div>
                     ))) : "Đang tải dữ liệu"}

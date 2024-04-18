@@ -11,8 +11,7 @@ const ButtonWed = ({
     return (
         <button
             disabled={disabledBtn}
-            className={`${styles.btn} ${!!buttonAuth ? styles.btnAuth : ''
-                }  ${className}`}
+            className={`btn ${buttonAuth ? 'btnAuth' : ''} ${className}`}
             onClick={onClick}>
             {title}
         </button>

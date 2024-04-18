@@ -6,13 +6,13 @@ import OrderDetail from '../components/modal/modalOder/modalOder'
 import UserContext from '../../context/use.context';
 import { KEY_CONTEXT_USER } from '../../context/use.reducer';
 
-const OrderManagenment = (order) => {
+const OrderManagenment = () => {
     const [userCtx, dispatch] = useContext(UserContext)
     const [reloadData, setReloadData] = useState(false);
     const [data, setData] = useState(null);
     const [selectedOrder, setSelectedOrder] = useState(null);
     const [searchDataOder, setSearchDataOrder] = useState('');
-    const [dataSearch, setDataSearch] = useState('');
+    const [dataSearch, setDataSearch] = useState([]);
 
     const statusLabels = {
         createOrder: "Đang chờ xác nhận",
@@ -25,14 +25,8 @@ const OrderManagenment = (order) => {
         payment: "Đơn hàng đã thanh toán nhưng có lỗi",
         PaymentAndCancel: "Đơn hàng đã thanh toán nhưng có lỗi và đã hủy"
     };
-
-    console.log(data)
-    console.log(searchDataOder)
-    console.log(dataSearch)
-
     const handleConfirmOrder = async (id, userId, e) => {
         e.stopPropagation();
-
         try {
             const token = APP_LOCAL.getTokenStorage();
             await verifyOrder(id, token);
@@ -51,31 +45,36 @@ const OrderManagenment = (order) => {
     };
     const handleInputSearch = (e) => {
         const { name, value } = e.target
-        if (name === "searchoder") {
+        if (name === "search") {
             setSearchDataOrder(value.trim())
         }
     }
-    const searchOder = async () => {
-        try {
-            const response = await fetch(`http://localhost:3001/order/searchOrder`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ id: searchDataOder })
-            });
-            const searchData = await response.json();
-            if (searchData.status === 200) {
-                setDataSearch(searchData.data);
-            } else {
-                ToastApp.error('Lỗi: ' + searchData.message);
+
+    useEffect(() => {
+        const searchData = async () => {
+            try {
+                const response = await fetch(`http://localhost:3001/order/searchOrder`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ phone: searchDataOder })
+                });
+                const searchData = await response.json();
+                if (searchData.status === 200) {
+                    setDataSearch(searchData.data);
+                } else {
+                    ToastApp.error('Lỗi: ' + searchData.message);
+                }
+            } catch (e) {
+                console.log("Lỗi search:" + e)
             }
-        } catch (e) {
-            console.log("Lỗi search:" + e)
         }
-    }
 
-
+        if (searchDataOder) {
+            searchData()
+        }
+    }, [searchDataOder])
 
     const verifyOrder = async (id, token) => {
         const response = await fetch(`http://localhost:3001/order/verifyOrder/${id}`, {
@@ -104,7 +103,6 @@ const OrderManagenment = (order) => {
     };
     const handleCancelOrder = async (id, e) => {
         e.stopPropagation();
-
         dispatch({
             type: KEY_CONTEXT_USER.SHOW_MODAL,
             payload: {
@@ -136,6 +134,23 @@ const OrderManagenment = (order) => {
         })
 
     };
+
+    const handleConfigOder = async (id, e) => {
+        e.stopPropagation();
+        try {
+            const response = await fetch(`http://localhost:3001/order/adminVerifyOrder/${id}`, {
+                method: "GET",
+            });
+            const data = await response.json();
+            if (data.status === 200) {
+                ToastApp.success('' + data.message)
+            } else {
+                ToastApp.error('Lỗi: ' + data.message);
+            }
+        } catch (e) {
+            console.log("Lỗi:" + e)
+        }
+    }
     const getOrder = async () => {
         const token = APP_LOCAL.getTokenStorage();
         try {
@@ -148,7 +163,6 @@ const OrderManagenment = (order) => {
             const response = await fetch(`http://localhost:3001/order/getOrder`, requestOptions)
             const data = await response.json();
             if (data.status === 200) {
-                // Sắp xếp mảng data theo trường id từ cao đến thấp
                 const sortedData = data.data.sort((a, b) => b.id - a.id);
                 setData(sortedData);
             }
@@ -169,26 +183,37 @@ const OrderManagenment = (order) => {
     const viewOrderDetail = (order) => {
         setSelectedOrder(order);
     };
-    const OrderTableRow = ({ order, handleConfirmOrder, handleCancelOrder, viewOrderDetail, statusLabels }) => (
-        <tr key={order.id} onClick={() => viewOrderDetail(order)}>
-            <td>{order.id}</td>
-            <td>{order.userId}</td>
-            <td>{order.total}</td>
-            <td>{order.phone}</td>
-            <td>{order.address}</td>
-            <td>{statusLabels[order.status]}</td>
-            <td>
-                {order.status === "payment" ? "Lỗi đơn hàng" : order.status === "createOrder" || order.status === "PaidCreateOrder" ? (
-                    <button className='btn-config-oder' onClick={(e) => handleConfirmOrder(order.id, order.userId, e)}>Xác nhận</button>
-                ) : (
-                    <> Đã Xác nhận</>
-                )}
-            </td>
-            <td>
-                <button className='btn-cancle-oder' onClick={(e) => handleCancelOrder(order.id, e)}>Hủy đơn hàng</button>
-            </td>
-        </tr>
-    );
+    const OrderTableRow = ({ order, handleConfirmOrder, handleCancelOrder, viewOrderDetail, statusLabels }) => {
+        const updatedAtDate = new Date(order.updatedAt);
+        const formattedUpdatedAt = `${updatedAtDate.getUTCDate() < 10 ? '0' + updatedAtDate.getUTCDate() :
+            updatedAtDate.getUTCDate()}-${updatedAtDate.getUTCMonth() + 1 < 10 ? '0' + (updatedAtDate.getUTCMonth() + 1) :
+                updatedAtDate.getUTCMonth() + 1}-${updatedAtDate.getUTCFullYear()}`;
+
+        return (
+            <tr key={order.id} onClick={() => viewOrderDetail(order)}>
+                <td>{order.id}</td>
+                <td>{order.userId}</td>
+                <td>{order.total}</td>
+                <td>{order.phone}</td>
+                <td>{formattedUpdatedAt}</td>
+                <td>{order.address}</td>
+                <td>{statusLabels[order.status]}</td>
+                <td>
+                    {order.status === "payment" ? "Lỗi đơn hàng" : order.status === "createOrder" || order.status === "PaidCreateOrder" ? (
+                        <button className='btn-config-oder' onClick={(e) => handleConfirmOrder(order.id, order.userId, e)}>Xác nhận</button>
+                    ) : (
+                        <> Đã Xác nhận</>
+                    )}
+                </td>
+                <td>
+                    <button className='btn-cancle-oder' onClick={(e) => handleCancelOrder(order.id, e)}>Hủy đơn hàng</button>
+                </td>
+                <td>
+                    <button className='btn-configOder' onClick={(e) => handleConfigOder(order.id, e)}>Nhận hàng</button>
+                </td>
+            </tr>
+        );
+    };
 
 
     return (
@@ -205,12 +230,10 @@ const OrderManagenment = (order) => {
                                     <span>Danh sách đơn hàng</span>
                                     <div className="search-box-oder">
                                         <input type="text"
-                                            placeholder="Tìm kiếm..."
-                                            name="searchoder"
+                                            placeholder="Tìm kiếm số điện thoại..."
+                                            name="search"
                                             value={searchDataOder}
                                             onChange={handleInputSearch} />
-                                        <button type="button" onClick={searchOder}>Tìm kiếm</button>
-
                                     </div>
                                 </th>
                             </tr>
@@ -224,22 +247,26 @@ const OrderManagenment = (order) => {
                                     <th>ID người dùng</th>
                                     <th>Số tiền </th>
                                     <th>Số điện thoại</th>
+                                    <th>Thời gian</th>
                                     <th>Địa chỉ</th>
                                     <th>Trạng thái</th>
                                     <th>Hành động</th>
                                     <th>Hủy đơn hàng</th>
+                                    <th>Xác nhận đơn hàng</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {dataSearch ? (
-                                    <OrderTableRow
-                                        key={dataSearch.id}
-                                        order={dataSearch}
-                                        handleConfirmOrder={handleConfirmOrder}
-                                        handleCancelOrder={handleCancelOrder}
-                                        viewOrderDetail={viewOrderDetail}
-                                        statusLabels={statusLabels}
-                                    />
+                                {dataSearch && dataSearch.length > 0 ? (
+                                    dataSearch.map((order, index) => (
+                                        <OrderTableRow
+                                            key={order.id}
+                                            order={order}
+                                            handleConfirmOrder={handleConfirmOrder}
+                                            handleCancelOrder={handleCancelOrder}
+                                            viewOrderDetail={viewOrderDetail}
+                                            statusLabels={statusLabels}
+                                        />
+                                    ))
                                 ) : (
                                     data && data.length > 0 ? (
                                         data.map((order, index) => (
