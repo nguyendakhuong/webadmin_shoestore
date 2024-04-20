@@ -49,17 +49,17 @@
 }
 
 .icon {
-    padding: 0.5rem;
-    background-color: #ffffff;
-    color: #343131;
-    border-radius: 50%;
-    margin-right: 10px;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-right: 20px;
+
 }
 
-.mail-icon-img,
-.notification-icon-img {
-    width: 20px;
+.mail-icon-img {
+    width: 45px;
     height: auto;
+}
+
+.notification-icon-img {
+    width: 40px;
+    height: auto;
+    margin-right: 30px;
 }

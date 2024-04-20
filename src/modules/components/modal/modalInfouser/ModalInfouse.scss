@@ -31,6 +31,31 @@
 
 }
 
+.user-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.avatar-container {
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-right: 20px;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+.details-container {
+    flex-grow: 1;
+}
+
 .close-button {
     margin-top: 20px;
 

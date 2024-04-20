@@ -60,6 +60,7 @@ const ModalOder = ({ order, onClose }) => {
         fetchOrderData();
     }, []);
 
+
     return (
         <div className="modal-overlay" onClick={onClose}>
             <div className="modal" onClick={(e) => e.stopPropagation()}>

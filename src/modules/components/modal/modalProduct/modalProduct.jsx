@@ -15,6 +15,12 @@ const ModalProduct = ({ product, onClose, isOpen }) => {
         }
     }, [isOpen]);
 
+    const formatter = new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+    });
+
+
     const getProductInfo = async () => {
         const token = APP_LOCAL.getTokenStorage();
         try {
@@ -58,7 +64,7 @@ const ModalProduct = ({ product, onClose, isOpen }) => {
                                 <div className="info-container">
 
                                     <p><strong>Tên:</strong> {data.name}</p>
-                                    <p><strong>Giá:</strong> {data.price}</p>
+                                    <p><strong>Giá:</strong> {formatter.format(data.price)}</p>
                                     <p><strong>Số lượng:</strong> {data.quantity}</p>
                                     <p><strong>Mô tả:</strong> {data.description}</p>
                                     <p><strong>Giới thiệu:</strong> {data.introduce}</p>

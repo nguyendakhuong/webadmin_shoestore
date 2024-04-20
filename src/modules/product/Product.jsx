@@ -12,6 +12,8 @@ import ModalProduct from '../components/modal/modalProduct/modalProduct'
 import CreateProduct from './create-prodcut/CreateProduct';
 
 
+
+
 const Product = () => {
     const [userCtx, dispatch] = useContext(UserContext)
     const [navigateCreate, setNavigateCreate] = useState(false);
@@ -150,17 +152,23 @@ const Product = () => {
 
 
     const TableRow = ({ product, handleEdit, handleDelete, handleClick, handleClickStatus }) => {
+
+        const formatter = new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND',
+        });
+
         const buttonClass = product.status === 1 ? 'active-product' : 'inactive-product';
         return (
             <tr onClick={() => { setIsDialogOpen(true); handleClick(product) }}
             >
                 <td>{product.id}</td>
                 <td>{product.name}</td>
-                <td>{product.price}</td>
+                <td>{formatter.format(product.price)}</td>
                 <td>
                     <img src={product.imageProduct} alt={product.name} />
                 </td>
-                <td>{product.priceSale ? product.priceSale : "null"}</td>
+                <td>{formatter.format(product.priceSale) ? formatter.format(product.priceSale) : "null"}</td>
                 <td>
                     {product.timeSaleStart ? moment(product.timeSaleStart).format("DD/MM/YYYY") : "null"}
                 </td>

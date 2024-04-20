@@ -85,6 +85,10 @@ const Discountcode = () => {
         getData();
         setReloadData(false);
     }, [isModalOpen, reload])
+    const formatter = new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+    });
 
 
     return (
@@ -124,7 +128,7 @@ const Discountcode = () => {
                                     <td>{value.name}</td>
                                     <td>{value.type === 1 ? "giảm tiền trực tiếp" : "Giảm theo phân trăm"}</td>
                                     <td>{value.quantity}</td>
-                                    <td>{value.type === 1 ? value.discount + " đ" : value.discount + " %"}</td>
+                                    <td>{value.type === 1 ? formatter.format(value.discount) : value.discount + " %"}</td>
 
                                     <td>{value.startDate ? moment(value.startDate).format('DD/MM/YYYY') : "null"}</td>
                                     <td>{value.endDate ? moment(value.endDate).format('DD/MM/YYYY') : "null"}</td>
