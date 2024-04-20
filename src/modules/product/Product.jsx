@@ -10,6 +10,7 @@ import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
 import ModalProduct from '../components/modal/modalProduct/modalProduct'
 import CreateProduct from './create-prodcut/CreateProduct';
+import { useTranslation } from 'react-i18next';
 
 
 
@@ -25,6 +26,8 @@ const Product = () => {
     const [data, setData] = useState(null)
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
+
+    const [t, i18n] = useTranslation();
 
     const getProduct = async () => {
         const token = APP_LOCAL.getTokenStorage();
@@ -178,10 +181,10 @@ const Product = () => {
                 <td>{product.description}</td>
                 <td>{product.introduce}</td>
                 <td>{product.quantity}</td>
-                <td>{product.category}</td>
+                <td>{product.category === "Dép" ? `${t('sandal')}` : `${t('shoe')}`}</td>
                 <td>
                     <button onClick={(e) => handleClickStatus(e, product.id)} className={buttonClass}>
-                        {product.status === 1 ? "Đang hoạt động" : "Không hoạt động"}
+                        {product.status === 1 ? `${t('active')}` : `${t('inactive')}`}
                     </button>
                 </td>
                 <td>
@@ -209,16 +212,17 @@ const Product = () => {
                             <thead>
                                 <tr>
                                     <th colSpan="10">
+
                                         <div className="purple-line"></div>
-                                        <span>Danh sách sản phẩm  </span>
+                                        <span>{t('products')}</span>
                                         <div className="search-box">
                                             <input type="text"
-                                                placeholder="Tìm kiếm..."
+                                                placeholder={t('search') + ' ...'}
                                                 name='search'
                                                 value={searchData}
                                                 onChange={handleInputSearch} />
-                                            <button type="button" onClick={searchProduct}>Tìm kiếm</button>
-                                            <button type="product-button" onClick={handleCreate}>+ Thêm sản phẩm </button>
+                                            <button type="button" onClick={searchProduct}>{t('search')}</button>
+                                            <button type="product-button" onClick={handleCreate}>{t('addProduct')}</button>
                                         </div>
                                     </th>
                                 </tr>
@@ -229,19 +233,19 @@ const Product = () => {
                         <table className="product-table">
                             <thead>
                                 <tr>
-                                    <th>Mã sản phẩm</th>
-                                    <th>Tên</th>
-                                    <th>Giá</th>
-                                    <th>Hình ảnh</th>
-                                    <th>Giảm giá</th>
-                                    <th>Ngày bắt đầu</th>
-                                    <th>Ngày kết thúc</th>
-                                    <th>Mô tả</th>
-                                    <th>Giới thiệu</th>
-                                    <th>Số lượng</th>
-                                    <th>Loại</th>
-                                    <th>Trạng thái</th>
-                                    <th>Hành động</th>
+                                    <th>{t('productCode')}</th>
+                                    <th>{t('name')}</th>
+                                    <th>{t('price')}</th>
+                                    <th>{t('image')}</th>
+                                    <th>{t('discount')}</th>
+                                    <th>{t('startDate')}</th>
+                                    <th>{t('endDate')}</th>
+                                    <th>{t('describe')}</th>
+                                    <th>{t('introduce')}</th>
+                                    <th>{t('quantity')}</th>
+                                    <th>{t('category')}</th>
+                                    <th>{t('status')}</th>
+                                    <th>{t('act')}</th>
                                 </tr>
                             </thead>
                             <tbody>

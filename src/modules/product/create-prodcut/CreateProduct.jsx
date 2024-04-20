@@ -8,9 +8,10 @@ import { ParseValid } from '../../../lib/validate/ParseValid';
 import { Validate } from '../../../lib/validate/Validate';
 import ToastApp from '../../../lib/notification/Toast';
 import APP_LOCAL from '../../../lib/localStorage';
+import { useTranslation } from 'react-i18next';
 
 const CreateProduct = () => {
-
+    const [t, i18n] = useTranslation();
     const [userCtx, dispatch] = useContext(UserContext)
     const [imageProduct, setImageFileMain] = useState(null);
     const [showImage, setShowImage] = useState(null);
@@ -19,11 +20,11 @@ const CreateProduct = () => {
     const navigate = useNavigate();
 
     const [listError, setListError] = useState({
-        name: 'Vui lòng nhập trường này!',
-        price: 'Vui lòng nhập trường này!',
-        quantity: 'Vui lòng nhập trường này!',
-        description: 'Vui lòng nhập trường này!',
-        introduce: 'Vui lòng nhập trường này!',
+        name: `${t('require')}`,
+        price: `${t('require')}`,
+        quantity: `${t('require')}`,
+        description: `${t('require')}`,
+        introduce: `${t('require')}`,
     })
 
     const [dataProduct, setDataProduct] = useState({
@@ -157,28 +158,26 @@ const CreateProduct = () => {
                         <th colSpan="1">
                             <div className='headerCreateProduct'>
                                 <div className="button-back-product">
-                                    <button onClick={handleBack}>Back</button>
+                                    <button onClick={handleBack}>{t('back')}</button>
                                 </div>
                                 <div className="purple-line"></div>
-                                <span>Thêm sản phẩm</span>
+                                <span>{t('add')}</span>
                             </div>
                         </th>
                     </tr>
                 </thead>
             </table>
 
-
             <div className='form_add'>
-                <h2>Thêm sản phẩm</h2>
+                <h2>{t('add')}</h2>
 
                 <form onSubmit={e => e.preventDefault()} encType='multipart/form-data'>
                     <div className='item-flex'>
                         <div className='item_name input-container'>
                             <InputAdmin
                                 name={'name'}
-                                // required={true}
-                                label={'Tên sản phẩm'}
-                                placeholder={'Nhập tên ...'}
+                                label={t('nameProduct')}
+                                placeholder={t('enter')}
                                 validate={'required||minLength:1||maxLength:20'}
                                 type={'text'}
                                 onChange={onChangeInput}
@@ -189,9 +188,8 @@ const CreateProduct = () => {
                         <div className='item_price input-container'>
                             <InputAdmin
                                 name={'price'}
-                                // required={true}
-                                label={'Giá sản phẩm'}
-                                placeholder={'Nhập giá ...'}
+                                label={t('priceProduct')}
+                                placeholder={t('enter')}
                                 validate={'required||checkNumber||checkNegative'}
                                 type={'number'}
                                 onChange={onChangeInput}
@@ -202,9 +200,8 @@ const CreateProduct = () => {
                         <div className='item_amount input-container'>
                             <InputAdmin
                                 name={'quantity'}
-                                // required={true}
-                                label={'Số lượng sản phẩm'}
-                                placeholder={'Nhập số lượng ...'}
+                                label={t('quantityProduct')}
+                                placeholder={t('enter')}
                                 validate={'required||checkNumber||checkNegative'}
                                 type={'number'}
                                 onChange={onChangeInput}
@@ -218,8 +215,8 @@ const CreateProduct = () => {
                         <div className='item input-container'>
                             <InputAdmin
                                 name={'priceSale'}
-                                label={'Giá giảm giá'}
-                                placeholder={'Nhập ...'}
+                                label={t('discountProduct')}
+                                placeholder={t('enter')}
                                 type={'number'}
                                 validate={'checkNumber||checkPrice||checkNegative'}
                                 onChange={onChangeInput}
@@ -230,7 +227,7 @@ const CreateProduct = () => {
                         <div className='item input-container'>
                             <InputAdmin
                                 name={"timeSaleStart"}
-                                label={'Thời gian bắt đầu'}
+                                label={t('startDate')}
                                 type={'date'}
                                 validate={'checkDate'}
                                 onChange={onChangeInput}
@@ -242,7 +239,7 @@ const CreateProduct = () => {
                         <div className='item input-container'>
                             <InputAdmin
                                 name={"timeSaleEnd"}
-                                label={'Thời gian kết thúc'}
+                                label={t('endDate')}
                                 type={'date'}
                                 validate={'checkTimeEnd||checkDate'}
                                 onChange={onChangeInput}
@@ -256,9 +253,8 @@ const CreateProduct = () => {
                         <div className='item-category input-container'>
                             <InputAdmin
                                 name={'introduce'}
-                                // required={true}
-                                label={'Giới thiệu sản phẩm'}
-                                placeholder={'Nhập ...'}
+                                label={t('introductionProduct')}
+                                placeholder={t('enter')}
                                 validate={'required'}
                                 type={'text'}
                                 onChange={onChangeInput}
@@ -268,17 +264,17 @@ const CreateProduct = () => {
                         </div>
                         <div className='select'>
                             <label>
-                                Category:
+                                {t('category')}
                             </label>
                             <select name="selectedFruit" value={category} onChange={handleFruit}>
-                                <option value="Giày">Giày</option>
-                                <option value="Dép">Dép</option>
+                                <option value="Giày">{t('shoe')}</option>
+                                <option value="Dép">{t('sandal')}</option>
                             </select>
                         </div>
                     </div>
                     <div className='textarea input-container'>
                         <textarea
-                            placeholder='Nhập mô tả...'
+                            placeholder={t('enterDescription')}
                             onChange={onChangeInput}
                             name={'description'}
                             value={dataProduct.description || ''}
@@ -291,16 +287,16 @@ const CreateProduct = () => {
                             imageProduct ? <img src={showImage} alt="Ảnh" /> : (
                                 <div className='file_inputs' onChange={handleFileChangeMain}>
                                     <input accept="image/png" type="file" />
-                                    <button>Tải ảnh </button>
+                                    <button>{t('loadImage')}</button>
                                 </div>
                             )
                         }
                         <div className='button-group-createproduct'>
                             <div className='button-deleteimg'>
-                                <button onClick={fileRemoveMain}>Xóa ảnh</button>
+                                <button onClick={fileRemoveMain}>{t('deletePhotos')}</button>
                             </div>
                             <div className='button-submit-product'>
-                                <button onClick={!isButtonDisabled ? handleSubmit : () => { ToastApp.warning('Vui lòng nhập đủ các thông tin') }}>Thêm sản phẩm</button>
+                                <button onClick={!isButtonDisabled ? handleSubmit : () => { ToastApp.warning('Vui lòng nhập đủ các thông tin') }}>{t('add')}</button>
                             </div>
                         </div>
 

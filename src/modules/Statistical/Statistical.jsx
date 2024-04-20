@@ -10,9 +10,10 @@ import PotentialCustomers from '../components/potentialCustomers/potentialCustom
 import UserContext from '../../context/use.context';
 import MyPieChart from '../components/chartstatistical/chart_statistical';
 import { KEY_CONTEXT_USER } from '../../context/use.reducer';
+import { useTranslation } from 'react-i18next';
 
 const Statistical = () => {
-
+    const [t, i18n] = useTranslation();
     const [userCtx, dispatch] = useContext(UserContext)
     const [data, setData] = useState({
         order: 0,
@@ -100,18 +101,19 @@ const Statistical = () => {
 
     return (
         <div>
+
             <table className="header-table">
                 <thead>
                     <tr>
                         <th colSpan="10">
                             <div className="purple-line"></div>
-                            <span>Thống kê doanh thu</span>
+                            <span>{t('statistics')}</span>
                         </th>
                     </tr>
                 </thead>
             </table>
             <div className='statistical-info-dialog'>
-                <button onClick={handleOpenDialog}>Chi tiết thống kê</button>
+                <button onClick={handleOpenDialog}>{t('statisticalDetails')}</button>
             </div>
             <div className="container-box">
                 <div className="box">
@@ -123,7 +125,7 @@ const Statistical = () => {
                     </div>
                     <div className="right">
                         <div className='statistical-colum-month'>
-                            <span className="label">Tổng đơn tháng {data.month}:</span>
+                            <span className="label">{t('totalMonthlyOrder')} {data.month}:</span>
                             <span className="data-value">{data.order}</span>
                         </div>
 
@@ -140,7 +142,7 @@ const Statistical = () => {
                     </div>
                     <div className="right">
                         <div className='statistical-colum-month'>
-                            <span className="label">Số lượng tài khoản:</span>
+                            <span className="label">{t('numberOfAccounts')}:</span>
                             <span className="data-value">{data.account}</span>
                         </div>
 
@@ -157,7 +159,7 @@ const Statistical = () => {
                     </div>
                     <div className="right">
                         <div className='statistical-colum-month'>
-                            <span className="label">Tổng số sản phẩm:</span>
+                            <span className="label">{t('totalNumberOfProduct')}:</span>
                             <span className="data-value">{data.product}</span>
                         </div>
                     </div>
@@ -171,7 +173,7 @@ const Statistical = () => {
                     </div>
                     <div className="right">
                         <div className='statistical-colum-month'>
-                            <span className="label">Doanh thu tháng {data.month}:</span>
+                            <span className="label"> {t('monthlyRevenue')}{data.month}:</span>
                             <span className="data-value">{formatter.format(data.revenue)}</span>
                         </div>
 
@@ -186,7 +188,7 @@ const Statistical = () => {
                     <BestSellingProducts className="bestselling" />
                 </div>
                 <div className='chart-container'>
-                    <h2>Biểu đồ thống kê</h2>
+                    <h2>{t('statistical')}</h2>
                     <MyPieChart />
                 </div>
             </div>

@@ -4,6 +4,7 @@ import ToastApp from '../../../../lib/notification/Toast';
 
 const ModalOder = ({ order, onClose }) => {
     const [data, setData] = useState([]);
+    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaa", order)
     const statusLabels = {
         createOrder: "Đang chờ xác nhận",
         delivering: "Đang giao hàng",
@@ -21,6 +22,7 @@ const ModalOder = ({ order, onClose }) => {
     });
     const fetchOrderData = async () => {
         try {
+            console.log("bbbbbbbbbbbbbbbbbbb", order.OrdersProducts)
             if (!order || !order.OrdersProducts) {
                 return; // Nếu không có order hoặc OrdersProducts, không thực hiện gì cả
             }

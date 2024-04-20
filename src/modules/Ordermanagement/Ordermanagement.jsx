@@ -5,6 +5,7 @@ import ToastApp from '../../lib/notification/Toast';
 import OrderDetail from '../components/modal/modalOder/modalOder'
 import UserContext from '../../context/use.context';
 import { KEY_CONTEXT_USER } from '../../context/use.reducer';
+import { useTranslation } from 'react-i18next';
 
 const OrderManagenment = () => {
     const [userCtx, dispatch] = useContext(UserContext)
@@ -13,6 +14,8 @@ const OrderManagenment = () => {
     const [selectedOrder, setSelectedOrder] = useState(null);
     const [searchDataOder, setSearchDataOrder] = useState('');
     const [dataSearch, setDataSearch] = useState([]);
+    const [t, i18n] = useTranslation();
+    console.log("ccccccccccccccccc", dataSearch)
 
     const statusLabels = {
         createOrder: "Đang chờ xác nhận",
@@ -207,16 +210,16 @@ const OrderManagenment = () => {
                 <td>{statusLabels[order.status]}</td>
                 <td>
                     {order.status === "payment" ? "Lỗi đơn hàng" : order.status === "createOrder" || order.status === "PaidCreateOrder" ? (
-                        <button className='btn-config-oder' onClick={(e) => handleConfirmOrder(order.id, order.userId, e)}>Xác nhận</button>
+                        <button className='btn-config-oder' onClick={(e) => handleConfirmOrder(order.id, order.userId, e)}>{t('confirm')}</button>
                     ) : (
                         <> Đã Xác nhận</>
                     )}
                 </td>
                 <td>
-                    <button className='btn-cancle-oder' onClick={(e) => handleCancelOrder(order.id, e)}>Hủy đơn hàng</button>
+                    <button className='btn-cancle-oder' onClick={(e) => handleCancelOrder(order.id, e)}>{t('cancelOrder')}</button>
                 </td>
                 <td>
-                    <button className='btn-configOder' onClick={(e) => handleConfigOder(order.id, e)}>Nhận hàng</button>
+                    <button className='btn-configOder' onClick={(e) => handleConfigOder(order.id, e)}>{t('receive')}</button>
                 </td>
             </tr>
         );
@@ -234,10 +237,10 @@ const OrderManagenment = () => {
                             <tr>
                                 <th colSpan="10">
                                     <div className="purple-line"></div>
-                                    <span>Danh sách đơn hàng</span>
+                                    <span>{t('orders')}</span>
                                     <div className="search-box-oder">
                                         <input type="text"
-                                            placeholder="Tìm kiếm số điện thoại..."
+                                            placeholder={t('searchPhone')}
                                             name="search"
                                             value={searchDataOder}
                                             onChange={handleInputSearch} />
@@ -250,16 +253,16 @@ const OrderManagenment = () => {
                         <table className="discount-table">
                             <thead>
                                 <tr>
-                                    <th>Mã đơn hàng</th>
-                                    <th>ID người dùng</th>
-                                    <th>Số tiền </th>
-                                    <th>Số điện thoại</th>
-                                    <th>Thời gian</th>
-                                    <th>Địa chỉ</th>
-                                    <th>Trạng thái</th>
-                                    <th>Hành động</th>
-                                    <th>Hủy đơn hàng</th>
-                                    <th>Xác nhận đơn hàng</th>
+                                    <th>{t('orderCode')}</th>
+                                    <th>{t('userCode')}</th>
+                                    <th>{t('money')} </th>
+                                    <th>{t('phone')}</th>
+                                    <th>{t('time')}</th>
+                                    <th>{t('address')}</th>
+                                    <th>{t('orders')}</th>
+                                    <th>{t('act')}</th>
+                                    <th>{t('cancelOrder')}</th>
+                                    <th>{t('OrderConfirmation')}</th>
                                 </tr>
                             </thead>
                             <tbody>

@@ -3,32 +3,32 @@ const sidebarNav = [
     link: '/admin',
     section: 'admin',
     icon: <image></image>,
-    text: 'Quản lí User',
+    text: 'customerManagement',
   },
 
   {
     link: '/admin/product',
     section: 'product',
     icon: <i className="bx bx-cube"></i>,
-    text: 'Quản lý sản phẩm ',
+    text: 'productManagement',
   },
   {
     link: '/admin/order',
     section: 'order',
     icon: <i className="bx bx-cube"></i>,
-    text: 'Quản lý đơn hàng',
+    text: 'orderManagement',
   },
   {
     link: '/admin/statistical',
     section: 'statistical',
     icon: <i className="bx bx-cube"></i>,
-    text: 'Thống kê - Doanh thu',
+    text: 'statisticsRevenue',
   },
   {
     link: '/admin/discountcode',
     section: 'discountcode',
     icon: <i className="bx bx-cube"></i>,
-    text: 'Quản lí mã giảm giá',
+    text: 'manageDiscountCodes',
   },
 ]
 

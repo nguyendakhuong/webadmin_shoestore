@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import UserContext from '../../../context/use.context';
 import { KEY_CONTEXT_USER } from '../../../context/use.reducer';
 import { TYPE_MODEL } from '../../components/modal';
+import APP_LOCAL from '../../../lib/localStorage';
 
 const Header = () => {
     const navigate = useNavigate()
@@ -26,6 +27,13 @@ const Header = () => {
             })
         }
     }
+    const changeLang = (lang) => {
+        dispatch({
+            type: KEY_CONTEXT_USER.SET_LANGUAGE,
+            payload: lang
+        })
+        APP_LOCAL.setLanguageStorage(lang)
+    }
     return (
         <header className="header">
             <div className="logo" onClick={handlerAdmin}>
@@ -38,10 +46,10 @@ const Header = () => {
                 </div> */}
                 <div className="icon-container">
                     <div className="icon mail-icon">
-                        <img src={VNimg} alt="Mail Icon" className="mail-icon-img" />
+                        <img src={VNimg} alt="Mail Icon" className="mail-icon-img" onClick={() => changeLang("vi")} />
                     </div>
                     <div className="icon notification-icon">
-                        <img src={UKimg} alt="Notification Icon" className="notification-icon-img" />
+                        <img src={UKimg} alt="Notification Icon" className="notification-icon-img" onClick={() => changeLang("en")} />
                     </div>
                 </div>
             </div>

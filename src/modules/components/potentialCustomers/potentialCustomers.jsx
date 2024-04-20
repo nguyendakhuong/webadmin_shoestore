@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './potentialCustomers.scss';
+import { useTranslation } from 'react-i18next';
+
 
 const PotentialCustomers = () => {
     const [data, setData] = useState(null);
+    const [t, i18n] = useTranslation();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -24,7 +27,7 @@ const PotentialCustomers = () => {
 
     return (
         <div className="potential-customers-container">
-            <h2 className="heading">Khách hàng tiềm năng</h2>
+            <h2 className="heading">{t('potentialCustomers')}</h2>
             <div className="customer-list">
                 {data ? (
                     data.map((customer, index) => (
@@ -35,7 +38,7 @@ const PotentialCustomers = () => {
                                 <div className="customer-email">{customer.email}</div>
                             </div>
                         </div>
-                    ))) : <div className="loading-message">Đang tải dữ liệu...</div>}
+                    ))) : <div className="loading-message">{t('loading')} ...</div>}
             </div>
         </div>
     );

@@ -7,8 +7,10 @@ import ToastApp from '../../lib/notification/Toast';
 import moment from 'moment';
 import UserContext from '../../context/use.context';
 import { KEY_CONTEXT_USER } from '../../context/use.reducer';
+import { useTranslation } from 'react-i18next';
 
 const Discountcode = () => {
+    const [t, i18n] = useTranslation();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [data, setData] = useState(null);
     const [reload, setReloadData] = useState(false);
@@ -98,8 +100,8 @@ const Discountcode = () => {
                     <tr>
                         <th colSpan="10">
                             <div className="purple-line"></div>
-                            <span>Danh sách mã giảm giá</span>
-                            <button className="discount-button" onClick={handleOpenModal}>+ Thêm mã giảm giá</button>
+                            <span>{t('codes')}</span>
+                            <button className="discount-button" onClick={handleOpenModal}>{t('addCodes')}</button>
                         </th>
                     </tr>
                 </thead>
@@ -109,14 +111,14 @@ const Discountcode = () => {
                 <table className="discount-table">
                     <thead>
                         <tr>
-                            <th>Mã giảm giá</th>
-                            <th>Loại</th>
-                            <th>Số lượng</th>
-                            <th>Giảm giá</th>
-                            <th>Ngày bắt đầu</th>
-                            <th>Ngày kết thúc</th>
-                            <th>Trạng thái</th>
-                            <th>Hành động</th>
+                            <th>{t('nameCode')}</th>
+                            <th>{t('category')}</th>
+                            <th>{t('quantity')}</th>
+                            <th>{t('discount')}</th>
+                            <th>{t('startDate')}</th>
+                            <th>{t('endDate')}</th>
+                            <th>{t('status')}</th>
+                            <th>{t('act')}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -126,7 +128,7 @@ const Discountcode = () => {
                             {data.map(value => (
                                 <tr key={value.id} >
                                     <td>{value.name}</td>
-                                    <td>{value.type === 1 ? "giảm tiền trực tiếp" : "Giảm theo phân trăm"}</td>
+                                    <td>{value.type === 1 ? `${t('direct')}` : `${t('decrease')}`}</td>
                                     <td>{value.quantity}</td>
                                     <td>{value.type === 1 ? formatter.format(value.discount) : value.discount + " %"}</td>
 
@@ -142,8 +144,8 @@ const Discountcode = () => {
                                             moment(value.endDate).isAfter(value.startDate) &&
                                             moment(value.endDate).isAfter(moment()) &&
                                             moment(value.startDate).isBefore(moment())
-                                            ? <span className="active-text">Hoạt động</span>
-                                            : <span className="inactive-text">Không hoạt động</span>}
+                                            ? <span className="active-text">{t('active')}</span>
+                                            : <span className="inactive-text">{t('inactive')}</span>}
                                     </td>
 
                                     <td>

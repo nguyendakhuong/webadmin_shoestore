@@ -1,7 +1,10 @@
 
 import React, { useEffect, useState } from 'react';
 import './BestSellingProducts.scss';
+import { useTranslation } from 'react-i18next';
 const BestSellingProducts = () => {
+
+    const [t, i18n] = useTranslation();
 
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
@@ -48,14 +51,13 @@ const BestSellingProducts = () => {
     const handleEndDateChange = (event) => {
         setEndDate(event.target.value);
     };
-
     return (
         <div className="best-selling-container">
-            <h2>Top 5 sản phẩm bán chạy</h2>
+            <h2>{t('top5Products')}</h2>
             <div className="date-filter">
-                <label htmlFor="start-date" className="date-label">Từ:</label>
+                <label htmlFor="start-date" className="date-label">{t('from')}:</label>
                 <input type="date" id="start-date" value={startDate} name='startDate' onChange={handleStartDateChange} />
-                <label htmlFor="end-date" className="date-label">Đến:</label>
+                <label htmlFor="end-date" className="date-label">{t('to')}:</label>
                 <input type="date" id="end-date" value={endDate} name='startDate' onChange={handleEndDateChange} />
             </div>
             <div className="product-grid">
@@ -66,10 +68,10 @@ const BestSellingProducts = () => {
                             <div className="top-info">
                                 <div className="top-number">{index + 1}</div>
                                 <div className="product-info_bestsell">{product.productName}</div>
-                                <div className="product-info_bestsell">Số đơn hàng:{product.totalQuantity}</div>
+                                <div className="product-info_bestsell">{t('numberOfOrders')}:{product.totalQuantity}</div>
                             </div>
                         </div>
-                    ))) : "Đang tải dữ liệu"}
+                    ))) : `${t('loading')}`}
             </div>
         </div>
     );

@@ -9,11 +9,19 @@ import { KEY_CONTEXT_USER } from './context/use.reducer'
 import ToastApp from './lib/notification/Toast'
 import Modal from './modules/components/modal'
 import Loading from './modules/components/loading/Loading'
+import { useTranslation } from 'react-i18next'
 
 function App() {
-  const [{ role, isOpenModal }, dispatch] = useContext(UserContext)
+  const [{ role, isOpenModal, language }, dispatch] = useContext(UserContext)
   const [isAuth, setIsAuth] = useState(APP_LOCAL.getTokenStorage)
-  console.log(role)
+  const [t, i18n] = useTranslation();
+
+  useEffect(() => {
+    if (language) {
+      i18n.changeLanguage(language);
+    }
+  }, [language]);
+
   useEffect(() => {
     const getUser = async () => {
       const token = APP_LOCAL.getTokenStorage();

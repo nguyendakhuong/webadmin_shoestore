@@ -4,6 +4,7 @@ const InitState = {
   isOpenModal: false,
   dataModal: null,
   isLoading: false,
+  language: '',
 }
 const KEY_CONTEXT_USER = {
   SET_TOKEN: 'SET_TOKEN',
@@ -12,6 +13,7 @@ const KEY_CONTEXT_USER = {
   CLEAR: 'CLEAR',
   SHOW_MODAL: 'SHOW_MODAL',
   HIDE_MODAL: 'HIDE_MODAL',
+  SET_LANGUAGE: 'SET_LANGUAGE',
 }
 const UserReducer = (state, action) => {
   switch (action.type) {
@@ -38,6 +40,8 @@ const UserReducer = (state, action) => {
         dataModal: null,
         onClickConfirmModel: () => {},
       }
+    case KEY_CONTEXT_USER.SET_LANGUAGE:
+      return { ...state, language: action.payload }
     default:
   }
 }

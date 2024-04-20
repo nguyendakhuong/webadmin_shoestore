@@ -5,6 +5,7 @@ import APP_LOCAL from '../../lib/localStorage';
 import ToastApp from '../../lib/notification/Toast';
 import UserContext from '../../context/use.context';
 import { KEY_CONTEXT_USER } from '../../context/use.reducer';
+import { useTranslation } from 'react-i18next';
 
 const User = () => {
     const [userCtx, dispatch] = useContext(UserContext)
@@ -13,6 +14,7 @@ const User = () => {
     const [hoveredRow, setHoveredRow] = useState(null);
     const [data, setData] = useState(null);
     const [reloadData, setReloadData] = useState(false);
+    const [t, i18n] = useTranslation();
 
     const handleRowClick = (user) => {
         setSelectedUser(user);
@@ -144,7 +146,7 @@ const User = () => {
                     <tr>
                         <th colSpan="10">
                             <div className="purple-line"></div>
-                            <span>Danh sách người dùng</span>
+                            <span>{t('userList')}</span>
                         </th>
                     </tr>
                 </thead>
@@ -153,11 +155,11 @@ const User = () => {
             <table className="user-table">
                 <thead>
                     <tr>
-                        <th>Mã người dùng</th>
-                        <th>Tên</th>
+                        <th>{t('userCode')}</th>
+                        <th>{t('name')}</th>
                         <th>Email</th>
-                        <th>Xác nhận Email</th>
-                        <th>Trạng thái</th>
+                        <th>{t('veriEmail')}</th>
+                        <th>{t('status')}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -173,7 +175,7 @@ const User = () => {
                                 <td>{user.id}</td>
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
-                                <td>{user.verifyEmail === true ? 'Đã xác thực' : 'Chưa xác thực'}</td>
+                                <td>{user.verifyEmail === true ? `${t('verified')}` : `${t('notYetAuthenticated')}`}</td>
                                 <td>
                                     <button
                                         id={`lockButton-${user.id}`}
@@ -181,7 +183,8 @@ const User = () => {
                                         onClick={(e) => { handleLockToggle(user, e); }}
                                         style={{ backgroundColor: user.role === 1 ? 'blue' : 'red' }}
                                     >
-                                        {user.role === 1 ? 'Khóa tài khoản' : 'Đã khóa'}
+                                        {user.role === 1 ? `${t('banAccount')}` : `${t('openAccount')}`}
+
                                     </button>
                                 </td>
                             </tr>

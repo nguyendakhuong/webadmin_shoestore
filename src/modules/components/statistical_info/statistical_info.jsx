@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './statistical_info.scss';
+import { useTranslation } from 'react-i18next';
 
 const StatisticalInfo = () => {
-
+    const [t, i18n] = useTranslation();
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [data, setData] = useState({
@@ -47,40 +48,39 @@ const StatisticalInfo = () => {
         };
         response();
     }, [startDate, endDate])
-    console.log(data)
     return (
         <div className="modal-overlay_info">
             <div className="modal-content_info">
-                <h2>Chi tiết thống kê</h2>
+                <h2>{t('statisticalDetails')}</h2>
                 <div className="time-selector">
-                    <label htmlFor="start-date" className="date-label">Từ:</label>
+                    <label htmlFor="start-date" className="date-label">{t('from')}:</label>
                     <input type="date" id="start-date" value={startDate} name='startDate' onChange={handleStartDateChange} />
-                    <label htmlFor="end-date" className="date-label">Đến:</label>
+                    <label htmlFor="end-date" className="date-label">{t('to')}:</label>
                     <input type="date" id="end-date" value={endDate} name='startDate' onChange={handleEndDateChange} />
                 </div>
                 <div className="grid-container_info">
                     <div className="grid-item_info">
-                        <div className='grid-item_info-colum'>Tổng số đơn hàng</div>
+                        <div className='grid-item_info-colum'>{t('totalNumberOfOrders')}</div>
                         <div className="context-statistical">
                             {data.order}
                         </div>
                     </div>
                     <div className="grid-item_info">
-                        <div className='grid-item_info-colum2'><text>Tài khoản người dùng mua hàng</text></div>
+                        <div className='grid-item_info-colum2'><text>{t('purchaseUserAccount')}</text></div>
                         <div className="context-statistical-account">
                             {Array.isArray(data.account) && data.account.length > 0 ? (
                                 <div className="account-container-statistical">
                                     {data.account.map((item, index) => (
                                         <div className="account-item-statistical" key={index}>
                                             <div className="account-info-statistical">
-                                                <p><strong>Account:</strong> {item.email}</p>
-                                                <p><strong>Số lượng sản phẩm đã mua:</strong> {item.totalQuantity}</p>
+                                                <p><strong>{t('account')}:</strong> {item.email}</p>
+                                                <p><strong>{t('numberOfProductsPurchased')}:</strong> {item.totalQuantity}</p>
                                             </div>
                                         </div>
                                     ))}
                                 </div>
                             ) : (
-                                <p>Không có dữ liệu</p>
+                                <p>{t('noData')}</p>
                             )}
                         </div>
                     </div>
@@ -89,7 +89,7 @@ const StatisticalInfo = () => {
 
 
                     <div className="grid-item_info">
-                        <div className='grid-item_info-colum3'>Doanh thu </div>
+                        <div className='grid-item_info-colum3'>{t('revenue')}</div>
                         <div className="context-statistical">
                             {data.totalRevenue} đ
 

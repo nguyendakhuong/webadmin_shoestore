@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from 'react'
 import UserContext from '../../../context/use.context'
 import { KEY_CONTEXT_USER } from '../../../context/use.reducer'
 import APP_LOCAL from '../../../lib/localStorage'
+import { useTranslation } from 'react-i18next'
 
 
 function Sidebar({ sidebarNav }) {
@@ -11,6 +12,7 @@ function Sidebar({ sidebarNav }) {
     const location = useLocation()
     const [userCtx, dispatch] = useContext(UserContext)
     const navigate = useNavigate()
+    const [t, i18n] = useTranslation();
 
     useEffect(() => {
         const curPath = window.location.pathname.split('/')[2]
@@ -19,6 +21,9 @@ function Sidebar({ sidebarNav }) {
 
         setAnActiveIndex(!curPath ? 0 : locationItem)
     }, [location])
+    const getLocalizedText = (textKey) => {
+        return t(textKey);
+    };
 
     return (
         <div className="sidebar">
@@ -30,7 +35,7 @@ function Sidebar({ sidebarNav }) {
                         className={`sidebar__menu__item ${activeIndex === index && 'active'
                             }`}>
                         <div className="sidebar__menu__item__icon">{nav.icon}</div>
-                        <div className="sidebar__menu__item__txt">{nav.text}</div>
+                        <div className="sidebar__menu__item__txt">{getLocalizedText(nav.text)}</div>
                     </Link>
                 ))}
                 <div className="sidebar__menu__item">
@@ -52,7 +57,7 @@ function Sidebar({ sidebarNav }) {
                             navigate('/login')
                         }}
                         className="sidebar__menu__item__txt">
-                        Đăng xuất
+                        {t('logout')}
                     </div>
                 </div>
             </div>

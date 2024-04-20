@@ -3,11 +3,12 @@ import { ResponsiveBar } from '@nivo/bar';
 import ToastApp from '../../../lib/notification/Toast';
 import UserContext from '../../../context/use.context';
 import { KEY_CONTEXT_USER } from '../../../context/use.reducer';
+import { useTranslation } from 'react-i18next';
 
 const MyBarChart = () => {
+    const [t, i18n] = useTranslation();
     const [userCtx, dispatch] = useContext(UserContext)
     const [selectedProduct, setSelectedProduct] = useState('');
-    const [selectedYear, setSelectedYear] = useState('');
     const [nameProduct, setNameProduct] = useState([]);
     const [data, setData] = useState([])
     const formatYAxis = value => {
@@ -74,30 +75,17 @@ const MyBarChart = () => {
     const handleProductChange = (event) => {
         setSelectedProduct(event.target.value);
     };
-
-    const handleYearChange = (event) => {
-        setSelectedYear(event.target.value);
-    };
-
     return (
         <div>
             <div style={{ display: 'flex' }}>
                 <div style={{ marginLeft: '180px', marginRight: '10px' }}>
-                    <label htmlFor="product" style={{ marginRight: '20px' }}>Chọn sản phẩm:</label>
+                    <label htmlFor="product" style={{ marginRight: '20px' }}>{t('selectProduct')}</label>
                     <select id="product" value={selectedProduct} onChange={handleProductChange} style={{ width: '300px', padding: '5px' }}>
                         {nameProduct.map((value, index) => (
                             <option key={index} value={value.name}>{value.name}</option>
                         ))}
                     </select>
                 </div>
-                {/* <div>
-                    <label htmlFor="year" >Chọn năm:</label>
-                    <select id="year" value={selectedYear} onChange={handleYearChange} style={{ width: '200px', padding: '5px' }}>
-                        <option value="2022">2022</option>
-                        <option value="2023">2023</option>
-                        <option value="2024">2024</option>
-                    </select>
-                </div> */}
             </div>
             <div style={{ width: '840px', height: '460px', margin: '0 auto' }}>
                 <ResponsiveBar
@@ -117,12 +105,13 @@ const MyBarChart = () => {
                         tickSize: 5,
                         tickPadding: 5,
                         tickRotation: 0,
-                        legend: 'Số lượng đơn hàng',
+                        legend: `${t('numberOfProducts')}`,
                         legendPosition: 'middle',
                         legendOffset: -40,
                         tickFormat: formatYAxis
 
                     }}
+
                     labelSkipWidth={12}
                     labelSkipHeight={12}
                     labelTextColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
