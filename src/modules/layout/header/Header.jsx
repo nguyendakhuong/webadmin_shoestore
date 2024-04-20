@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import './Header.scss';
-import mailIconImage from '../../asset/image/mail.png';
-import notificationIconImage from '../../asset/image/bell.png';
+import VNimg from '../../asset/image/imageVn.png';
+import UKimg from '../../asset/image/imgUK.png';
 import logo from '../../asset/image/logo1.png'
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../../../context/use.context';
@@ -32,16 +32,16 @@ const Header = () => {
                 <img src={logo} alt="Logo" />
             </div>
             <div className="header-right">
-                <div className="search-box">
+                {/* <div className="search-box">
                     <input type="text" placeholder="Tìm kiếm..." />
                     <button type="button">Tìm kiếm</button>
-                </div>
+                </div> */}
                 <div className="icon-container">
                     <div className="icon mail-icon">
-                        <img src={mailIconImage} alt="Mail Icon" className="mail-icon-img" />
+                        <img src={VNimg} alt="Mail Icon" className="mail-icon-img" />
                     </div>
                     <div className="icon notification-icon">
-                        <img src={notificationIconImage} alt="Notification Icon" className="notification-icon-img" />
+                        <img src={UKimg} alt="Notification Icon" className="notification-icon-img" />
                     </div>
                 </div>
             </div>

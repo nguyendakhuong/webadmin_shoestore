@@ -25,6 +25,7 @@ const OrderManagenment = () => {
         payment: "Đơn hàng đã thanh toán nhưng có lỗi",
         PaymentAndCancel: "Đơn hàng đã thanh toán nhưng có lỗi và đã hủy"
     };
+
     const handleConfirmOrder = async (id, userId, e) => {
         e.stopPropagation();
         try {
@@ -43,6 +44,7 @@ const OrderManagenment = () => {
             }
         }
     };
+
     const handleInputSearch = (e) => {
         const { name, value } = e.target
         if (name === "search") {
@@ -134,6 +136,11 @@ const OrderManagenment = () => {
         })
 
     };
+    const formatter = new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+    });
+
 
     const handleConfigOder = async (id, e) => {
         e.stopPropagation();
@@ -193,7 +200,7 @@ const OrderManagenment = () => {
             <tr key={order.id} onClick={() => viewOrderDetail(order)}>
                 <td>{order.id}</td>
                 <td>{order.userId}</td>
-                <td>{order.total}</td>
+                <td>{formatter.format(order.total)}</td>
                 <td>{order.phone}</td>
                 <td>{formattedUpdatedAt}</td>
                 <td>{order.address}</td>

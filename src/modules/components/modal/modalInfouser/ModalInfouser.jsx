@@ -16,7 +16,6 @@ const ModalInfoUser = ({ user, onClose }) => {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     },
-
                 });
             const data = await response.json();
             if (data.status === 200) {
@@ -47,15 +46,20 @@ const ModalInfoUser = ({ user, onClose }) => {
                 {
                     data ? (
                         <>
-                            <h2>Thông tin chi tiết người dùng</h2>
-                            <p><strong>Name:</strong> {data.name}</p>
-                            <p><strong>Phone:</strong> {data.phone}</p>
-                            <p><strong>Address:</strong> {data.address}</p>
-                            <p><strong>City:</strong> {data.city}</p>
-                            <p><strong>Date of Birth:</strong> {data.dob ? moment(data.dob).format('DD/MM/YYYY') : "Null"}</p>
-                            <p><strong>Avatar:</strong> </p>
-                            <img src={data.avatar} alt='' style={{ width: '200px', height: '200px' }} />
-                            <p><strong>Gender:</strong> {data.gender}</p>
+                            <div className="user-info">
+                                <div className="avatar-container">
+                                    <img src={data.avatar} alt='' />
+                                </div>
+                                <div className="details-container">
+                                    <h2>Thông tin chi tiết người dùng</h2>
+                                    <p><strong>Name:</strong> {data.name}</p>
+                                    <p><strong>Phone:</strong> {data.phone}</p>
+                                    <p><strong>Address:</strong> {data.address}</p>
+                                    <p><strong>City:</strong> {data.city}</p>
+                                    <p><strong>Date of Birth:</strong> {data.dob ? moment(data.dob).format('DD/MM/YYYY') : "Null"}</p>
+                                    <p><strong>Gender:</strong> {data.gender}</p>
+                                </div>
+                            </div>
                         </>
                     ) : "Đang tải dữ liệu"
                 }
