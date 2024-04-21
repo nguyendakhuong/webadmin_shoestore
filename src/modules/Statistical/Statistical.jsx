@@ -108,13 +108,16 @@ const Statistical = () => {
                         <th colSpan="10">
                             <div className="purple-line"></div>
                             <span>{t('statistics')}</span>
+
+                            <button className='statistical-button-info' onClick={handleOpenDialog}>{t('statisticalDetails')}</button>
+
                         </th>
+
                     </tr>
+
                 </thead>
             </table>
-            <div className='statistical-info-dialog'>
-                <button onClick={handleOpenDialog}>{t('statisticalDetails')}</button>
-            </div>
+
             <div className="container-box">
                 <div className="box">
                     <div className="left-container">
