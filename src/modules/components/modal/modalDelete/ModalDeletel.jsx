@@ -4,8 +4,10 @@ import { KEY_CONTEXT_USER } from "../../../../context/use.reducer"
 import styles from './styles.module.scss'
 import ButtonWed from "../../button/Button-admin"
 import AppImages from "../../../asset"
+import { useTranslation } from "react-i18next"
 const DeleteItem = () => {
     const [userCTX, dispatch] = useContext(UserContext);
+    const [t, i18n] = useTranslation();
     const onClickClone = () => {
         dispatch({
             type: KEY_CONTEXT_USER.HIDE_MODAL,
@@ -16,20 +18,20 @@ const DeleteItem = () => {
             <div className={styles.iconClone}>
                 <i onClick={onClickClone} class="bx bx-x"></i>
             </div>
-            <h1>{userCTX.titleModel ?? 'Thông báo'}</h1>
+            <h1>{userCTX.titleModel ?? `${t('notification')}`}</h1>
             <img className={styles.icon} src={AppImages.deleteModal} alt="" />
             <label>
                 {' '}
-                {userCTX.contentModel ?? 'Bạn có đồng ý xóa mục này không ?'}
+                {userCTX.contentModel ?? `${t('delete')}`}
             </label>
             <div className={styles.button}>
                 <div>
-                    <ButtonWed buttonAuth={false} title={'Hủy'} onClick={onClickClone} />
+                    <ButtonWed buttonAuth={false} title={t('cancel')} onClick={onClickClone} />
                 </div>
                 <div>
                     <ButtonWed
                         buttonAuth={true}
-                        title={'Đồng ý'}
+                        title={t('ok')}
                         onClick={() => {
                             userCTX.onClickConfirmModel(userCTX.dataModal)
                             dispatch({

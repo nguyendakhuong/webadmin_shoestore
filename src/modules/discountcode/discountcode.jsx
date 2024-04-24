@@ -52,7 +52,7 @@ const Discountcode = () => {
             payload: {
                 typeModal: 'DELETE_ITEM',
                 dataModal: item.id,
-                contentModel: "Bạn có chắc chắn muốn xóa sản phẩm " + item.name + " không?",
+                // contentModel: "Bạn có chắc chắn muốn xóa sản phẩm " + item.name + " không?",
                 onClickConfirmModel: async () => {
                     const token = APP_LOCAL.getTokenStorage()
                     try {

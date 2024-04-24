@@ -12,9 +12,6 @@ import ModalProduct from '../components/modal/modalProduct/modalProduct'
 import CreateProduct from './create-prodcut/CreateProduct';
 import { useTranslation } from 'react-i18next';
 
-
-
-
 const Product = () => {
     const [userCtx, dispatch] = useContext(UserContext)
     const [navigateCreate, setNavigateCreate] = useState(false);
@@ -151,8 +148,6 @@ const Product = () => {
         getProduct();
         setReloadData(false);
     }, [reloadData]);
-
-
 
     const TableRow = ({ product, handleEdit, handleDelete, handleClick, handleClickStatus }) => {
 

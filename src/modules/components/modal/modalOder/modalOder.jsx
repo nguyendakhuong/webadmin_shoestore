@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import './modalOder.scss';
 import ToastApp from '../../../../lib/notification/Toast';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 const ModalOder = ({ order, onClose }) => {
     const [data, setData] = useState([]);
     const [t, i18n] = useTranslation();
+    const navigation = useNavigate()
     const statusLabels = {
         createOrder: `${t('createOrder')}`,
         delivering: `${t('delivering')}`,
@@ -53,6 +55,22 @@ const ModalOder = ({ order, onClose }) => {
             // ToastApp.error('Lỗi khi gửi yêu cầu');
         }
     };
+    const handlerDeleteOder = async (id) => {
+        try {
+            const response = await fetch(`http://localhost:3001/order/deleteOrder/${id}`, {
+                method: "GET",
+            });
+            const data = await response.json();
+            if (data.status === 200) {
+                ToastApp.success('' + data.message)
+                onClose()
+            } else {
+                ToastApp.error('Error: ' + data.message);
+            }
+        } catch (e) {
+            console.log("Error:" + e)
+        }
+    }
     const updatedAtDate = new Date(order.updatedAt);
     const formattedUpdatedAt = `${updatedAtDate.getUTCDate() < 10 ? '0' + updatedAtDate.getUTCDate() :
         updatedAtDate.getUTCDate()}-${updatedAtDate.getUTCMonth() + 1 < 10 ? '0' + (updatedAtDate.getUTCMonth() + 1) :
@@ -90,7 +108,14 @@ const ModalOder = ({ order, onClose }) => {
                                 <p className="order-info"><strong>{t('time')}:</strong> {formattedUpdatedAt}</p>
                                 <p className="order-info"><strong>{t('status')}:</strong> {statusLabels[order.status]}</p>
                                 <hr className="order-divider" />
+
+                                {(order.status === "cancelOrder" || order.status === "PaidCancelOrder") && (
+                                    <div className='divCancelOrder'>
+                                        <button className='btnCancelOrder' onClick={() => handlerDeleteOder(order.id)}>{t('deleteOrder')}</button>
+                                    </div>
+                                )}
                             </div>
+
                         </div>
                         <div className="footer">
                             <p className="order-info1"><strong>{t('total')}:</strong> {formatter.format(order.total)}</p>

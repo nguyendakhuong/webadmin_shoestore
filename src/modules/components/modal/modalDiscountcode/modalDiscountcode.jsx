@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import './modalDiscountcode.scss';
 import ToastApp from '../../../../lib/notification/Toast';
 import APP_LOCAL from '../../../../lib/localStorage';
+import { useTranslation } from 'react-i18next';
 
 const ModaladdDiscountcode = ({ isOpen, onClose }) => {
+    const [t, i18n] = useTranslation();
     const [formData, setFormData] = useState({
         name: '',
         quantity: '',
@@ -69,28 +71,27 @@ const ModaladdDiscountcode = ({ isOpen, onClose }) => {
             {isOpen && (
                 <div className="modal-overlay">
                     <div className="modal-content">
-
-                        <h2>Thêm mã giảm giá</h2>
+                        <h2>{t('addDiscountCode')}</h2>
                         <form onSubmit={e => e.preventDefault()}>
                             <label>
-                                Tên mã:
+                                {t('name')}
                                 <input type="text" name="name" value={formData.name} onChange={handleChange} required />
                             </label>
                             <label>
-                                Số lượng:
+                                {t('quantity')}
                                 <input type="number" name="quantity" value={formData.quantity} onChange={handleChange} required />
                             </label>
                             <label>
-                                Ngày bắt đầu:
+                                {t('startDate')}
                                 <input type="date" name="startDate" value={formData.startDate} onChange={handleChange} required />
                             </label>
                             <label>
-                                Ngày kết thúc:
+                                {t('endDate')}
                                 <input type="date" name="endDate" value={formData.endDate} onChange={handleChange} required />
                             </label>
                             <div className="type-input">
                                 <label>
-                                    <text>Loại:</text>
+                                    <text>{t('category')}:</text>
                                     <input
                                         type="radio"
                                         name="type"
@@ -112,13 +113,13 @@ const ModaladdDiscountcode = ({ isOpen, onClose }) => {
                                 </label>
                             </div>
                             <label>
-                                Trị giá:
+                                {t('value')}
                                 <input type="number" name="discount" min={0} max={500000} value={formData.discount} onChange={handleChange} required />
                             </label>
 
                             <div className="modal-buttons">
-                                <button onClick={handleSubmit} type="submit">Thêm mã giảm giá</button>
-                                <button className="exit-button" onClick={onClose}>Thoát</button>
+                                <button onClick={handleSubmit} type="submit">{t('add')}</button>
+                                <button className="exit-button" onClick={onClose}>{t('cancel')}</button>
                             </div>
                         </form>
                     </div>

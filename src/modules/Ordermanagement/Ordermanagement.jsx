@@ -151,9 +151,9 @@ const OrderManagenment = () => {
             });
             const data = await response.json();
             if (data.status === 200) {
-                ToastApp.success('' + data.message)
+                ToastApp.success('Success: ' + data.message)
             } else {
-                ToastApp.error('Error: ' + data.message);
+                ToastApp.warning('Warning: ' + data.message);
             }
         } catch (e) {
             console.log("Error:" + e)
@@ -186,7 +186,7 @@ const OrderManagenment = () => {
     useEffect(() => {
         getOrder();
         setReloadData(false);
-    }, [reloadData]);
+    }, [reloadData, selectedOrder]);
 
     const viewOrderDetail = (order) => {
         setSelectedOrder(order);
@@ -207,11 +207,13 @@ const OrderManagenment = () => {
                 <td>{order.address}</td>
                 <td>{statusLabels[order.status]}</td>
                 <td>
-                    {order.status === "payment" ? `${t('payment')}` : order.status === "createOrder" || order.status === "PaidCreateOrder" ? (
-                        <button className='btn-config-oder' onClick={(e) => handleConfirmOrder(order.id, order.userId, e)}>{t('confirm')}</button>
-                    ) : (
-                        <>{t('confirmed')}</>
-                    )}
+                    {order.status === "payment" ? `${t('payment')}` :
+                        order.status === "cancelOrder" || order.status === "PaidCancelOrder" ? `${t('cancelled')}` :
+                            order.status === "createOrder" || order.status === "PaidCreateOrder" ? (
+                                <button className='btn-config-oder' onClick={(e) => handleConfirmOrder(order.id, order.userId, e)}>{t('confirm')}</button>
+                            ) : (
+                                <>{t('confirmed')}</>
+                            )}
                 </td>
                 <td>
                     <button className='btn-cancle-oder' onClick={(e) => handleCancelOrder(order.id, e)}>{t('cancelOrder')}</button>
