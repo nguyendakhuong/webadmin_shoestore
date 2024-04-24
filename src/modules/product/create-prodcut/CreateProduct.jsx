@@ -133,10 +133,10 @@ const CreateProduct = () => {
                 }).then(data => {
 
                     if (data.status === 200) {
-                        ToastApp.success('Thành công')
+                        ToastApp.success('Success')
                         clearForm();
                     } else {
-                        ToastApp.error('Lỗi: ' + data.message)
+                        ToastApp.error('Error: ' + data.message)
                     }
                 }).catch(e => {
                     console.log("Lỗi: ", e)

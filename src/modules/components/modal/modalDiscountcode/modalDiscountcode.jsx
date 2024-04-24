@@ -53,11 +53,11 @@ const ModaladdDiscountcode = ({ isOpen, onClose }) => {
 
             const data = await response.json();
             if (data.status === 200) {
-                ToastApp.success('Thêm thành công');
+                ToastApp.success('Success');
                 clearForm();
                 onClose();
             } else {
-                ToastApp.warning('Cảnh báo: ' + data.message);
+                ToastApp.warning(data.message);
             }
         } catch (error) {
             console.error('Đã xảy ra lỗi:', error);

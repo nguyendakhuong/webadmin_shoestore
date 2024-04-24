@@ -27,7 +27,7 @@ const MyBarChart = () => {
             if (data.status === 200) {
                 setNameProduct(data.data)
             } else {
-                ToastApp.error('Lỗi: ' + data.message);
+                ToastApp.error('Error: ' + data.message);
             }
         } catch (e) {
             console.log("Lỗi lấy tên sản phẩm: " + e)
@@ -49,10 +49,10 @@ const MyBarChart = () => {
             if (data.status === 200) {
                 setData(data.data)
             } else {
-                ToastApp.error('Lỗi a: ' + data.message);
+                ToastApp.error('Error: ' + data.message);
             }
         } catch (e) {
-            console.log("Lỗi: " + e)
+            console.log("Error: " + e)
         } finally {
             dispatch({ type: KEY_CONTEXT_USER.SET_LOADING, payload: false })
         }

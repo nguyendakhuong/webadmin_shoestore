@@ -1,9 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import "./Main.scss";
 import video from '../modules/asset/image/video.mp4'
+import { useTranslation } from "react-i18next";
 
 const Main = () => {
     const navigate = useNavigate();
+    const [t, i18n] = useTranslation();
 
     const handleLogin = () => {
         navigate('/Login');
@@ -18,7 +20,7 @@ const Main = () => {
 
             <div className="content">
                 <button className="button-mainlogin" onClick={handleLogin}>
-                    Đăng nhập
+                    {t('login')}
                 </button>
             </div>
         </div>

@@ -11,9 +11,11 @@ import { Validate } from '../../lib/validate/Validate'
 import UserContext from '../../context/use.context'
 import { KEY_CONTEXT_USER } from '../../context/use.reducer'
 import { TYPE_MODEL } from '../components/modal'
+import { useTranslation } from 'react-i18next'
 
 const SignUp = () => {
     const [data, setData] = useState(null)
+    const [t, i18n] = useTranslation();
     const navigate = useNavigate();
     const [status, setStatus] = useState(false)
     const [email, setEmail] = useState('')
@@ -81,19 +83,19 @@ const SignUp = () => {
 
                 }).then(data => {
                     if (data.status === 200) {
-                        ToastApp.success('Thành công: ' + data.message)
+                        ToastApp.success('Success ' + data.message)
                         setReloadData(true)
                         clearForm();
                     } else {
-                        ToastApp.warning('Lỗi: ' + data.message)
+                        ToastApp.warning('Error: ' + data.message)
                     }
 
                 }).catch(e => {
-                    console.log("Lỗi đăng nhập: ", e)
+                    console.log("Error đăng nhập: ", e)
                 })
 
             } catch (e) {
-                ToastApp.error("Lỗi hệ thống: ", e)
+                ToastApp.error("Error hệ thống: ", e)
             }
         }
         return (
@@ -104,8 +106,13 @@ const SignUp = () => {
                         <tr>
                             <th colSpan="10">
                                 <div className="purple-line"></div>
-                                <span>Danh sách tài khoản admin</span>
-                                <button className="product-button" onClick={handleBackProduct}>+ Quay lại</button>
+                                <div className={styles.headerSignUp}>
+                                    <button className={styles.iconBack} onClick={handleBackProduct} >
+                                        <img src={AppImages.iconBack} alt='Error icon' />
+                                    </button>
+                                    <span>{t('registerAccount')}</span>
+                                </div>
+
                             </th>
 
 
@@ -118,14 +125,14 @@ const SignUp = () => {
 
                     <div className={styles.register_content}>
 
-                        <h2>Đăng ký tài khoản</h2>
+                        <h2>{t('registerAccount')}</h2>
                         <form onSubmit={e => e.preventDefault()}>
 
 
                             <InputAdmin
                                 required={true}
                                 label={'Email'}
-                                placeholder={'Nhập email'}
+                                placeholder={`${t('enter')}`}
                                 validate={'required|regEmail'}
                                 onChange={handlerOnChangeInput}
                                 name={'email'}
@@ -135,8 +142,8 @@ const SignUp = () => {
                             />
                             <InputAdmin
                                 required={true}
-                                label={'Name'}
-                                placeholder={'Nhập tên'}
+                                label={`${t('name')}`}
+                                placeholder={`${t('enter')}`}
                                 validate={'required'}
                                 onChange={handlerOnChangeInput}
                                 name={'name'}
@@ -147,7 +154,7 @@ const SignUp = () => {
 
                             <InputAdmin
                                 required={true}
-                                label={'Mật khẩu'}
+                                label={`${t('pw')}`}
                                 placeholder={'******'}
                                 type={'password'}
                                 validate={'required'}
@@ -159,7 +166,7 @@ const SignUp = () => {
 
                             <div className={styles.button}>
                                 <ButtonWed
-                                    title={'Đăng ký'}
+                                    title={t('signup')}
                                     buttonAuth
                                     disabledBtn={isButtonDisabled}
                                     onClick={handleOnClick}
@@ -187,7 +194,7 @@ const SignUp = () => {
                 if (data.status === 200) {
                     setData(data.data)
                 } else {
-                    ToastApp.error('Lỗi: ' + data.message)
+                    ToastApp.error('Error: ' + data.message)
                 }
             }).catch(e => {
                 console.log(e)
@@ -223,10 +230,10 @@ const SignUp = () => {
                                 });
                             const data = await response.json();
                             if (data.status === 200) {
-                                ToastApp.success('Xóa thành công');
+                                ToastApp.success('Deleted successfully');
                                 setReloadData(true);
                             } else {
-                                ToastApp.error('Lỗi: ' + data.message);
+                                ToastApp.error('Error: ' + data.message);
                             }
 
                         } catch (e) {
@@ -258,8 +265,10 @@ const SignUp = () => {
                             <tr>
                                 <th colSpan="10">
                                     <div className="purple-line"></div>
-                                    <span>Danh sách tài khoản admin</span>
-                                    <button className="product-button" onClick={handleNavigateSignUp}>+ Tạo tài khoản</button>
+                                    <div className={styles.creactAccount}>
+                                        <span>{t('managementAccounts')}</span>
+                                        <button className="product-button" onClick={handleNavigateSignUp}>{t('creactAccount')}</button>
+                                    </div>
                                 </th>
 
 
@@ -271,12 +280,12 @@ const SignUp = () => {
                         <table className="product-table">
                             <thead>
                                 <tr>
-                                    <th>Mã admin</th>
-                                    <th>Tên</th>
-                                    <th>email</th>
-                                    <th>verifyEmail</th>
-                                    <th>role</th>
-                                    <th>Hành động</th>
+                                    <th>ID</th>
+                                    <th>{t('name')}</th>
+                                    <th>Email</th>
+                                    <th>{t('veriEmail')}il</th>
+                                    <th>{t('role')}</th>
+                                    <th>{t('act')}</th>
                                     { }
                                 </tr>
                             </thead>
@@ -287,7 +296,7 @@ const SignUp = () => {
                                             <td>{product.id}</td>
                                             <td>{product.name}</td>
                                             <td>{product.email}</td>
-                                            <td>{product.verifyEmail ? "Đã xác thực" : "Chưa xác thực"}</td>
+                                            <td>{product.verifyEmail ? `${t('verified')}` : `${t('notYetAuthenticated')}`}</td>
                                             <td>{product.role}</td>
 
                                             <td>
@@ -299,7 +308,7 @@ const SignUp = () => {
                                     ))}
                                 </tbody>
                                     : <div>
-                                        Chưa có dữ liệu
+                                        {t('loading')}
                                     </div>
                             }
                         </table>

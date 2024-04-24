@@ -5,7 +5,7 @@ import styles from './styles.module.scss'
 import ButtonWed from "../../button/Button-admin"
 import AppImages from "../../../asset"
 const DeleteItem = () => {
-    const [userCTX, dispatch] = useContext(UserContext)
+    const [userCTX, dispatch] = useContext(UserContext);
     const onClickClone = () => {
         dispatch({
             type: KEY_CONTEXT_USER.HIDE_MODAL,

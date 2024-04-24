@@ -3,10 +3,11 @@ import './ModalInfouse.scss';
 import ToastApp from '../../../../lib/notification/Toast';
 import APP_LOCAL from '../../../../lib/localStorage';
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
 
 const ModalInfoUser = ({ user, onClose }) => {
     const [data, setData] = useState(null);
-
+    const [t, i18n] = useTranslation();
     const getInfoUser = async () => {
         const token = APP_LOCAL.getTokenStorage()
         try {
@@ -25,7 +26,7 @@ const ModalInfoUser = ({ user, onClose }) => {
                 ToastApp.warning(data.message)
             }
         } catch (e) {
-            ToastApp.error("Lỗi: " + e)
+            ToastApp.error("Error: " + e)
         }
     }
 
@@ -51,13 +52,13 @@ const ModalInfoUser = ({ user, onClose }) => {
                                     <img src={data.avatar} alt='' />
                                 </div>
                                 <div className="details-container">
-                                    <h2>Thông tin chi tiết người dùng</h2>
-                                    <p><strong>Name:</strong> {data.name}</p>
-                                    <p><strong>Phone:</strong> {data.phone}</p>
-                                    <p><strong>Address:</strong> {data.address}</p>
-                                    <p><strong>City:</strong> {data.city}</p>
-                                    <p><strong>Date of Birth:</strong> {data.dob ? moment(data.dob).format('DD/MM/YYYY') : "Null"}</p>
-                                    <p><strong>Gender:</strong> {data.gender}</p>
+                                    <h2>{t('userDetails')}</h2>
+                                    <p><strong>{t('name')}:</strong> {data.name}</p>
+                                    <p><strong>{t('phone')}:</strong> {data.phone}</p>
+                                    <p><strong>{t('address')}:</strong> {data.address}</p>
+                                    <p><strong>{t('city')}:</strong> {data.city}</p>
+                                    <p><strong>{t('dob')}:</strong> {data.dob ? moment(data.dob).format('DD/MM/YYYY') : "Null"}</p>
+                                    <p><strong>{t('gender')}:</strong> {data.gender}</p>
                                 </div>
                             </div>
                         </>

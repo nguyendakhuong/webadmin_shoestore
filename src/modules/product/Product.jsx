@@ -41,7 +41,7 @@ const Product = () => {
                 if (res.status === 200) {
                     return res.json()
                 } else {
-                    ToastApp.error('Lỗi: ' + res.message)
+                    ToastApp.error('Error: ' + res.message)
                 }
             }).then(data => {
                 setData(data.data)
@@ -81,10 +81,10 @@ const Product = () => {
                             });
                         const data = await response.json();
                         if (data.status === 200) {
-                            ToastApp.success('Xóa thành công');
+                            ToastApp.success('Deleted successfully');
                             setReloadData(true);
                         } else {
-                            ToastApp.error('Lỗi: ' + data.message);
+                            ToastApp.error('Error: ' + data.message);
                         }
 
                     } catch (e) {
@@ -115,7 +115,7 @@ const Product = () => {
             if (data.status === 200) {
                 setDataSearch(data.data)
             } else {
-                ToastApp.error('Lỗi: ' + data.message);
+                ToastApp.error('Error: ' + data.message);
             }
         } catch (e) {
             console.log("Lỗi search:" + e)
@@ -135,10 +135,10 @@ const Product = () => {
                 });
             const data = await response.json();
             if (data.status === 200) {
-                ToastApp.success("Thay đổi trạng thái sản phẩm thành công")
+                ToastApp.success("Product status changed successfully")
                 setReloadData(true)
             } else {
-                ToastApp.error('Lỗi: ' + data.message);
+                ToastApp.error('Error: ' + data.message);
             }
         } catch (e) {
             console.log(e)

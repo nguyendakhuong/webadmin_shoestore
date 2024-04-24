@@ -44,20 +44,20 @@ const User = () => {
                                     });
                                 const data = await response.json();
                                 if (data.status === 200) {
-                                    ToastApp.success('Khóa thành công');
+                                    ToastApp.success('Lock successfully');
                                     setReloadData(true);
                                 } else {
-                                    ToastApp.error('Lỗi: ' + data.message);
+                                    ToastApp.error('Error: ' + data.message);
                                 }
 
                             } catch (e) {
-                                console.log("Lỗi xóa sản phẩm: ", e)
+                                console.log("Lỗi khóa sản phẩm: ", e)
                             }
                         },
                     },
                 })
             } catch (e) {
-                ToastApp.error("Lỗi: " + e)
+                ToastApp.error("Error: " + e)
             }
         }
         if (user.role === 2) {
@@ -81,10 +81,10 @@ const User = () => {
                                     });
                                 const data = await response.json();
                                 if (data.status === 200) {
-                                    ToastApp.success('Khóa thành công');
+                                    ToastApp.success('Lock successfully');
                                     setReloadData(true);
                                 } else {
-                                    ToastApp.error('Lỗi: ' + data.message);
+                                    ToastApp.error('Error: ' + data.message);
                                 }
 
                             } catch (e) {
@@ -94,7 +94,7 @@ const User = () => {
                     },
                 })
             } catch (e) {
-                ToastApp.error("Lỗi: " + e)
+                ToastApp.error("Error: " + e)
             }
         }
     };
@@ -125,7 +125,7 @@ const User = () => {
             if (data.status === 200) {
                 setData(data.data)
             } else {
-                ToastApp.error('Lỗi: ' + data.message);
+                ToastApp.error('Error: ' + data.message);
             }
         } catch (e) {
             console.log(e)

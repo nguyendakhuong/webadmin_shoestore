@@ -37,10 +37,10 @@ const Discountcode = () => {
             if (data.status === 200) {
                 setData(data.data)
             } else {
-                ToastApp.error('Lỗi: ' + data.message);
+                ToastApp.error('Error: ' + data.message);
             }
         } catch (e) {
-            console.log("Lỗi: " + e)
+            console.log("Error: " + e)
         } finally {
             dispatch({ type: KEY_CONTEXT_USER.SET_LOADING, payload: false })
         }
@@ -67,10 +67,10 @@ const Discountcode = () => {
                             });
                         const data = await response.json();
                         if (data.status === 200) {
-                            ToastApp.success('Xóa thành công');
+                            ToastApp.success('Deleted successfully');
                             setReloadData(true);
                         } else {
-                            ToastApp.error('Lỗi: ' + data.message);
+                            ToastApp.error('Error: ' + data.message);
                         }
 
                     } catch (e) {

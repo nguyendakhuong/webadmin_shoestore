@@ -1,30 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import './modalOder.scss';
 import ToastApp from '../../../../lib/notification/Toast';
+import { useTranslation } from 'react-i18next';
 
 const ModalOder = ({ order, onClose }) => {
     const [data, setData] = useState([]);
-    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaa", order)
+    const [t, i18n] = useTranslation();
     const statusLabels = {
-        createOrder: "Đang chờ xác nhận",
-        delivering: "Đang giao hàng",
-        configOrder: "Đã nhận hàng",
-        cancelOrder: "Đơn hàng đã bị hủy",
-        PaidCreateOrder: "Đơn hàng đã thanh toán và chờ xác nhận",
-        paidDelivering: "Đơn hàng đã thanh toán và đang giao hàng",
-        PaidCancelOrder: "Đơn hàng đã thanh toán và đã hủy",
-        payment: "Đơn hàng đã thanh toán nhưng có lỗi",
-        PaymentAndCancel: "Đơn hàng đã thanh toán nhưng có lỗi và đã hủy"
+        createOrder: `${t('createOrder')}`,
+        delivering: `${t('delivering')}`,
+        configOrder: `${t('configOrder')}`,
+        cancelOrder: `${t('orderCancel')}`,
+        PaidCreateOrder: `${t('paidCreateOrder')}`,
+        paidDelivering: `${t('paidDelivering')}`,
+        PaidCancelOrder: `${t('PaidCancelOrder')}`,
+        payment: `${t('payment')}`,
+        PaymentAndCancel: `${t('PaymentAndCancel')}`
     };
+
     const formatter = new Intl.NumberFormat('vi-VN', {
         style: 'currency',
         currency: 'VND',
     });
     const fetchOrderData = async () => {
         try {
-            console.log("bbbbbbbbbbbbbbbbbbb", order.OrdersProducts)
             if (!order || !order.OrdersProducts) {
-                return; // Nếu không có order hoặc OrdersProducts, không thực hiện gì cả
+                return;
             }
             const productIds = order.OrdersProducts.map(item => item.productId);
             const response = await fetch(`http://localhost:3001/api/getProductsId/?id=${productIds.join(',')}`);
@@ -45,11 +46,11 @@ const ModalOder = ({ order, onClose }) => {
                 });
                 setData(updatedData.filter(item => item !== null));
             } else {
-                ToastApp.error('Lỗi: ' + responseData.message);
+                ToastApp.error('Error: ' + responseData.message);
             }
         } catch (error) {
             console.log(error);
-            ToastApp.error('Lỗi khi gửi yêu cầu');
+            // ToastApp.error('Lỗi khi gửi yêu cầu');
         }
     };
     const updatedAtDate = new Date(order.updatedAt);
@@ -66,7 +67,7 @@ const ModalOder = ({ order, onClose }) => {
     return (
         <div className="modal-overlay" onClick={onClose}>
             <div className="modal" onClick={(e) => e.stopPropagation()}>
-                <h2>Chi tiết đơn hàng</h2>
+                <h2>{t('orderDetails')}</h2>
                 {data ? (
                     <>
                         <div className="modal1-content">
@@ -82,21 +83,21 @@ const ModalOder = ({ order, onClose }) => {
                                 ))}
                             </div>
                             <div className='right-content'>
-                                <p className="order-info"><strong>Mã đơn hàng:</strong> {order.id}</p>
-                                <p className="order-info"><strong>ID người dùng:</strong> {order.userId}</p>
-                                <p className="order-info"><strong>Số điện thoại:</strong> {order.phone}</p>
-                                <p className="order-info"><strong>Địa chỉ:</strong> {order.address}</p>
-                                <p className="order-info"><strong>Thời gian:</strong> {formattedUpdatedAt}</p>
-                                <p className="order-info"><strong>Trạng thái:</strong> {statusLabels[order.status]}</p>
+                                <p className="order-info"><strong>{t('orderCode')}:</strong> {order.id}</p>
+                                <p className="order-info"><strong>{t('userCode')}:</strong> {order.userId}</p>
+                                <p className="order-info"><strong>{t('phone')}:</strong> {order.phone}</p>
+                                <p className="order-info"><strong>{t('address')}:</strong> {order.address}</p>
+                                <p className="order-info"><strong>{t('time')}:</strong> {formattedUpdatedAt}</p>
+                                <p className="order-info"><strong>{t('status')}:</strong> {statusLabels[order.status]}</p>
                                 <hr className="order-divider" />
                             </div>
                         </div>
                         <div className="footer">
-                            <p className="order-info1"><strong>Tổng tiền:</strong> {formatter.format(order.total)}</p>
+                            <p className="order-info1"><strong>{t('total')}:</strong> {formatter.format(order.total)}</p>
                         </div>
                     </>
                 ) : (
-                    <p>Đang tải dữ liệu...</p>
+                    <p>{t('loading')}</p>
                 )}
             </div>
         </div>

@@ -39,7 +39,7 @@ const ModalProduct = ({ product, onClose, isOpen }) => {
                 ToastApp.warning(data.message);
             }
         } catch (e) {
-            ToastApp.error("Lỗi: " + e);
+            ToastApp.error("Error: " + e);
         }
     };
 

@@ -36,7 +36,7 @@ function App() {
             if (res.status === 200) {
               return res.json()
             } else {
-              ToastApp.error('Lỗi: ' + res.message)
+              ToastApp.error('Error: ' + res.message)
             }
           }).then(data => {
             console.log(data)

@@ -7,7 +7,6 @@
   background-image: url('../asset/image/bg-login.png');
 }
 
-
 .login_content {
   display: flex;
   width: 800px;
@@ -34,7 +33,6 @@
   width: 400px;
 }
 
-
 .login_image img {
   width: 400px;
   height: 500px;
@@ -55,10 +53,24 @@
   color: #333;
 }
 
-
-
 .form-container {
   width: 400px;
   margin: 0 auto;
   margin-left: 400px;
+}
+
+.iconBack {
+  width: 2rem;
+  margin-right: 10px;
+  img {
+    width: 100%;
+  }
+}
+.headerSignUp {
+  display: flex;
+  align-items: center;
+}
+.creactAccount {
+  display: flex;
+  justify-content: space-between;
 }

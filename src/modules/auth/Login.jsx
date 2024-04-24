@@ -11,10 +11,12 @@ import ToastApp from '../../lib/notification/Toast';
 import APP_LOCAL from '../../lib/localStorage';
 import LoginImage from '../asset/image/bg-formlgin.png';
 import stylesBtn from '../auth/styles.module.scss'
+import { useTranslation } from 'react-i18next';
 
 
 const Login = () => {
     const navigate = useNavigate();
+    const [t, i18n] = useTranslation();
     const [userCtx, dispatch] = useContext(UserContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -72,11 +74,11 @@ const Login = () => {
                     ToastApp.success(data.message);
                     navigate('/admin');
                 } else {
-                    ToastApp.warning('Lỗi: ' + data.message);
+                    ToastApp.warning('Error: ' + data.message);
                 }
 
             }).catch(e => {
-                console.log("Lỗi đăng nhập: ", e);
+                console.log("Error login : ", e);
             });
         } catch (e) {
             ToastApp.error(e.message);
@@ -90,12 +92,12 @@ const Login = () => {
                     <img src={LoginImage} alt="Login" />
                 </div>
                 <div className={styles.login_form}>
-                    <h2>Đăng nhập</h2>
+                    <h2>{t('login')}</h2>
                     <form onSubmit={e => e.preventDefault()}>
                         <InputAdmin
                             required={true}
                             label={'Email'}
-                            placeholder={'Nhập email'}
+                            placeholder={`${t('enter')}`}
                             validate={'required|regEmail'}
                             onChange={handlerOnChangeInput}
                             name={'email'}
@@ -106,7 +108,7 @@ const Login = () => {
 
                         <InputAdmin
                             required={true}
-                            label={'Mật khẩu'}
+                            label={`${t('pw')}`}
                             placeholder={'******'}
                             type={'password'}
                             validate={'required'}
@@ -119,7 +121,7 @@ const Login = () => {
                         <div className={stylesBtn}>
                             <ButtonWed
 
-                                title={'Đăng nhập'}
+                                title={`${t('login')}`}
                                 buttonAuth
                                 disabledBtn={isButtonDisabled}
                                 onClick={handleOnClick}

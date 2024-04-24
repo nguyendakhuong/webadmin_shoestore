@@ -116,10 +116,10 @@ const UpdateProduct = () => {
 
             const data = await response.json();
             if (data.status === 200) {
-                ToastApp.success('Thành công ', data.message);
+                ToastApp.success('Success ', data.message);
                 navigate('/admin/product')
             } else {
-                ToastApp.error('Lỗi: ' + data.message);
+                ToastApp.error('Error: ' + data.message);
             }
         } catch (error) {
             console.log("Lỗi: ", error);

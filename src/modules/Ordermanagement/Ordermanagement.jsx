@@ -15,18 +15,17 @@ const OrderManagenment = () => {
     const [searchDataOder, setSearchDataOrder] = useState('');
     const [dataSearch, setDataSearch] = useState([]);
     const [t, i18n] = useTranslation();
-    console.log("ccccccccccccccccc", dataSearch)
 
     const statusLabels = {
-        createOrder: "Đang chờ xác nhận",
-        delivering: "Đang giao hàng",
-        configOrder: "Đã nhận hàng",
-        cancelOrder: "Đơn hàng đã bị hủy",
-        PaidCreateOrder: "Đơn hàng đã thanh toán và chờ xác nhận",
-        paidDelivering: "Đơn hàng đã thanh toán và đang giao hàng",
-        PaidCancelOrder: "Đơn hàng đã thanh toán và đã hủy",
-        payment: "Đơn hàng đã thanh toán nhưng có lỗi",
-        PaymentAndCancel: "Đơn hàng đã thanh toán nhưng có lỗi và đã hủy"
+        createOrder: `${t('createOrder')}`,
+        delivering: `${t('delivering')}`,
+        configOrder: `${t('configOrder')}`,
+        cancelOrder: `${t('orderCancel')}`,
+        PaidCreateOrder: `${t('paidCreateOrder')}`,
+        paidDelivering: `${t('paidDelivering')}`,
+        PaidCancelOrder: `${t('PaidCancelOrder')}`,
+        payment: `${t('payment')}`,
+        PaymentAndCancel: `${t('PaymentAndCancel')}`
     };
 
     const handleConfirmOrder = async (id, userId, e) => {
@@ -34,16 +33,15 @@ const OrderManagenment = () => {
         try {
             const token = APP_LOCAL.getTokenStorage();
             await verifyOrder(id, token);
-            ToastApp.success("Xác nhận đơn hàng thành công");
+            ToastApp.success("Order confirmation successful");
             setReloadData(true);
             await sendNotification(userId);
-            console.log("Thông báo thành công");
         } catch (error) {
             if (error instanceof Response) {
                 const data = await error.json();
-                ToastApp.warning("Cảnh báo: " + data.message);
+                ToastApp.warning("Warning: " + data.message);
             } else {
-                ToastApp.error("Lỗi hệ thống: " + error);
+                ToastApp.error("Error server: " + error);
             }
         }
     };
@@ -69,10 +67,10 @@ const OrderManagenment = () => {
                 if (searchData.status === 200) {
                     setDataSearch(searchData.data);
                 } else {
-                    ToastApp.error('Lỗi: ' + searchData.message);
+                    ToastApp.error('Error: ' + searchData.message);
                 }
             } catch (e) {
-                console.log("Lỗi search:" + e)
+                console.log("Error search:" + e)
             }
         }
 
@@ -125,14 +123,14 @@ const OrderManagenment = () => {
                         });
                         const data = await response.json();
                         if (data.status === 200) {
-                            ToastApp.success("Hủy đơn hàng thành công")
+                            ToastApp.success("Cancel order successfully")
                             setReloadData(true)
                         } else {
-                            ToastApp.warning("Cảnh báo: " + data.message)
+                            ToastApp.warning("Warning: " + data.message)
                         }
 
                     } catch (e) {
-                        return ToastApp.error("Lỗi hệ thống: " + e)
+                        return ToastApp.error("Error: " + e)
                     }
                 }
             }
@@ -155,10 +153,10 @@ const OrderManagenment = () => {
             if (data.status === 200) {
                 ToastApp.success('' + data.message)
             } else {
-                ToastApp.error('Lỗi: ' + data.message);
+                ToastApp.error('Error: ' + data.message);
             }
         } catch (e) {
-            console.log("Lỗi:" + e)
+            console.log("Error:" + e)
         }
     }
     const getOrder = async () => {
@@ -209,10 +207,10 @@ const OrderManagenment = () => {
                 <td>{order.address}</td>
                 <td>{statusLabels[order.status]}</td>
                 <td>
-                    {order.status === "payment" ? "Lỗi đơn hàng" : order.status === "createOrder" || order.status === "PaidCreateOrder" ? (
+                    {order.status === "payment" ? `${t('payment')}` : order.status === "createOrder" || order.status === "PaidCreateOrder" ? (
                         <button className='btn-config-oder' onClick={(e) => handleConfirmOrder(order.id, order.userId, e)}>{t('confirm')}</button>
                     ) : (
-                        <> Đã Xác nhận</>
+                        <>{t('confirmed')}</>
                     )}
                 </td>
                 <td>
