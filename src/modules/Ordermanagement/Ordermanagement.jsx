@@ -6,7 +6,7 @@ import OrderDetail from '../components/modal/modalOder/modalOder'
 import UserContext from '../../context/use.context';
 import { KEY_CONTEXT_USER } from '../../context/use.reducer';
 import { useTranslation } from 'react-i18next';
-import Select from 'react-select'
+//import Select from 'react-select'
 
 const OrderManagenment = () => {
     const [userCtx, dispatch] = useContext(UserContext)

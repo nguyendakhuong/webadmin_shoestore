@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import './Header.scss';
 import VNimg from '../../asset/image/imageVn.png';
 import UKimg from '../../asset/image/imgUK.png';
-import logo from '../../asset/image/logo1.png'
+import logo from '../../asset/image/logo_shoe_store.png'
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../../../context/use.context';
 import { KEY_CONTEXT_USER } from '../../../context/use.reducer';
