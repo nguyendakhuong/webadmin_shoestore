@@ -1,11 +1,14 @@
 .header {
-    background-color: #6d6d6d;
+    background-image: linear-gradient(to right, #f7c458, #fea239);
+
     color: #fff;
+
     padding: 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+
 
 .logo img {
     width: 100px;
