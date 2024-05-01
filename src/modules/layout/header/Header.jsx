@@ -8,21 +8,23 @@ import UserContext from '../../../context/use.context';
 import { KEY_CONTEXT_USER } from '../../../context/use.reducer';
 import { TYPE_MODEL } from '../../components/modal';
 import APP_LOCAL from '../../../lib/localStorage';
+import { useTranslation } from 'react-i18next';
 
 const Header = () => {
     const navigate = useNavigate()
     const [{ role }, dispatch] = useContext(UserContext)
+    const [t, i18n] = useTranslation();
     const handlerAdmin = () => {
         if (role === "superAdmin") {
-            navigate('/admin/signup')
+            navigate('/admin/signUp')
         } else {
             dispatch({
                 type: KEY_CONTEXT_USER.SHOW_MODAL,
                 payload: {
                     typeModal: 'NOTIFICATION_MODAL',
                     dataModal: '',
-                    titleModel: "Thông báo",
-                    contentModel: "Bạn không được truy cập vào chức năng này"
+                    titleModel: `${t('notification')}`,
+                    contentModel: `${t('youCannotAccess')}`
                 },
             })
         }
@@ -40,10 +42,6 @@ const Header = () => {
                 <img src={logo} alt="Logo" />
             </div>
             <div className="header-right">
-                {/* <div className="search-box">
-                    <input type="text" placeholder="Tìm kiếm..." />
-                    <button type="button">Tìm kiếm</button>
-                </div> */}
                 <div className="icon-container">
                     <div className="icon mail-icon">
                         <img src={VNimg} alt="Mail Icon" className="mail-icon-img" onClick={() => changeLang("vi")} />

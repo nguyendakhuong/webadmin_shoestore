@@ -31,7 +31,7 @@ function App() {
         },
       };
       try {
-        fetch(`http://localhost:3001/account/admin/:token`, requestOptions)
+        await fetch(`http://localhost:3001/account/admin/:token`, requestOptions)
           .then(res => {
             if (res.status === 200) {
               return res.json()

@@ -33,7 +33,7 @@ const AppRoute = (isAuth, role) => {
               element: <User />,
             },
             {
-              path: 'signup',
+              path: 'signUp',
               element: <SignUp />,
             },
             {

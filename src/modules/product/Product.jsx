@@ -112,7 +112,7 @@ const Product = () => {
             if (data.status === 200) {
                 setDataSearch(data.data)
             } else {
-                ToastApp.error('Error: ' + data.message);
+                ToastApp.warning('Warning: ' + data.message);
             }
         } catch (e) {
             console.log("Lỗi search:" + e)
@@ -207,7 +207,6 @@ const Product = () => {
                             <thead>
                                 <tr>
                                     <th colSpan="10">
-
                                         <div className="purple-line"></div>
                                         <span>{t('products')}</span>
                                         <div className="search-box">
@@ -244,7 +243,7 @@ const Product = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {dataSearch && dataSearch.length > 0 ? (
+                                {dataSearch && searchData && dataSearch.length > 0 ? (
                                     dataSearch.map((product) => (
                                         <TableRow product={product} handleEdit={handleEdit} handleDelete={handleDelete} key={product.id} handleClick={handleClickItem} handleClickStatus={handleStatus} />
                                     ))

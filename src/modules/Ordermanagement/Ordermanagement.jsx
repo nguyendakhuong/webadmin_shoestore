@@ -6,6 +6,7 @@ import OrderDetail from '../components/modal/modalOder/modalOder'
 import UserContext from '../../context/use.context';
 import { KEY_CONTEXT_USER } from '../../context/use.reducer';
 import { useTranslation } from 'react-i18next';
+import Select from 'react-select'
 
 const OrderManagenment = () => {
     const [userCtx, dispatch] = useContext(UserContext)
@@ -16,6 +17,23 @@ const OrderManagenment = () => {
     const [dataSearch, setDataSearch] = useState([]);
     const [t, i18n] = useTranslation();
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemPage, setItemPage] = useState(5);
+    const lastIndex = currentPage * itemPage;
+    const firstIndex = lastIndex - itemPage;
+    const records = data ? data.slice(firstIndex, lastIndex) : null
+    const nPage = data ? Math.ceil(data.length / itemPage) : null;
+    const numbers = [...Array(nPage + 1).keys()].slice(1)
+
+    const options = [
+        { value: 1, label: '1' },
+        { value: 5, label: '5' },
+        { value: 10, label: '10' }
+    ]
+    const handleSelect = (e) => {
+        setItemPage(e.target.value)
+        setCurrentPage(1)
+    }
     const statusLabels = {
         createOrder: `${t('createOrder')}`,
         delivering: `${t('delivering')}`,
@@ -225,7 +243,20 @@ const OrderManagenment = () => {
         );
     };
 
-
+    const prePage = () => {
+        if (currentPage !== 1) {
+            setCurrentPage(currentPage - 1)
+        }
+    }
+    const changePage = (id) => {
+        setCurrentPage(id)
+    }
+    const nextPage = () => {
+        if (currentPage !== nPage) {
+            setCurrentPage(currentPage + 1)
+        }
+    }
+    console.log(records)
     return (
         <div>
             {selectedOrder ? (
@@ -266,7 +297,7 @@ const OrderManagenment = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {dataSearch && dataSearch.length > 0 ? (
+                                {dataSearch && searchDataOder ? (
                                     dataSearch.map((order, index) => (
                                         <OrderTableRow
                                             key={order.id}
@@ -278,8 +309,8 @@ const OrderManagenment = () => {
                                         />
                                     ))
                                 ) : (
-                                    data && data.length > 0 ? (
-                                        data.map((order, index) => (
+                                    records && records.length > 0 ? (
+                                        records.map((order, index) => (
                                             <OrderTableRow
                                                 key={order.id}
                                                 order={order}
@@ -292,9 +323,94 @@ const OrderManagenment = () => {
                                     ) : null
                                 )}
                             </tbody>
-
-
                         </table>
+                        <nav className={`${searchDataOder ? 'inactivePagination' : null}`}>
+                            {numbers && numbers.length >= 7 ? (
+                                <ul className='pagination'>
+                                    <li className='page-item'>
+                                        <a href="#" className='pageLink' onClick={prePage}>
+                                            Prev
+                                        </a>
+                                    </li>
+                                    {numbers.length > 7 && currentPage >= 6 && (
+                                        <li className='page-item'>
+                                            <a href="#" className={`pageLink`} onClick={() => changePage(1)}>
+                                                1
+                                            </a>
+                                        </li>
+                                    )}
+                                    {currentPage > 5 && <li className='page-item'>...</li>}
+
+                                    {numbers
+                                        .slice(currentPage > 5 ? currentPage - 3 : 0, currentPage + 3)
+                                        .map((n, i) => (
+                                            <li className='page-item' key={i}>
+                                                <a
+                                                    href="#"
+                                                    className={`pageLink ${currentPage === n ? 'active' : ''}`}
+                                                    onClick={() => changePage(n)}
+                                                >
+                                                    {n}
+                                                </a>
+                                            </li>
+                                        ))}
+                                    {currentPage < numbers.length - 3 && <li className='page-item'>...</li>}
+
+                                    {numbers.length > 7 && currentPage < numbers.length - 3 && (
+                                        <li className='page-item'>
+                                            <a href="#" className={`pageLink`} onClick={() => changePage(numbers.length)}>
+                                                {numbers.length}
+                                            </a>
+                                        </li>
+                                    )}
+                                    <li className='page-item'>
+                                        <a href="#" className='pageLink' onClick={nextPage}>
+                                            Next
+                                        </a>
+                                    </li>
+                                    <div>
+                                        <select className='select' onChange={handleSelect}>
+                                            {options.map((option, index) => (
+                                                <option key={index} value={option.value}>
+                                                    {option.label}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                </ul>
+                            ) : (
+                                <ul className='pagination'>
+                                    <li className='page-item'>
+                                        <a href="#" className='pageLink' onClick={prePage}>
+                                            Prev
+                                        </a>
+                                    </li>
+                                    {
+                                        numbers.map((n, i) => (
+                                            <li className='page-item' key={i}>
+                                                <a href="#" className={`pageLink ${currentPage === n ? 'active' : ""}`} onClick={() => changePage(n)}>
+                                                    {n}
+                                                </a>
+                                            </li>
+                                        ))
+                                    }
+                                    <li className='page-item'>
+                                        <a href="#" className='pageLink' onClick={nextPage}>
+                                            Next
+                                        </a>
+                                    </li>
+                                    <div>
+                                        <select className='select' onChange={handleSelect} value={itemPage}>
+                                            {options.map(option => (
+                                                <option key={option.value} value={option.value}>{option.label}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                </ul>
+                            )}
+                        </nav>
+
+
                     </div>
                 </div>
             )
