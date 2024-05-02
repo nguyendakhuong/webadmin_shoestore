@@ -400,7 +400,7 @@ const OrderManagenment = () => {
                                         </a>
                                     </li>
                                     <div>
-                                        <select className='select' onChange={handleSelect} value={itemPage}>
+                                        <select className='select_pagination' onChange={handleSelect} value={itemPage}>
                                             {options.map(option => (
                                                 <option key={option.value} value={option.value}>{option.label}</option>
                                             ))}

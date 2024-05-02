@@ -141,19 +141,23 @@
   list-style-type: none;
   margin-top: 5rem;
 }
+
 .page-item {
   margin: 0 10px;
 }
+
 .pageLink {
   padding: 10px;
   border: 1px solid rgb(78, 87, 209);
   border-radius: 10px;
   font-size: 12px;
 }
+
 .inactivePagination {
   display: none;
 }
-.select {
+
+.select_pagination {
   width: 5rem;
   padding: 8px;
   font-size: 16px;
@@ -161,7 +165,7 @@
   border-radius: 4px;
 }
 
-.select:focus {
+.select_pagination:focus {
   outline: none;
   border-color: blue;
   box-shadow: 0 0 0 2px rgba(0, 0, 255, 0.3);
