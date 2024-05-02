@@ -325,7 +325,7 @@ const OrderManagenment = () => {
                             </tbody>
                         </table>
                         <nav className={`${searchDataOder ? 'inactivePagination' : null}`}>
-                            {numbers && numbers.length >= 7 ? (
+                            {numbers && numbers.length >= 10 ? (
                                 <ul className='pagination'>
                                     <li className='page-item'>
                                         <a href="#" className='pageLink' onClick={prePage}>
@@ -368,8 +368,8 @@ const OrderManagenment = () => {
                                             Next
                                         </a>
                                     </li>
-                                    <div>
-                                        <select className='select' onChange={handleSelect}>
+                                    <div className='selectPagination'>
+                                        <select onChange={handleSelect}>
                                             {options.map((option, index) => (
                                                 <option key={index} value={option.value}>
                                                     {option.label}
@@ -399,8 +399,8 @@ const OrderManagenment = () => {
                                             Next
                                         </a>
                                     </li>
-                                    <div>
-                                        <select className='select_pagination' onChange={handleSelect} value={itemPage}>
+                                    <div className='selectPagination'>
+                                        <select onChange={handleSelect} value={itemPage}>
                                             {options.map(option => (
                                                 <option key={option.value} value={option.value}>{option.label}</option>
                                             ))}

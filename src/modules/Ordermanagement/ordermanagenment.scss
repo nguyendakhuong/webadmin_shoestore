@@ -157,16 +157,23 @@
   display: none;
 }
 
-.select_pagination {
-  width: 5rem;
-  padding: 8px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+.selectPagination {
+  select {
+    width: 5rem;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  select:focus {
+    outline: none;
+    border-color: blue;
+    box-shadow: 0 0 0 2px rgba(0, 0, 255, 0.3);
+  }
 }
 
-.select_pagination:focus {
-  outline: none;
-  border-color: blue;
-  box-shadow: 0 0 0 2px rgba(0, 0, 255, 0.3);
-}
+// .selectPagination: {
+//   outline: none;
+//   border-color: blue;
+//   box-shadow: 0 0 0 2px rgba(0, 0, 255, 0.3);
+// }
