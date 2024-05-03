@@ -170,6 +170,7 @@ const OrderManagenment = () => {
             const data = await response.json();
             if (data.status === 200) {
                 ToastApp.success('Success: ' + data.message)
+                setReloadData(true)
             } else {
                 ToastApp.warning('Warning: ' + data.message);
             }
