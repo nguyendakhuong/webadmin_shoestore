@@ -134,6 +134,7 @@ i18n.use(initReactI18next).init({
         deleteOrder: 'Xóa đơn hàng',
         cancelled: 'Đã hủy',
         youCannotAccess: 'Bạn không được truy cập vào chức năng này',
+        size: 'Kích thước',
       },
     },
     en: {
@@ -258,6 +259,7 @@ i18n.use(initReactI18next).init({
         deleteOrder: 'Delete oder',
         cancelled: 'Cancelled',
         youCannotAccess: 'You cannot access this function',
+        size: 'Size',
       },
     },
   },

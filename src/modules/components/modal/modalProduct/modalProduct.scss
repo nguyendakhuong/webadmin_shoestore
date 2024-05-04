@@ -8,7 +8,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 
 .dialog {
@@ -22,7 +21,6 @@
   overflow-y: auto;
 
   position: relative;
-
 }
 
 .dialog h2 {
@@ -55,7 +53,6 @@
   padding-top: 15px;
 }
 
-
 .product-image {
   max-width: 100%;
   height: auto;
@@ -74,7 +71,6 @@
   margin-top: 675px;
   margin-right: 700px;
   transition: background-color 0.3s;
-
 }
 
 .close-button:hover {
@@ -92,10 +88,7 @@
 .comment-list {
   max-height: 200px;
   overflow-y: auto;
-
 }
-
-
 
 .comment-item {
   margin-bottom: 10px;
@@ -108,4 +101,8 @@
   display: flex;
   justify-content: center;
   margin-top: 20px;
+}
+.sizeModalProduct {
+  display: flex;
+  justify-content: space-between;
 }

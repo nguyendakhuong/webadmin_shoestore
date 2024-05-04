@@ -10,11 +10,12 @@ const ErrorPage = () => {
         dispatch({ type: KEY_CONTEXT_USER.SET_LOADING, payload: true });
         setTimeout(() => {
             dispatch({ type: KEY_CONTEXT_USER.SET_LOADING, payload: false });
+            setIsLoading(false)
         }, 3000);
     }
 
     useEffect(() => {
-        loadingPage(); // Gọi sự kiện loading khi component được render
+        loadingPage();
     }, []);
 
     return (

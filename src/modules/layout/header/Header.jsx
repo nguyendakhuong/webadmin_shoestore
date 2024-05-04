@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import './Header.scss';
 import VNimg from '../../asset/image/imageVn.png';
 import UKimg from '../../asset/image/imgUK.png';
@@ -14,6 +14,8 @@ const Header = () => {
     const navigate = useNavigate()
     const [{ role }, dispatch] = useContext(UserContext)
     const [t, i18n] = useTranslation();
+
+
     const handlerAdmin = () => {
         if (role === "superAdmin") {
             navigate('/admin/signUp')

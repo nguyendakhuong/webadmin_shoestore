@@ -22,7 +22,6 @@ const CreateProduct = () => {
     const [listError, setListError] = useState({
         name: `${t('require')}`,
         price: `${t('require')}`,
-        quantity: `${t('require')}`,
         description: `${t('require')}`,
         introduce: `${t('require')}`,
     })
@@ -30,7 +29,6 @@ const CreateProduct = () => {
     const [dataProduct, setDataProduct] = useState({
         name: '',
         price: '',
-        quantity: '',
         description: '',
         introduce: '',
         priceSale: '',
@@ -42,7 +40,6 @@ const CreateProduct = () => {
         setDataProduct({
             name: '',
             price: '',
-            quantity: '',
             description: '',
             introduce: '',
             priceSale: '',
@@ -104,14 +101,22 @@ const CreateProduct = () => {
         setImageFileMain(null)
         setShowImage(null)
     }
-
+    const size = [{
+        "size": "38",
+        "quantity": "100"
+    },
+    {
+        "size": "40",
+        "quantity": "30"
+    }]
     const handleSubmit = async () => {
         const token = APP_LOCAL.getTokenStorage()
+        const sizeJSON = JSON.stringify(size);
         try {
             const formDataToSend = new FormData()
             formDataToSend.append('name', dataProduct.name)
             formDataToSend.append('price', +dataProduct.price)
-            formDataToSend.append('quantity', +dataProduct.quantity)
+            formDataToSend.append('size', sizeJSON)
             formDataToSend.append('image', imageProduct)
             formDataToSend.append('description', dataProduct.description)
             formDataToSend.append('introduce', dataProduct.introduce)
@@ -147,8 +152,6 @@ const CreateProduct = () => {
     }
     const handleBack = () => {
         navigate(-1);
-
-
     }
     return (
         <div className='product-container'>
@@ -196,19 +199,6 @@ const CreateProduct = () => {
                                 value={dataProduct.price}
                             />
                             {listError.price && <label className='error-text'>{listError.price}</label>}
-                        </div>
-                        <div className='item_amount input-container'>
-                            <InputAdmin
-                                name={'quantity'}
-                                label={t('quantityProduct')}
-                                placeholder={t('enter')}
-                                validate={'required||checkNumber||checkNegative'}
-                                type={'number'}
-                                onChange={onChangeInput}
-
-                                value={dataProduct.quantity}
-                            />
-                            {listError.quantity && <label className='error-text'>{listError.quantity}</label>}
                         </div>
                     </div>
                     <div className='item-flex'>

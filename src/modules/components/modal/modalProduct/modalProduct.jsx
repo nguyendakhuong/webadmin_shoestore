@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 const ModalProduct = ({ product, onClose, isOpen }) => {
     const [data, setData] = useState(null);
     const [comment, setComment] = useState(null);
+    const [size, setSize] = useState(null);
     const [t, i18n] = useTranslation();
     const dialogRef = useRef();
     const formatter = new Intl.NumberFormat('vi-VN', {
@@ -27,6 +28,7 @@ const ModalProduct = ({ product, onClose, isOpen }) => {
             if (data.status === 200) {
                 setData(data.data);
                 setComment(data.comment);
+                setSize(data.size)
             } else {
                 onClose();
                 ToastApp.warning(data.message);
@@ -61,7 +63,6 @@ const ModalProduct = ({ product, onClose, isOpen }) => {
                                 <div className="info-container">
                                     <p><strong>{t('name')}:</strong> {data.name}</p>
                                     <p><strong>{t('price')}:</strong> {formatter.format(data.price)}</p>
-                                    <p><strong>{t('quantity')}:</strong> {data.quantity}</p>
                                     <p><strong>{t('describe')}:</strong> {data.description}</p>
                                     <p><strong>{t('introduce')}:</strong> {data.introduce}</p>
                                     <p><strong>{t('discount')}:</strong> {data.priceSale ? data.priceSale : "Null"}</p>
@@ -69,6 +70,14 @@ const ModalProduct = ({ product, onClose, isOpen }) => {
                                     <p><strong>{t('endDate')}:</strong> {data.timeSaleEnd ? moment(data.timeSaleEnd).format('DD/MM/YYYY') : "Null"}</p>
                                     <p><strong>{t('status')}: </strong> {data.status === 1 ? "Đang hoạt động" : "Không hoạt động"}</p>
                                     <p><strong>{t('category')}:</strong> {data.category}</p>
+                                    {
+                                        size ? size.map(v => (
+                                            <div className='sizeModalProduct'>
+                                                <p><strong>{t('size')}:</strong> {v.size}</p>
+                                                <p><strong>{t('quantity')}:</strong> {v.quantity}</p>
+                                            </div>
+                                        )) : null
+                                    }
                                 </div>
                             </div>
                             {comment.length > 0 && (

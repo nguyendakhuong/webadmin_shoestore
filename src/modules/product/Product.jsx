@@ -175,7 +175,6 @@ const Product = () => {
                 </td>
                 <td>{product.description}</td>
                 <td>{product.introduce}</td>
-                <td>{product.quantity}</td>
                 <td>{product.category === "Dép" ? `${t('sandal')}` : `${t('shoe')}`}</td>
                 <td>
                     <button onClick={(e) => handleClickStatus(e, product.id)} className={buttonClass}>
@@ -236,7 +235,6 @@ const Product = () => {
                                     <th>{t('endDate')}</th>
                                     <th>{t('describe')}</th>
                                     <th>{t('introduce')}</th>
-                                    <th>{t('quantity')}</th>
                                     <th>{t('category')}</th>
                                     <th>{t('status')}</th>
                                     <th>{t('act')}</th>
