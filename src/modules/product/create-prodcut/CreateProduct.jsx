@@ -102,12 +102,12 @@ const CreateProduct = () => {
         setShowImage(null)
     }
     const size = [{
-        "size": "38",
-        "quantity": "100"
+        "size": "41",
+        "quantity": "88"
     },
     {
-        "size": "40",
-        "quantity": "30"
+        "size": "42",
+        "quantity": "23"
     }]
     const handleSubmit = async () => {
         const token = APP_LOCAL.getTokenStorage()

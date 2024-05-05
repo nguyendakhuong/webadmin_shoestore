@@ -138,6 +138,7 @@ const User = () => {
         getAccounts();
         setReloadData(false);
     }, [reloadData]);
+    console.log("data Userrrrrrrrrrrr", data)
 
     return (
         <div className="user-container">
