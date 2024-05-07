@@ -210,6 +210,7 @@ const OrderManagenment = () => {
     const viewOrderDetail = (order) => {
         setSelectedOrder(order);
     };
+
     const OrderTableRow = ({ order, handleConfirmOrder, handleCancelOrder, viewOrderDetail, statusLabels }) => {
         const updatedAtDate = new Date(order.updatedAt);
         const formattedUpdatedAt = `${updatedAtDate.getUTCDate() < 10 ? '0' + updatedAtDate.getUTCDate() :
@@ -219,9 +220,16 @@ const OrderManagenment = () => {
         return (
             <tr key={order.id} onClick={() => viewOrderDetail(order)}>
                 <td>{order.id}</td>
-                <td>{order.userId}</td>
-                <td>{formatter.format(order.total)}</td>
+                <td>{order.userName}</td>
                 <td>{order.phone}</td>
+                <td>
+                    {order.OrdersProducts ? order.OrdersProducts.map((product, index) => (
+                        <div key={index}>
+                            {product.nameProduct}({t('size')} : {product.size}, {t('quantity')} : {product.quantity})
+                        </div>
+                    )) : null}
+                </td>
+                <td>{formatter.format(order.total)}</td>
                 <td>{formattedUpdatedAt}</td>
                 <td>{order.address}</td>
                 <td>{statusLabels[order.status]}</td>
@@ -257,7 +265,6 @@ const OrderManagenment = () => {
             setCurrentPage(currentPage + 1)
         }
     }
-    console.log(records)
     return (
         <div>
             {selectedOrder ? (
@@ -286,12 +293,13 @@ const OrderManagenment = () => {
                             <thead>
                                 <tr>
                                     <th>{t('orderCode')}</th>
-                                    <th>{t('userCode')}</th>
-                                    <th>{t('money')} </th>
+                                    <th>{t('userName')}</th>
                                     <th>{t('phone')}</th>
+                                    <th>{t('product')}</th>
+                                    <th>{t('money')} </th>
                                     <th>{t('time')}</th>
                                     <th>{t('address')}</th>
-                                    <th>{t('orders')}</th>
+                                    <th>{t('statusOrder')}</th>
                                     <th>{t('act')}</th>
                                     <th>{t('cancelOrder')}</th>
                                     <th>{t('OrderConfirmation')}</th>
