@@ -1,8 +1,6 @@
-
-import { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import InputAdmin from '../../components/input/Input-admin';
 import './createProduct.scss';
-import UserContext from '../../../context/use.context';
 import { useNavigate } from 'react-router-dom';
 import { ParseValid } from '../../../lib/validate/ParseValid';
 import { Validate } from '../../../lib/validate/Validate';
@@ -12,11 +10,13 @@ import { useTranslation } from 'react-i18next';
 
 const CreateProduct = () => {
     const [t, i18n] = useTranslation();
-    const [userCtx, dispatch] = useContext(UserContext)
     const [imageProduct, setImageFileMain] = useState(null);
     const [showImage, setShowImage] = useState(null);
-    const [isButtonDisabled, setIsButtonDisabled] = useState(true)
+    const [isButtonDisabled, setIsButtonDisabled] = useState(true);
     const [category, setCategory] = useState('Giày');
+    const [size, setSize] = useState('');
+
+    const [quantity, setQuantity] = useState('');
     const navigate = useNavigate();
 
     const [listError, setListError] = useState({
@@ -24,7 +24,7 @@ const CreateProduct = () => {
         price: `${t('require')}`,
         description: `${t('require')}`,
         introduce: `${t('require')}`,
-    })
+    });
 
     const [dataProduct, setDataProduct] = useState({
         name: '',
@@ -34,7 +34,7 @@ const CreateProduct = () => {
         priceSale: '',
         timeSaleStart: '',
         timeSaleEnd: '',
-    })
+    });
 
     const clearForm = () => {
         setDataProduct({
@@ -46,20 +46,20 @@ const CreateProduct = () => {
             timeSaleStart: '',
             timeSaleEnd: '',
         });
-        setImageFileMain(null)
+        setImageFileMain(null);
     };
 
     const handleFruit = (e) => {
         const selectedValue = e.target.value;
         setCategory(selectedValue);
-    }
+    };
 
-    const onChangeInput = e => {
-        const { name, value } = e.target
-        setDataProduct({ ...dataProduct, [name]: value })
-        const inputValue = value.trim()
-        const valid = e.target.getAttribute('validate')
-        const validObject = ParseValid(valid)
+    const onChangeInput = (e) => {
+        const { name, value } = e.target;
+        setDataProduct({ ...dataProduct, [name]: value });
+        const inputValue = value.trim();
+        const valid = e.target.getAttribute('validate');
+        const validObject = ParseValid(valid);
         const error = Validate(
             name,
             inputValue,
@@ -67,103 +67,122 @@ const CreateProduct = () => {
             dataProduct.price,
             dataProduct.priceSale,
             dataProduct.timeSaleStart,
-            dataProduct.timeSaleEnd)
-        const newListError = { ...listError, [name]: error }
-        setListError(newListError)
+            dataProduct.timeSaleEnd
+        );
+        const newListError = { ...listError, [name]: error };
+        setListError(newListError);
 
-        if (
-            Object.values(newListError).some(i => i)) {
-            setIsButtonDisabled(true)
+        if (Object.values(newListError).some((i) => i)) {
+            setIsButtonDisabled(true);
         } else {
-            setIsButtonDisabled(false)
+            setIsButtonDisabled(false);
         }
-
-    }
+    };
 
     const handleFileChangeMain = (e) => {
-        const file = e.target.files[0]
-        setImageFileMain(file)
+        const file = e.target.files[0];
+        setImageFileMain(file);
         const reader = new FileReader();
         reader.onload = function () {
             const dataURL = reader.result;
-            setShowImage(dataURL)
-            setListError({ image: '' })
+            setShowImage(dataURL);
+            setListError({ image: '' });
         };
         reader.readAsDataURL(file);
-    }
+    };
 
     const fileRemoveMain = () => {
-        if (Object.values(listError).some(i => i)) {
-            setIsButtonDisabled(true)
+        if (Object.values(listError).some((i) => i)) {
+            setIsButtonDisabled(true);
         } else {
-            setIsButtonDisabled(false)
+            setIsButtonDisabled(false);
         }
-        setImageFileMain(null)
-        setShowImage(null)
-    }
-    const size = [{
-        "size": "41",
-        "quantity": "88"
-    },
-    {
-        "size": "42",
-        "quantity": "23"
-    }]
+        setImageFileMain(null);
+        setShowImage(null);
+    };
+
+
+
+
+    const [sizeList, setSizeList] = useState([
+        { size: '41', quantity: '12' },
+        { size: '42', quantity: '32' },
+
+    ]);
+
+
+    const handleSizeChange = (event) => {
+        const selectedSize = event.target.value;
+        setSize(selectedSize);
+        const sizeIndex = sizeList.findIndex(item => item.size === selectedSize);
+        if (sizeIndex !== -1) {
+            setQuantity(sizeList[sizeIndex].quantity);
+        }
+    };
+
+
+    const handleSizeQuantityChange = (size, value) => {
+        const newSizeList = sizeList.map(item => {
+            if (item.size === size) {
+                return { ...item, quantity: value };
+            }
+            return item;
+        });
+        setSizeList(newSizeList);
+    };
+
+
     const handleSubmit = async () => {
-        const token = APP_LOCAL.getTokenStorage()
-        const sizeJSON = JSON.stringify(size);
+        const token = APP_LOCAL.getTokenStorage();
+        const sizeJSON = JSON.stringify(sizeList);
         try {
-            const formDataToSend = new FormData()
-            formDataToSend.append('name', dataProduct.name)
-            formDataToSend.append('price', +dataProduct.price)
-            formDataToSend.append('size', sizeJSON)
-            formDataToSend.append('image', imageProduct)
-            formDataToSend.append('description', dataProduct.description)
-            formDataToSend.append('introduce', dataProduct.introduce)
-            formDataToSend.append('priceSale', +dataProduct.priceSale)
-            formDataToSend.append('timeSaleStart', dataProduct.timeSaleStart)
-            formDataToSend.append('timeSaleEnd', dataProduct.timeSaleEnd)
-            formDataToSend.append('category', category)
+            const formDataToSend = new FormData();
+            formDataToSend.append('name', dataProduct.name);
+            formDataToSend.append('price', +dataProduct.price);
+            formDataToSend.append('size', sizeJSON);
+            formDataToSend.append('image', imageProduct);
+            formDataToSend.append('description', dataProduct.description);
+            formDataToSend.append('introduce', dataProduct.introduce);
+            formDataToSend.append('priceSale', +dataProduct.priceSale);
+            formDataToSend.append('timeSaleStart', dataProduct.timeSaleStart);
+            formDataToSend.append('timeSaleEnd', dataProduct.timeSaleEnd);
+            formDataToSend.append('category', category);
 
-            await fetch(`http://localhost:3001/api/product`,
-                {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: formDataToSend
-                }).then(res => {
+            const response = await fetch(`http://localhost:3001/api/product`, {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+                body: formDataToSend,
+            });
 
-                    return res.json()
-                }).then(data => {
-
-                    if (data.status === 200) {
-                        ToastApp.success('Success')
-                        clearForm();
-                    } else {
-                        ToastApp.error('Error: ' + data.message)
-                    }
-                }).catch(e => {
-                    console.log("Lỗi: ", e)
-                })
+            const data = await response.json();
+            if (data.status === 200) {
+                ToastApp.success('Success');
+                clearForm();
+            } else {
+                ToastApp.error('Error: ' + data.message);
+            }
         } catch (e) {
-            console.log(e)
+            console.log('Error:', e);
         }
-    }
+    };
+
     const handleBack = () => {
         navigate(-1);
-    }
+    };
+
     return (
         <div className='product-container'>
-            <table className="header-table">
+            <table className='header-table'>
                 <thead>
                     <tr>
-                        <th colSpan="1">
+                        <th colSpan='1'>
                             <div className='headerCreateProduct'>
-                                <div className="button-back-product">
+                                <div className='button-back-product'>
                                     <button onClick={handleBack}>{t('back')}</button>
                                 </div>
-                                <div className="purple-line"></div>
+                                <div className='purple-line'></div>
                                 <span>{t('add')}</span>
                             </div>
                         </th>
@@ -174,7 +193,7 @@ const CreateProduct = () => {
             <div className='form_add'>
                 <h2>{t('add')}</h2>
 
-                <form onSubmit={e => e.preventDefault()} encType='multipart/form-data'>
+                <form onSubmit={(e) => e.preventDefault()} encType='multipart/form-data'>
                     <div className='item-flex'>
                         <div className='item_name input-container'>
                             <InputAdmin
@@ -200,6 +219,30 @@ const CreateProduct = () => {
                             />
                             {listError.price && <label className='error-text'>{listError.price}</label>}
                         </div>
+                        <div className='select'>
+                            <label>{t('size')}</label>
+                            <select name='selectedFruit' value={size} onChange={handleSizeChange}>
+                                <option value='35'>{t('35')} Số lượng:{quantity}</option>
+                                <option value='36'>{t('36')} Số lượng:{quantity}</option>
+                                <option value='37'>{t('37')} Số lượng:{quantity}</option>
+                                <option value='38'>{t('38')} Số lượng:{quantity}</option>
+                                <option value='39'>{t('39')} Số lượng:{quantity}</option>
+                                <option value='40'>{t('40')} Số lượng:{quantity}</option>
+                                <option value='41'>{t('41')} Số lượng:{quantity}</option>
+                                <option value='42'>{t('42')} Số lượng:{quantity}</option>
+                            </select>
+                            <input
+                                type='number'
+                                placeholder={t('enterQuantity')}
+                                name={size}
+                                value={quantity}
+                                onChange={(e) => handleSizeQuantityChange(quantity, e.target.value)}
+                            />
+
+
+
+                        </div>
+
                     </div>
                     <div className='item-flex'>
                         <div className='item input-container'>
@@ -216,25 +259,23 @@ const CreateProduct = () => {
                         </div>
                         <div className='item input-container'>
                             <InputAdmin
-                                name={"timeSaleStart"}
+                                name={'timeSaleStart'}
                                 label={t('startDate')}
                                 type={'date'}
                                 validate={'checkDate'}
                                 onChange={onChangeInput}
                                 value={dataProduct.timeSaleStart}
-
                             />
                             {listError.timeSaleStart && <label className='error-text'>{listError.timeSaleStart}</label>}
                         </div>
                         <div className='item input-container'>
                             <InputAdmin
-                                name={"timeSaleEnd"}
+                                name={'timeSaleEnd'}
                                 label={t('endDate')}
                                 type={'date'}
                                 validate={'checkTimeEnd||checkDate'}
                                 onChange={onChangeInput}
                                 value={dataProduct.timeSaleEnd}
-                                errorText={listError.timeSaleEnd}
                             />
                             {listError.timeSaleEnd && <label className='error-text'>{listError.timeSaleEnd}</label>}
                         </div>
@@ -253,12 +294,10 @@ const CreateProduct = () => {
                             {listError.introduce && <label className='error-text'>{listError.introduce}</label>}
                         </div>
                         <div className='select'>
-                            <label>
-                                {t('category')}
-                            </label>
-                            <select name="selectedFruit" value={category} onChange={handleFruit}>
-                                <option value="Giày">{t('shoe')}</option>
-                                <option value="Dép">{t('sandal')}</option>
+                            <label>{t('category')}</label>
+                            <select name='selectedFruit' value={category} onChange={handleFruit}>
+                                <option value='Giày'>{t('shoe')}</option>
+                                <option value='Dép'>{t('sandal')}</option>
                             </select>
                         </div>
                     </div>
@@ -273,30 +312,38 @@ const CreateProduct = () => {
                         {listError.description && <label className='error-text'>{listError.description}</label>}
                     </div>
                     <div className='file_card'>
-                        {
-                            imageProduct ? <img src={showImage} alt="Ảnh" /> : (
-                                <div className='file_inputs' onChange={handleFileChangeMain}>
-                                    <input accept="image/png" type="file" />
-                                    <button>{t('loadImage')}</button>
-                                </div>
-                            )
-                        }
+                        {imageProduct ? (
+                            <img src={showImage} alt='Ảnh' />
+                        ) : (
+                            <div className='file_inputs' onChange={handleFileChangeMain}>
+                                <input accept='image/png' type='file' />
+                                <button>{t('loadImage')}</button>
+                            </div>
+                        )}
                         <div className='button-group-createproduct'>
                             <div className='button-deleteimg'>
                                 <button onClick={fileRemoveMain}>{t('deletePhotos')}</button>
                             </div>
                             <div className='button-submit-product'>
-                                <button onClick={!isButtonDisabled ? handleSubmit : () => { ToastApp.warning('Vui lòng nhập đủ các thông tin') }}>{t('add')}</button>
+                                <button
+                                    onClick={
+                                        !isButtonDisabled
+                                            ? handleSubmit
+                                            : () => {
+                                                ToastApp.warning('Vui lòng nhập đủ các thông tin');
+                                            }
+                                    }
+                                >
+                                    {t('add')}
+                                </button>
                             </div>
                         </div>
-
                     </div>
 
                 </form>
             </div>
         </div>
-
-    )
-}
+    );
+};
 
 export default CreateProduct;
