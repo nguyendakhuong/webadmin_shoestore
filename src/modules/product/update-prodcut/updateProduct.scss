@@ -1,88 +1,87 @@
 .update-product-container {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 
-    h2 {
-        font-size: 1.5rem;
-        margin-bottom: 20px;
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
     }
 
-    .form-group {
-        margin-bottom: 15px;
+    input[type='text'],
+    input[type='number'],
+    input[type='date'],
+    input[type='file'] {
+      width: 100%;
+      padding: 8px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      transition: border-color 0.3s ease;
 
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        input[type="text"],
-        input[type="number"],
-        input[type="date"],
-        input[type="file"] {
-            width: 100%;
-            padding: 8px;
-            font-size: 1rem;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            transition: border-color 0.3s ease;
-
-            &:focus {
-                outline: none;
-                border-color: #007bff;
-            }
-        }
-
-        .product-image {
-            display: block;
-            max-width: 200px;
-            margin-top: 10px;
-        }
+      &:focus {
+        outline: none;
+        border-color: #007bff;
+      }
     }
 
-    button {
-        padding: 10px 20px;
-        font-size: 1rem;
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 3px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-
-        &:hover {
-            background-color: #0056b3;
-        }
+    .product-image {
+      display: block;
+      max-width: 200px;
+      margin-top: 10px;
     }
+  }
+
+  button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
 }
 
-
 .button-deleteimg button {
-    width: 200px;
-    height: 50px;
-    background-color: rgb(179, 36, 36);
-    color: #fff;
-    border-radius: 10px;
-    border: none;
+  width: 200px;
+  height: 50px;
+  background-color: rgb(179, 36, 36);
+  color: #fff;
+  border-radius: 10px;
+  border: none;
 }
 
 .button-submit-product button {
-    width: 200px;
-    height: 50px;
-    background-color: rgb(32, 32, 148);
-    color: #fff;
-    margin-left: 20px;
-    border-radius: 10px;
-    border: none;
+  width: 200px;
+  height: 50px;
+  background-color: rgb(32, 32, 148);
+  color: #fff;
+  margin-left: 20px;
+  border-radius: 10px;
+  border: none;
 }
 
 .button-group-createproduct {
-    display: flex;
-    justify-content: space-between;
-    /* Đặt khoảng cách đều giữa các nút */
-    margin-top: 10px;
-    /* Khoảng cách từ các nút đến phần trên */
+  display: flex;
+  justify-content: space-between;
+  /* Đặt khoảng cách đều giữa các nút */
+  margin-top: 10px;
+  /* Khoảng cách từ các nút đến phần trên */
 }

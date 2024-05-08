@@ -171,9 +171,12 @@
     box-shadow: 0 0 0 2px rgba(0, 0, 255, 0.3);
   }
 }
-
-// .selectPagination: {
-//   outline: none;
-//   border-color: blue;
-//   box-shadow: 0 0 0 2px rgba(0, 0, 255, 0.3);
-// }
+.buttonPrint {
+  background-color: #8aa2db;
+  padding: 7px;
+  border: none;
+  border-right: #ffffff solid 1px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  font-size: 12px;
+}

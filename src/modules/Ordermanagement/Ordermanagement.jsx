@@ -6,6 +6,7 @@ import OrderDetail from '../components/modal/modalOder/modalOder'
 import UserContext from '../../context/use.context';
 import { KEY_CONTEXT_USER } from '../../context/use.reducer';
 import { useTranslation } from 'react-i18next';
+import ButtonDropDown from '../components/dropdowbutton/Button-dropdown';
 //import Select from 'react-select'
 
 const OrderManagenment = () => {
@@ -30,6 +31,21 @@ const OrderManagenment = () => {
         { value: 5, label: '5' },
         { value: 10, label: '10' }
     ]
+    const buttonItem = [
+        {
+            label: t('confirmed'), key: 'verifyOrder'
+        },
+        {
+            label: t('cancel'), key: 'CancelOrder'
+        },
+        {
+            label: t('receive'), key: 'ConfigOder'
+        },
+    ]
+    const formatter = new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+    });
     const handleSelect = (e) => {
         setItemPage(e.target.value)
         setCurrentPage(1)
@@ -53,7 +69,6 @@ const OrderManagenment = () => {
             await verifyOrder(id, token);
             ToastApp.success("Order confirmation successful");
             setReloadData(true);
-            await sendNotification(userId);
         } catch (error) {
             if (error instanceof Response) {
                 const data = await error.json();
@@ -97,7 +112,8 @@ const OrderManagenment = () => {
         }
     }, [searchDataOder])
 
-    const verifyOrder = async (id, token) => {
+    const verifyOrder = async (id) => {
+        const token = APP_LOCAL.getTokenStorage();
         const response = await fetch(`http://localhost:3001/order/verifyOrder/${id}`, {
             method: "GET",
             headers: {
@@ -109,21 +125,7 @@ const OrderManagenment = () => {
             throw response;
         }
     };
-
-    const sendNotification = async (userId) => {
-        const response = await fetch(`http://localhost:3001/notification/notification${userId}`, {
-            method: "GET",
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-
-        if (!response.ok) {
-            throw response;
-        }
-    };
-    const handleCancelOrder = async (id, e) => {
-        e.stopPropagation();
+    const handleCancelOrder = async (id) => {
         dispatch({
             type: KEY_CONTEXT_USER.SHOW_MODAL,
             payload: {
@@ -155,14 +157,8 @@ const OrderManagenment = () => {
         })
 
     };
-    const formatter = new Intl.NumberFormat('vi-VN', {
-        style: 'currency',
-        currency: 'VND',
-    });
-
-
-    const handleConfigOder = async (id, e) => {
-        e.stopPropagation();
+    const handleConfigOder = async (id) => {
+        // e.stopPropagation();
         try {
             const response = await fetch(`http://localhost:3001/order/adminVerifyOrder/${id}`, {
                 method: "GET",
@@ -202,6 +198,7 @@ const OrderManagenment = () => {
     };
 
 
+
     useEffect(() => {
         getOrder();
         setReloadData(false);
@@ -216,7 +213,12 @@ const OrderManagenment = () => {
         const formattedUpdatedAt = `${updatedAtDate.getUTCDate() < 10 ? '0' + updatedAtDate.getUTCDate() :
             updatedAtDate.getUTCDate()}-${updatedAtDate.getUTCMonth() + 1 < 10 ? '0' + (updatedAtDate.getUTCMonth() + 1) :
                 updatedAtDate.getUTCMonth() + 1}-${updatedAtDate.getUTCFullYear()}`;
+        const handleItemClick = (key) => {
+            if (key === "verifyOrder") verifyOrder(order.id)
+            if (key === "CancelOrder") handleCancelOrder(order.id)
+            if (key === "ConfigOder") handleConfigOder(order.id)
 
+        };
         return (
             <tr key={order.id} onClick={() => viewOrderDetail(order)}>
                 <td>{order.id}</td>
@@ -234,19 +236,12 @@ const OrderManagenment = () => {
                 <td>{order.address}</td>
                 <td>{statusLabels[order.status]}</td>
                 <td>
-                    {order.status === "payment" ? `${t('payment')}` :
-                        order.status === "cancelOrder" || order.status === "PaidCancelOrder" ? `${t('cancelled')}` :
-                            order.status === "createOrder" || order.status === "PaidCreateOrder" ? (
-                                <button className='btn-config-oder' onClick={(e) => handleConfirmOrder(order.id, order.userId, e)}>{t('confirm')}</button>
-                            ) : (
-                                <>{t('confirmed')}</>
-                            )}
-                </td>
-                <td>
-                    <button className='btn-cancle-oder' onClick={(e) => handleCancelOrder(order.id, e)}>{t('cancelOrder')}</button>
-                </td>
-                <td>
-                    <button className='btn-configOder' onClick={(e) => handleConfigOder(order.id, e)}>{t('receive')}</button>
+                    <div className='buttonACT' onClick={(e) => { e.stopPropagation(); }}>
+                        <button className='buttonPrint'>
+                            Print
+                        </button>
+                        <ButtonDropDown buttonItem={buttonItem} onItemClick={handleItemClick} orderStatus={order.status} />
+                    </div>
                 </td>
             </tr>
         );
@@ -301,8 +296,8 @@ const OrderManagenment = () => {
                                     <th>{t('address')}</th>
                                     <th>{t('statusOrder')}</th>
                                     <th>{t('act')}</th>
-                                    <th>{t('cancelOrder')}</th>
-                                    <th>{t('OrderConfirmation')}</th>
+                                    {/* <th>{t('cancelOrder')}</th>
+                                    <th>{t('OrderConfirmation')}</th> */}
                                 </tr>
                             </thead>
                             <tbody>
