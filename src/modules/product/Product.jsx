@@ -25,7 +25,6 @@ const Product = () => {
     const [selectedProduct, setSelectedProduct] = useState(null);
 
     const [t, i18n] = useTranslation();
-
     const getProduct = async () => {
         const token = APP_LOCAL.getTokenStorage();
         const requestOptions = {
@@ -41,6 +40,7 @@ const Product = () => {
                     ToastApp.error('Error: ' + res.message)
                 }
             }).then(data => {
+                console.log("======================", data)
                 setData(data.data)
             }).catch(e => {
                 console.log(e)

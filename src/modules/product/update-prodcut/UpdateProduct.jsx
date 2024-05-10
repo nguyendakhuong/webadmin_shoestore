@@ -39,12 +39,12 @@ const UpdateProduct = () => {
         description: '',
         introduce: '',
     })
-
+    const [sizeList, setSizeList] = useState(null);
     useEffect(() => {
         setDataProduct({
             name: product.name,
             price: product.price,
-            quantity: product.quantity,
+            quantity: sizeList,
             description: product.description,
             introduce: product.introduce,
             priceSale: product.priceSale,
@@ -52,6 +52,25 @@ const UpdateProduct = () => {
             timeSaleStart: product.timeSaleStart
         })
         setCategory(product.category)
+    }, [sizeList])
+
+    useEffect(() => {
+        const response = async () => {
+            fetch(`http://localhost:3001/api/getProduct/${product.id}`)
+                .then(res => {
+                    if (res.status === 200) {
+                        return res.json()
+                    } else {
+                        ToastApp.error('Error: ' + res.message)
+                    }
+                }).then(data => {
+                    const sizeString = data.size.map(item => `${item.size}:${item.quantity}`).join(',');
+                    setSizeList(sizeString)
+                }).catch(e => {
+                    console.log(e)
+                })
+        }
+        response()
     }, [])
 
     const onChangeInput = (e) => {
@@ -95,12 +114,12 @@ const UpdateProduct = () => {
         setShowImage(null)
     }
     const handleSubmit = async (e) => {
-        const token = APP_LOCAL.getTokenStorage()
+        const token = APP_LOCAL.getTokenStorage();
         try {
             const formDataToSend = new FormData();
             formDataToSend.append('id', product.id);
             formDataToSend.append('price', +dataProduct.price);
-            formDataToSend.append('quantity', +dataProduct.quantity);
+            formDataToSend.append('size', dataProduct.quantity);
             formDataToSend.append('image', imageProduct);
             formDataToSend.append('description', dataProduct.description);
             formDataToSend.append('introduce', dataProduct.introduce);
@@ -177,10 +196,10 @@ const UpdateProduct = () => {
                             <InputAdmin
                                 name={'quantity'}
                                 required={true}
-                                label={t('quantityProduct')}
-                                placeholder={t('enter')}
-                                validate={'required||checkNumber||checkNegative'}
-                                type={'number'}
+                                label={'quantity'}
+                                placeholder={'vd: 38:40,39:22'}
+                                validate={'required||regexSizeAndQuantity||checkRegexSize||checkSize'}
+                                type={'text'}
                                 onChange={onChangeInput}
                                 errorText={listError.quantity}
                                 value={dataProduct.quantity}

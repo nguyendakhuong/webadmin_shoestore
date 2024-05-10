@@ -14,15 +14,13 @@ const CreateProduct = () => {
     const [showImage, setShowImage] = useState(null);
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
     const [category, setCategory] = useState('Giày');
-    const [size, setSize] = useState('');
-
-    const [quantity, setQuantity] = useState('');
     const navigate = useNavigate();
 
     const [listError, setListError] = useState({
         name: `${t('require')}`,
         price: `${t('require')}`,
         description: `${t('require')}`,
+        quantity: `${t('require')}`,
         introduce: `${t('require')}`,
     });
 
@@ -30,6 +28,7 @@ const CreateProduct = () => {
         name: '',
         price: '',
         description: '',
+        quantity: '',
         introduce: '',
         priceSale: '',
         timeSaleStart: '',
@@ -41,6 +40,7 @@ const CreateProduct = () => {
             name: '',
             price: '',
             description: '',
+            quantity: '',
             introduce: '',
             priceSale: '',
             timeSaleStart: '',
@@ -60,6 +60,7 @@ const CreateProduct = () => {
         const inputValue = value.trim();
         const valid = e.target.getAttribute('validate');
         const validObject = ParseValid(valid);
+
         const error = Validate(
             name,
             inputValue,
@@ -102,44 +103,13 @@ const CreateProduct = () => {
     };
 
 
-
-
-    const [sizeList, setSizeList] = useState([
-        { size: '41', quantity: '12' },
-        { size: '42', quantity: '32' },
-
-    ]);
-
-
-    const handleSizeChange = (event) => {
-        const selectedSize = event.target.value;
-        setSize(selectedSize);
-        const sizeIndex = sizeList.findIndex(item => item.size === selectedSize);
-        if (sizeIndex !== -1) {
-            setQuantity(sizeList[sizeIndex].quantity);
-        }
-    };
-
-
-    const handleSizeQuantityChange = (size, value) => {
-        const newSizeList = sizeList.map(item => {
-            if (item.size === size) {
-                return { ...item, quantity: value };
-            }
-            return item;
-        });
-        setSizeList(newSizeList);
-    };
-
-
     const handleSubmit = async () => {
         const token = APP_LOCAL.getTokenStorage();
-        const sizeJSON = JSON.stringify(sizeList);
         try {
             const formDataToSend = new FormData();
             formDataToSend.append('name', dataProduct.name);
             formDataToSend.append('price', +dataProduct.price);
-            formDataToSend.append('size', sizeJSON);
+            formDataToSend.append('size', dataProduct.quantity);
             formDataToSend.append('image', imageProduct);
             formDataToSend.append('description', dataProduct.description);
             formDataToSend.append('introduce', dataProduct.introduce);
@@ -219,28 +189,17 @@ const CreateProduct = () => {
                             />
                             {listError.price && <label className='error-text'>{listError.price}</label>}
                         </div>
-                        <div className='select'>
-                            <label>{t('size')}</label>
-                            <select name='selectedFruit' value={size} onChange={handleSizeChange}>
-                                <option value='35'>{t('35')} Số lượng:{quantity}</option>
-                                <option value='36'>{t('36')} Số lượng:{quantity}</option>
-                                <option value='37'>{t('37')} Số lượng:{quantity}</option>
-                                <option value='38'>{t('38')} Số lượng:{quantity}</option>
-                                <option value='39'>{t('39')} Số lượng:{quantity}</option>
-                                <option value='40'>{t('40')} Số lượng:{quantity}</option>
-                                <option value='41'>{t('41')} Số lượng:{quantity}</option>
-                                <option value='42'>{t('42')} Số lượng:{quantity}</option>
-                            </select>
-                            <input
-                                type='number'
-                                placeholder={t('enterQuantity')}
-                                name={size}
-                                value={quantity}
-                                onChange={(e) => handleSizeQuantityChange(quantity, e.target.value)}
+                        <div className='item_quantity input-container'>
+                            <InputAdmin
+                                name={'quantity'}
+                                label={'size and quantity'}
+                                placeholder={'vd: 38:40,39:22'}
+                                validate={'required||regexSizeAndQuantity||checkRegexSize||checkSize'}
+                                type={'text'}
+                                onChange={onChangeInput}
+                                value={dataProduct.quantity}
                             />
-
-
-
+                            {listError.quantity && <label className='error-text'>{listError.quantity}</label>}
                         </div>
 
                     </div>
