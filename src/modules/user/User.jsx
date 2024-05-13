@@ -15,6 +15,7 @@ const User = () => {
     const [data, setData] = useState(null);
     const [reloadData, setReloadData] = useState(false);
     const [t, i18n] = useTranslation();
+    console.log("aaaaaaaaaaaaaaaaaa", data)
 
     const handleRowClick = (user) => {
         setSelectedUser(user);
@@ -138,7 +139,6 @@ const User = () => {
         getAccounts();
         setReloadData(false);
     }, [reloadData]);
-    console.log("data Userrrrrrrrrrrr", data)
 
     return (
         <div className="user-container">
@@ -159,6 +159,8 @@ const User = () => {
                         <th>{t('userCode')}</th>
                         <th>{t('name')}</th>
                         <th>Email</th>
+                        <th>{t('phone')}</th>
+                        <th>{t('city')}</th>
                         <th>{t('veriEmail')}</th>
                         <th>{t('status')}</th>
                     </tr>
@@ -174,9 +176,11 @@ const User = () => {
                                 style={{ backgroundColor: hoveredRow === index ? '#f5f5f5' : 'transparent' }}
                             >
                                 <td>{user.id}</td>
-                                <td>{user.name}</td>
+                                <td>{user.additionalData?.infoName ? user.additionalData?.infoName : user.name}</td>
                                 <td>{user.email}</td>
-                                <td>{user.verifyEmail === true ? `${t('verified')}` : `${t('notYetAuthenticated')}`}</td>
+                                <td>{user.additionalData?.phone}</td>
+                                <td>{user.additionalData?.city}</td>
+                                <td style={{ color: user.verifyEmail === true ? 'blue' : 'red' }}>{user.verifyEmail === true ? `${t('verified')}` : `${t('notYetAuthenticated')}`}</td>
                                 <td>
                                     <button
                                         id={`lockButton-${user.id}`}
