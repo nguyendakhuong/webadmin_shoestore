@@ -39,9 +39,10 @@ const ModalOder = ({ order, onClose }) => {
                     if (product) {
                         return {
                             productId: item.productId,
-                            name: product.name,
-                            image: product.imageProduct,
-                            quantity: item.quantity
+                            name: item.nameProduct,
+                            image: item.image,
+                            quantity: item.quantity,
+                            size: item.size
                         };
                     }
                     return null;
@@ -52,7 +53,6 @@ const ModalOder = ({ order, onClose }) => {
             }
         } catch (error) {
             console.log(error);
-            // ToastApp.error('Lỗi khi gửi yêu cầu');
         }
     };
     const handlerDeleteOder = async (id) => {
@@ -80,8 +80,6 @@ const ModalOder = ({ order, onClose }) => {
     useEffect(() => {
         fetchOrderData();
     }, []);
-
-
     return (
         <div className="modal-overlay" onClick={onClose}>
             <div className="modal" onClick={(e) => e.stopPropagation()}>
@@ -96,6 +94,8 @@ const ModalOder = ({ order, onClose }) => {
                                         <div className="info">
                                             <p><strong>{item.name}</strong></p>
                                             <p>x<strong>{item.quantity}</strong></p>
+                                            <p>{t('size')}<strong>{item.size}</strong></p>
+
                                         </div>
                                     </div>
                                 ))}

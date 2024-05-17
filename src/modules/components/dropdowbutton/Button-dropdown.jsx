@@ -4,8 +4,7 @@ import AppImages from '../../asset';
 
 const ButtonDropDown = ({ buttonItem, onItemClick, orderStatus }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [disabled, setDisabled] = useState(false);
-    const [key, setKey] = useState("")
+    const [disabledItems, setDisabledItems] = useState([]);
     const dropdownRef = useRef(null);
 
     const toggleDropdown = () => {
@@ -26,23 +25,25 @@ const ButtonDropDown = ({ buttonItem, onItemClick, orderStatus }) => {
     }, []);
 
     const handleItemClick = (key) => {
-        if (onItemClick) {
+        if (!disabledItems.includes(key) && onItemClick) {
             onItemClick(key);
+            setIsOpen(false);
         }
-        setIsOpen(false);
     };
 
     const canItemClick = (key) => {
         if (key === 'verifyOrder') {
-            setDisabled(false)
             return orderStatus === 'createOrder' || orderStatus === 'PaidCreateOrder';
         }
-        setDisabled(true)
         return true;
     };
+
     useEffect(() => {
-        canItemClick()
-    }, [isOpen])
+        const newDisabledItems = buttonItem
+            ? buttonItem.filter(item => !canItemClick(item.key)).map(item => item.key)
+            : [];
+        setDisabledItems(newDisabledItems);
+    }, [orderStatus, buttonItem]);
 
     return (
         <div className="dropdown" ref={dropdownRef}>
@@ -56,7 +57,7 @@ const ButtonDropDown = ({ buttonItem, onItemClick, orderStatus }) => {
                             <li
                                 key={i}
                                 onClick={() => handleItemClick(v.key)}
-                                className={v.key === 'verifyOrder' && disabled ? 'disabledItem' : ''}
+                                className={disabledItems.includes(v.key) ? 'disabledItem' : ''}
                             >
                                 {v.label}
                             </li>

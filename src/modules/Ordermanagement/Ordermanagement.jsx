@@ -33,7 +33,7 @@ const OrderManagenment = () => {
     ]
     const buttonItem = [
         {
-            label: t('confirmed'), key: 'verifyOrder'
+            label: t('confirm'), key: 'verifyOrder'
         },
         {
             label: t('cancel'), key: 'CancelOrder'
@@ -113,16 +113,25 @@ const OrderManagenment = () => {
     }, [searchDataOder])
 
     const verifyOrder = async (id) => {
-        const token = APP_LOCAL.getTokenStorage();
-        const response = await fetch(`http://localhost:3001/order/verifyOrder/${id}`, {
-            method: "GET",
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
 
-        if (!response.ok) {
-            throw response;
+        const token = APP_LOCAL.getTokenStorage();
+
+        try {
+            const response = await fetch(`http://localhost:3001/order/verifyOrder/${id}`, {
+                method: "GET",
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            const data = await response.json();
+            if (data.status === 200) {
+                ToastApp.success("Cancel order successfully")
+                setReloadData(true)
+            } else {
+                ToastApp.warning("Warning: " + data.message)
+            }
+        } catch (e) {
+            return ToastApp.error("Error: " + e)
         }
     };
     const handleCancelOrder = async (id) => {
@@ -296,8 +305,6 @@ const OrderManagenment = () => {
                                     <th>{t('address')}</th>
                                     <th>{t('statusOrder')}</th>
                                     <th>{t('act')}</th>
-                                    {/* <th>{t('cancelOrder')}</th>
-                                    <th>{t('OrderConfirmation')}</th> */}
                                 </tr>
                             </thead>
                             <tbody>
