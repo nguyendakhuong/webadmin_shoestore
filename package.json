@@ -20,6 +20,7 @@
     "react-router-dom": "^6.22.2",
     "react-scripts": "5.0.1",
     "react-select": "^5.8.0",
+    "react-to-print": "^2.15.1",
     "react-toastify": "^10.0.4",
     "sass": "^1.71.0",
     "scss": "^0.2.4",

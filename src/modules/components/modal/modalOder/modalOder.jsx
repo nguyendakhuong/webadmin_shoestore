@@ -2,12 +2,11 @@ import React, { useEffect, useState } from 'react';
 import './modalOder.scss';
 import ToastApp from '../../../../lib/notification/Toast';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 
 const ModalOder = ({ order, onClose }) => {
-    const [data, setData] = useState([]);
+    console.log("aaa", order)
+    const [data] = useState(order?.OrdersProducts);
     const [t, i18n] = useTranslation();
-    const navigation = useNavigate()
     const statusLabels = {
         createOrder: `${t('createOrder')}`,
         delivering: `${t('delivering')}`,
@@ -24,37 +23,6 @@ const ModalOder = ({ order, onClose }) => {
         style: 'currency',
         currency: 'VND',
     });
-    const fetchOrderData = async () => {
-        try {
-            if (!order || !order.OrdersProducts) {
-                return;
-            }
-            const productIds = order.OrdersProducts.map(item => item.productId);
-            const response = await fetch(`http://localhost:3001/api/getProductsId/?id=${productIds.join(',')}`);
-            const responseData = await response.json();
-            if (responseData.status === 200) {
-                const productData = responseData.data;
-                const updatedData = order.OrdersProducts.map(item => {
-                    const product = productData.find(p => p.id === item.productId);
-                    if (product) {
-                        return {
-                            productId: item.productId,
-                            name: item.nameProduct,
-                            image: item.image,
-                            quantity: item.quantity,
-                            size: item.size
-                        };
-                    }
-                    return null;
-                });
-                setData(updatedData.filter(item => item !== null));
-            } else {
-                ToastApp.error('Error: ' + responseData.message);
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    };
     const handlerDeleteOder = async (id) => {
         try {
             const response = await fetch(`http://localhost:3001/order/deleteOrder/${id}`, {
@@ -75,11 +43,7 @@ const ModalOder = ({ order, onClose }) => {
     const formattedUpdatedAt = `${updatedAtDate.getUTCDate() < 10 ? '0' + updatedAtDate.getUTCDate() :
         updatedAtDate.getUTCDate()}-${updatedAtDate.getUTCMonth() + 1 < 10 ? '0' + (updatedAtDate.getUTCMonth() + 1) :
             updatedAtDate.getUTCMonth() + 1}-${updatedAtDate.getUTCFullYear()}`;
-
-
-    useEffect(() => {
-        fetchOrderData();
-    }, []);
+    console.log(data.name)
     return (
         <div className="modal-overlay" onClick={onClose}>
             <div className="modal" onClick={(e) => e.stopPropagation()}>
@@ -92,10 +56,13 @@ const ModalOder = ({ order, onClose }) => {
                                     <div key={index} className="item-container">
                                         <img src={item.image} alt='' />
                                         <div className="info">
-                                            <p><strong>{item.name}</strong></p>
-                                            <p>x<strong>{item.quantity}</strong></p>
-                                            <p>{t('size')}<strong>{item.size}</strong></p>
+                                            <p><strong>{item.nameProduct}</strong></p>
+                                            <div className="flex">
+                                                <p>{t('size')}<strong> {item.size}</strong></p>
+                                                <p>x<strong>{item.quantity}</strong></p>
+                                            </div>
 
+                                            <p>{t('price')}<strong> {formatter.format(item.price)}</strong></p>
                                         </div>
                                     </div>
                                 ))}
@@ -103,6 +70,7 @@ const ModalOder = ({ order, onClose }) => {
                             <div className='right-content'>
                                 <p className="order-info"><strong>{t('orderCode')}:</strong> {order.id}</p>
                                 <p className="order-info"><strong>{t('userCode')}:</strong> {order.userId}</p>
+                                <p className="order-info"><strong>{t('name')}:</strong> {order.userName}</p>
                                 <p className="order-info"><strong>{t('phone')}:</strong> {order.phone}</p>
                                 <p className="order-info"><strong>{t('address')}:</strong> {order.address}</p>
                                 <p className="order-info"><strong>{t('time')}:</strong> {formattedUpdatedAt}</p>
